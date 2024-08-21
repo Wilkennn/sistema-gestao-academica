@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emissão do Currículo</title>
+</head>
+<body>
+    <h1>Emissão do Currículo</h1>
+    <form action="/emissao-curriculo" method="post">
+        <label for="semestre">Escolha o semestre:</label>
+        <select id="semestre" name="semestre">
+            <option value="2024-1">2024-1</option>
+            <option value="2024-2">2024-2</option>
+            <!-- Adicione mais opções conforme necessário -->
+        </select>
+        <button type="submit">Gerar Currículo</button>
+    </form>
+
+    <% if (curriculoUrl) { %>
+        <h2>Currículo Disponível:</h2>
+        <a href="<%= curriculoUrl %>" download>Baixar Currículo</a>
+    <% } %>
+</body>
+</html>

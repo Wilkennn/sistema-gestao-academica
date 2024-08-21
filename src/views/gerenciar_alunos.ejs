@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Cadastro de Alunos</title>
+</head>
+<body>
+    <h1>Gerenciar Cadastro de Alunos</h1>
+    <form action="/adicionar-aluno" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+        <label for="matricula">Matrícula:</label>
+        <input type="text" id="matricula" name="matricula" required><br>
+        <label for="curso">Curso:</label>
+        <input type="text" id="curso" name="curso"><br>
+        <button type="submit">Adicionar Aluno</button>
+    </form>
+
+    <h2>Lista de Alunos</h2>
+    <ul>
+        <% alunos.forEach(aluno => { %>
+            <li><%= aluno.nome %> - <%= aluno.matricula %>
+                <a href="/editar-aluno/<%= aluno.id %>">Editar</a>
+                <a href="/excluir-aluno/<%= aluno.id %>">Excluir</a>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

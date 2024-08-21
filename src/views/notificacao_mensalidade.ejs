@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações de Mensalidade</title>
+</head>
+<body>
+    <h1>Notificações de Mensalidade</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Data de Vencimento</th>
+                <th>Valor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% notificacoes.forEach(notificacao => { %>
+                <tr>
+                    <td><%= notificacao.data %></td>
+                    <td><%= notificacao.valor %></td>
+                    <td><%= notificacao.status %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

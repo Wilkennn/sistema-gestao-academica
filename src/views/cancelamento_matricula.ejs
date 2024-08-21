@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancelamento de Matrícula</title>
+</head>
+<body>
+    <h1>Cancelar Matrícula</h1>
+    <form action="/cancelar-matricula" method="post">
+        <label for="disciplina">Escolha a disciplina:</label>
+        <select id="disciplina" name="disciplina">
+            <% disciplinas.forEach(disciplina => { %>
+                <option value="<%= disciplina.id %>"><%= disciplina.nome %></option>
+            <% }) %>
+        </select>
+        <button type="submit">Cancelar Matrícula</button>
+    </form>
+</body>
+</html>

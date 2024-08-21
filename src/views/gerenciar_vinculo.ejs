@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Vínculo de Disciplinas com Professores</title>
+</head>
+<body>
+    <h1>Gerenciar Vínculo de Disciplinas com Professores</h1>
+    <form action="/vincular-disciplina" method="post">
+        <label for="disciplina">Disciplina:</label>
+        <select id="disciplina" name="disciplina">
+            <% disciplinas.forEach(disciplina => { %>
+                <option value="<%= disciplina.id %>"><%= disciplina.nome %></option>
+            <% }) %>
+        </select><br>
+        <label for="professor">Professor:</label>
+        <select id="professor" name="professor">
+            <% professores.forEach(professor => { %>
+                <option value="<%= professor.id %>"><%= professor.nome %></option>
+            <% }) %>
+        </select><br>
+        <button type="submit">Vincular</button>
+    </form>
+
+    <h2>Vínculos Existentes</h2>
+    <ul>
+        <% vinculos.forEach(vinculo => { %>
+            <li><%= vinculo.disciplina %> - <%= vinculo.professor %>
+                <a href="/remover-vinculo/<%= vinculo.id %>">Remover</a>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos Matriculados</title>
+</head>
+<body>
+    <h1>Alunos Matriculados</h1>
+    <form action="/visualizar-alunos" method="get">
+        <label for="disciplina">Escolha a disciplina:</label>
+        <select id="disciplina" name="disciplina">
+            <% disciplinas.forEach(disciplina => { %>
+                <option value="<%= disciplina.id %>"><%= disciplina.nome %></option>
+            <% }) %>
+        </select>
+        <button type="submit">Visualizar</button>
+    </form>
+
+    <% if (alunos) { %>
+        <h2>Lista de Alunos</h2>
+        <ul>
+            <% alunos.forEach(aluno => { %>
+                <li><%= aluno.nome %> - <%= aluno.matricula %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+</body>
+</html>
