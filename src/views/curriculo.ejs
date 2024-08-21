@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emissão do Currículo</title>
+    <link rel="stylesheet" href="/css/curriculo.css">
 </head>
 <body>
-    <h1>Emissão do Currículo</h1>
-    <form action="/emissao-curriculo" method="post">
-        <label for="semestre">Escolha o semestre:</label>
-        <select id="semestre" name="semestre">
-            <option value="2024-1">2024-1</option>
-            <option value="2024-2">2024-2</option>
-            <!-- Adicione mais opções conforme necessário -->
-        </select>
-        <button type="submit">Gerar Currículo</button>
-    </form>
+    <div class="container">
+        <h1>Emissão do Currículo</h1>
+        <form action="/emissao-curriculo" method="post">
+            <div class="form-group">
+                <label for="semestre">Escolha o semestre:</label>
+                <select id="semestre" name="semestre" required>
+                    <option value="2024-1">2024-1</option>
+                    <option value="2024-2">2024-2</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+            </div>
+            <button type="submit">Gerar Currículo</button>
+        </form>
 
-    <% if (curriculoUrl) { %>
-        <h2>Currículo Disponível:</h2>
-        <a href="<%= curriculoUrl %>" download>Baixar Currículo</a>
-    <% } %>
+        <% if (curriculoUrl) { %>
+            <div class="result">
+                <h2>Currículo Disponível:</h2>
+                <a href="<%= curriculoUrl %>" download class="download-link">Baixar Currículo</a>
+            </div>
+        <% } %>
+    </div>
 </body>
 </html>

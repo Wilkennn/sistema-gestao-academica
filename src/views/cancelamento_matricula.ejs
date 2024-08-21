@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cancelamento de Matrícula</title>
+    <link rel="stylesheet" href="/css/cancelamento_matricula.css">
 </head>
 <body>
-    <h1>Cancelar Matrícula</h1>
-    <form action="/cancelar-matricula" method="post">
-        <label for="disciplina">Escolha a disciplina:</label>
-        <select id="disciplina" name="disciplina">
-            <% disciplinas.forEach(disciplina => { %>
-                <option value="<%= disciplina.id %>"><%= disciplina.nome %></option>
-            <% }) %>
-        </select>
-        <button type="submit">Cancelar Matrícula</button>
-    </form>
+    <div class="container">
+        <h1>Cancelar Matrícula</h1>
+        <form action="/cancelar-matricula" method="post">
+            <div class="form-group">
+                <label for="disciplina">Escolha a disciplina:</label>
+                <select id="disciplina" name="disciplina" required>
+                    <% disciplinas.forEach(disciplina => { %>
+                        <option value="<%= disciplina.id %>"><%= disciplina.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <button type="submit">Cancelar Matrícula</button>
+        </form>
+    </div>
 </body>
 </html>
