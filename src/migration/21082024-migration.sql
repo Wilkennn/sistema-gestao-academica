@@ -3,10 +3,10 @@ USE sis_matricula;
 
 CREATE TABLE User (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    Name VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    Phone_Number VARCHAR(15),
-    Email_Address VARCHAR(255),
+    cel VARCHAR(15),
+    email VARCHAR(255),
     cpf VARCHAR(11) UNIQUE NOT NULL,
     endereco TEXT,
     dataNasc DATE
@@ -14,30 +14,30 @@ CREATE TABLE User (
 
 CREATE TABLE Curso (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
     numCreditos INT NOT NULL
 );
 
 CREATE TABLE Disciplina (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
     cargaHoraria INT NOT NULL,
     valor DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE MensalidadeStatus (
-    Id INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(255) NOT NULL
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Mensalidade (
-    Id INT PRIMARY KEY AUTO_INCREMENT,
-    Mes INT NOT NULL,
-    DataValidade DATE NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    mes INT NOT NULL,
+    dataValidade DATE NOT NULL,
     status INT,
-    Valor DECIMAL(10,2) NOT NULL,
-    Ano INT NOT NULL,
-    FOREIGN KEY (status) REFERENCES MensalidadeStatus(Id)
+    valor DECIMAL(10,2) NOT NULL,
+    ano INT NOT NULL,
+    FOREIGN KEY (status) REFERENCES MensalidadeStatus(id)
 );
 
 CREATE TABLE Aluno (
