@@ -6,22 +6,22 @@ export default class CargoService {
   }
 
   listarTodos(callback) {
-    this.cargoRepository.getAll(callback);
+    return this.cargoRepository.getAll(callback);
   }
 
   buscarPorId(id, callback) {
-    this.cargoRepository.getById(id, callback);
+    return this.cargoRepository.getById(id, callback);
   }
 
   criar(cargo, callback) {
-    this.cargoRepository.create(cargo, callback);
+    return this.cargoRepository.create(cargo, callback);
   }
 
   atualizar(id, cargo, callback) {
-    this.cargoRepository.update(id, cargo, callback);
+    return this.cargoRepository.update(id, cargo, callback);
   }
 
   deletar(id, callback) {
-    this.cargoRepository.delete(id, callback);
+    return this.cargoRepository.delete(id, callback);
   }
 }

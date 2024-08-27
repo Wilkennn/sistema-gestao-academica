@@ -6,22 +6,22 @@ export default class FuncionarioService {
   }
 
   listarTodos(callback) {
-    this.funcionarioRepository.getAll(callback);
+    return this.funcionarioRepository.getAll(callback);
   }
 
   buscarPorId(id, callback) {
-    this.funcionarioRepository.getById(id, callback);
+    return this.funcionarioRepository.getById(id, callback);
   }
 
   criar(funcionario, callback) {
-    this.funcionarioRepository.create(funcionario, callback);
+    return this.funcionarioRepository.create(funcionario, callback);
   }
 
   atualizar(id, funcionario, callback) {
-    this.funcionarioRepository.update(id, funcionario, callback);
+    return this.funcionarioRepository.update(id, funcionario, callback);
   }
 
   deletar(id, callback) {
-    this.funcionarioRepository.delete(id, callback);
+    return this.funcionarioRepository.delete(id, callback);
   }
 }

@@ -6,18 +6,18 @@ export default class AlunoDisciplinaService {
   }
 
   listarTodos(callback) {
-    this.alunoDisciplinaRepository.getAll(callback);
+    return this.alunoDisciplinaRepository.getAll(callback);
   }
 
   buscarPorId(Aluno_matricula, Disciplina_id, callback) {
-    this.alunoDisciplinaRepository.getById(Aluno_matricula, Disciplina_id, callback);
+    return this.alunoDisciplinaRepository.getById(Aluno_matricula, Disciplina_id, callback);
   }
 
   criar(alunoDisciplina, callback) {
-    this.alunoDisciplinaRepository.create(alunoDisciplina, callback);
+    return this.alunoDisciplinaRepository.create(alunoDisciplina, callback);
   }
 
   deletar(Aluno_matricula, Disciplina_id, callback) {
-    this.alunoDisciplinaRepository.delete(Aluno_matricula, Disciplina_id, callback);
+    return this.alunoDisciplinaRepository.delete(Aluno_matricula, Disciplina_id, callback);
   }
 }

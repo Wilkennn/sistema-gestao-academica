@@ -19,6 +19,6 @@ const curriculos = {
 const usuarioController = new UsuarioController();
 
 // Rota para emissão de currículo
-router.get('/', usuarioController.create);
+router.get('/', usuarioController.getAll);
 
 export default router;

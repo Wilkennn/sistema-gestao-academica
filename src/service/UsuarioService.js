@@ -6,22 +6,22 @@ export default class UsuarioService {
   }
 
   listarTodos(callback) {
-    this.usuarioRepository.getAll(callback);
+    return this.usuarioRepository.getAll(callback);
   }
 
   buscarPorId(id, callback) {
-    this.usuarioRepository.getById(id, callback);
+    return this.usuarioRepository.getById(id, callback);
   }
 
   criar(usuario, callback) {
-    this.usuarioRepository.create(usuario, callback);
+    return this.usuarioRepository.create(usuario, callback);
   }
 
   atualizar(id, usuario, callback) {
-    this.usuarioRepository.update(id, usuario, callback);
+    return this.usuarioRepository.update(id, usuario, callback);
   }
 
   deletar(id, callback) {
-    this.usuarioRepository.delete(id, callback);
+    return this.usuarioRepository.delete(id, callback);
   }
 }

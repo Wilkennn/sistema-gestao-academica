@@ -6,22 +6,22 @@ export default class CursoService {
   }
 
   listarTodos(callback) {
-    this.cursoRepository.getAll(callback);
+    return this.cursoRepository.getAll(callback);
   }
 
   buscarPorId(id, callback) {
-    this.cursoRepository.getById(id, callback);
+    return this.cursoRepository.getById(id, callback);
   }
 
   criar(curso, callback) {
-    this.cursoRepository.create(curso, callback);
+    return this.cursoRepository.create(curso, callback);
   }
 
   atualizar(id, curso, callback) {
-    this.cursoRepository.update(id, curso, callback);
+    return this.cursoRepository.update(id, curso, callback);
   }
 
   deletar(id, callback) {
-    this.cursoRepository.delete(id, callback);
+    return this.cursoRepository.delete(id, callback);
   }
 }

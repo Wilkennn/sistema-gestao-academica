@@ -6,22 +6,22 @@ export default class NotificacaoService {
   }
 
   listarTodos(callback) {
-    this.notificacaoRepository.getAll(callback);
+    return this.notificacaoRepository.getAll(callback);
   }
 
   buscarPorId(id, callback) {
-    this.notificacaoRepository.getById(id, callback);
+    return this.notificacaoRepository.getById(id, callback);
   }
 
   criar(notificacao, callback) {
-    this.notificacaoRepository.create(notificacao, callback);
+    return this.notificacaoRepository.create(notificacao, callback);
   }
 
   atualizar(id, notificacao, callback) {
-    this.notificacaoRepository.update(id, notificacao, callback);
+    return this.notificacaoRepository.update(id, notificacao, callback);
   }
 
   deletar(id, callback) {
-    this.notificacaoRepository.delete(id, callback);
+    return this.notificacaoRepository.delete(id, callback);
   }
 }
