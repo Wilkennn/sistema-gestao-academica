@@ -1,11 +1,12 @@
 import autoBind from 'auto-bind';
-import { UsuarioService } from '../service/UsuarioService.js';
-import { UsuarioRepository } from '../repository/UsuarioRepository.js';
+import UsuarioService  from '../service/UsuarioService.js';
+import UsuarioRepository  from '../repository/UsuarioRepository.js';
 
 const usuarioRepository = new UsuarioRepository();
 const usuarioService = new UsuarioService(usuarioRepository);
 
 export class UsuarioController {
+  
   constructor() {
     this.usuarioService = usuarioService;
     autoBind(this);
@@ -14,8 +15,7 @@ export class UsuarioController {
   async create(request, response) {
     try {
       const { nome, cpf, email, endereco, telefone, data_nascimento, login, senha, aluno_matricula } = request.body;
-      const usuario = await this.usuarioService.createUsuario({ nome, cpf, email, endereco, telefone, data_nascimento, login, senha, aluno_matricula });
-
+      const usuario = await this.usuarioService.criar({ nome, cpf, email, endereco, telefone, data_nascimento, login, senha, aluno_matricula });
       return response.status(201).json({ success: true, message: 'Usuário criado com sucesso', usuario });
     } catch (error) {
       console.error('Erro ao criar usuário:', error.message);
@@ -26,6 +26,7 @@ export class UsuarioController {
   async getAll(request, response) {
     try {
       const usuarios = await this.usuarioService.listarTodos();
+      console.log(usuarios)
       return response.status(200).json(usuarios);
     } catch (error) {
       console.error('Erro ao listar usuários:', error.message);
