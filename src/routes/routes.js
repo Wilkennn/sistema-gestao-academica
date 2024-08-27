@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { UsuarioController } from '../controller/UsuarioController.js'
 const router = Router();
 
 // Dados mock para disciplinas
@@ -15,15 +16,9 @@ const curriculos = {
   '2024-2': 'https://example.com/curriculo_2024_2.pdf'
 };
 
-// Rota para emissão de currículo
-router.get('/', (req, res) => {
-  const { semestre } = req.query;
-  const curriculoUrl = semestre ? curriculos[semestre] : null;
+const usuarioController = new UsuarioController();
 
-  res.render('curriculo', {
-    disciplinas,
-    curriculoUrl
-  });
-});
+// Rota para emissão de currículo
+router.get('/', usuarioController.getAll());
 
 export default router;

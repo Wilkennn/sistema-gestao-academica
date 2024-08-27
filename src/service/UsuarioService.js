@@ -1,4 +1,4 @@
-import UsuarioRepository from './UsuarioRepository.js';
+import UsuarioRepository from '../repository/UsuarioRepository.js';
 
 export default class UsuarioService {
   constructor() {

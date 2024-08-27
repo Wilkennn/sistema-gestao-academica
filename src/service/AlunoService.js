@@ -1,4 +1,4 @@
-import AlunoRepository from './AlunoRepository.js';
+import AlunoRepository from '../repository/AlunoRepository.js';
 
 export default class AlunoService {
   constructor() {

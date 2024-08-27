@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema sis_matricula
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema sis_matricula
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `sis_matricula` DEFAULT CHARACTER SET utf8 ;
+USE `sis_matricula` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`AlunoStatus`
+-- Table `sis_matricula`.`AlunoStatus`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`AlunoStatus` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`AlunoStatus` (
   `id` INT NOT NULL,
   `nome` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Aluno`
+-- Table `sis_matricula`.`Aluno`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Aluno` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Aluno` (
   `matricula` INT NOT NULL,
   `periodo` VARCHAR(45) NOT NULL,
   `data_ingresso` DATE NOT NULL,
@@ -39,16 +39,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Aluno` (
   INDEX `fk_Aluno_AlunoStatus1_idx` (`AlunoStatus_id` ASC) VISIBLE,
   CONSTRAINT `fk_Aluno_AlunoStatus1`
     FOREIGN KEY (`AlunoStatus_id`)
-    REFERENCES `mydb`.`AlunoStatus` (`id`)
+    REFERENCES `sis_matricula`.`AlunoStatus` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Usuario`
+-- Table `sis_matricula`.`Usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Usuario` (
   `id` INT NOT NULL,
   `nome` VARCHAR(255) NOT NULL,
   `cpf` CHAR(15) NOT NULL,
@@ -63,16 +63,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
   INDEX `fk_Usuario_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
   CONSTRAINT `fk_Usuario_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
-    REFERENCES `mydb`.`Aluno` (`matricula`)
+    REFERENCES `sis_matricula`.`Aluno` (`matricula`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Curso`
+-- Table `sis_matricula`.`Curso`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Curso` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Curso` (
   `id` INT NOT NULL,
   `nome` VARCHAR(255) NOT NULL,
   `duracao` INT NOT NULL,
@@ -83,9 +83,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Disciplina`
+-- Table `sis_matricula`.`Disciplina`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Disciplina` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Disciplina` (
   `id` INT NOT NULL,
   `nome` VARCHAR(255) NOT NULL,
   `carga_horaria` VARCHAR(255) NOT NULL,
@@ -95,9 +95,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Mensalidade`
+-- Table `sis_matricula`.`Mensalidade`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Mensalidade` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Mensalidade` (
   `id` INT NOT NULL,
   `mes` CHAR(2) NOT NULL,
   `ano` CHAR(4) NOT NULL,
@@ -108,16 +108,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Mensalidade` (
   INDEX `fk_Mensalidade_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
   CONSTRAINT `fk_Mensalidade_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
-    REFERENCES `mydb`.`Aluno` (`matricula`)
+    REFERENCES `sis_matricula`.`Aluno` (`matricula`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`MensalidadeStatus`
+-- Table `sis_matricula`.`MensalidadeStatus`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`MensalidadeStatus` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`MensalidadeStatus` (
   `id` INT NOT NULL,
   `nome` VARCHAR(255) NOT NULL,
   `Mensalidade_id` INT NOT NULL,
@@ -125,16 +125,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`MensalidadeStatus` (
   INDEX `fk_MensalidadeStatus_Mensalidade1_idx` (`Mensalidade_id` ASC) VISIBLE,
   CONSTRAINT `fk_MensalidadeStatus_Mensalidade1`
     FOREIGN KEY (`Mensalidade_id`)
-    REFERENCES `mydb`.`Mensalidade` (`id`)
+    REFERENCES `sis_matricula`.`Mensalidade` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Notificacao`
+-- Table `sis_matricula`.`Notificacao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Notificacao` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Notificacao` (
   `id` INT NOT NULL,
   `conteudo` VARCHAR(1000) NOT NULL,
   `Aluno_matricula` INT NOT NULL,
@@ -142,16 +142,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Notificacao` (
   INDEX `fk_Notificacao_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
   CONSTRAINT `fk_Notificacao_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
-    REFERENCES `mydb`.`Aluno` (`matricula`)
+    REFERENCES `sis_matricula`.`Aluno` (`matricula`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Funcionarios`
+-- Table `sis_matricula`.`Funcionarios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Funcionarios` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Funcionarios` (
   `id` INT NOT NULL,
   `salario` DOUBLE NOT NULL,
   `data_admissao` DATE NOT NULL,
@@ -160,16 +160,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Funcionarios` (
   INDEX `fk_Funcionarios_Usuario_idx` (`Usuario_id` ASC) VISIBLE,
   CONSTRAINT `fk_Funcionarios_Usuario`
     FOREIGN KEY (`Usuario_id`)
-    REFERENCES `mydb`.`Usuario` (`id`)
+    REFERENCES `sis_matricula`.`Usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Cargo`
+-- Table `sis_matricula`.`Cargo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Cargo` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Cargo` (
   `id` INT NOT NULL,
   `nome` VARCHAR(255) NOT NULL,
   `Funcionarios_id` INT NOT NULL,
@@ -177,16 +177,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Cargo` (
   INDEX `fk_Cargo_Funcionarios1_idx` (`Funcionarios_id` ASC) VISIBLE,
   CONSTRAINT `fk_Cargo_Funcionarios1`
     FOREIGN KEY (`Funcionarios_id`)
-    REFERENCES `mydb`.`Funcionarios` (`id`)
+    REFERENCES `sis_matricula`.`Funcionarios` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Curso_Aluno`
+-- Table `sis_matricula`.`Curso_Aluno`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Curso_Aluno` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Curso_Aluno` (
   `Curso_id` INT NOT NULL,
   `Aluno_matricula` INT NOT NULL,
   `periodo` INT NOT NULL,
@@ -196,21 +196,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Curso_Aluno` (
   INDEX `fk_Curso_has_Aluno_Curso1_idx` (`Curso_id` ASC) VISIBLE,
   CONSTRAINT `fk_Curso_has_Aluno_Curso1`
     FOREIGN KEY (`Curso_id`)
-    REFERENCES `mydb`.`Curso` (`id`)
+    REFERENCES `sis_matricula`.`Curso` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Curso_has_Aluno_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
-    REFERENCES `mydb`.`Aluno` (`matricula`)
+    REFERENCES `sis_matricula`.`Aluno` (`matricula`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Aluno_Disciplina`
+-- Table `sis_matricula`.`Aluno_Disciplina`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Aluno_Disciplina` (
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Aluno_Disciplina` (
   `Aluno_matricula` INT NOT NULL,
   `Disciplina_id` INT NOT NULL,
   `nota` DOUBLE NOT NULL,
@@ -220,12 +220,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Aluno_Disciplina` (
   INDEX `fk_Aluno_has_Disciplina_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
   CONSTRAINT `fk_Aluno_has_Disciplina_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
-    REFERENCES `mydb`.`Aluno` (`matricula`)
+    REFERENCES `sis_matricula`.`Aluno` (`matricula`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Aluno_has_Disciplina_Disciplina1`
     FOREIGN KEY (`Disciplina_id`)
-    REFERENCES `mydb`.`Disciplina` (`id`)
+    REFERENCES `sis_matricula`.`Disciplina` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

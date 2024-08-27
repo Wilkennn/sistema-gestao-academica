@@ -1,7 +1,7 @@
 export const config = {
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'MasterPass-22',
     database: 'sis_matricula',
     waitForConnections: true,
     connectionLimit: 10,

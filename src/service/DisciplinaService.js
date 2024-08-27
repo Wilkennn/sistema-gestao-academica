@@ -1,4 +1,4 @@
-import DisciplinaRepository from './DisciplinaRepository.js';
+import DisciplinaRepository from '../repository/DisciplinaRepository.js';
 
 export default class DisciplinaService {
   constructor() {

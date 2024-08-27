@@ -1,4 +1,4 @@
-import NotificacaoRepository from './NotificacaoRepository.js';
+import NotificacaoRepository from '../repository/NotificacaoRepository.js';
 
 export default class NotificacaoService {
   constructor() {

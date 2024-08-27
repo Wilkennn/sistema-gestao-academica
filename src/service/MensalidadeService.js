@@ -1,4 +1,4 @@
-import MensalidadeRepository from './MensalidadeRepository.js';
+import MensalidadeRepository from '../repository/MensalidadeRepository.js';
 
 export default class MensalidadeService {
   constructor() {

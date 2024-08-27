@@ -1,4 +1,4 @@
-import FuncionarioRepository from './FuncionarioRepository.js';
+import FuncionarioRepository from '../repository/FuncionarioRepository.js';
 
 export default class FuncionarioService {
   constructor() {

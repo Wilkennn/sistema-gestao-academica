@@ -1,6 +1,6 @@
 import autoBind from 'auto-bind';
-import { UsuarioService } from './UsuarioService.js';
-import { UsuarioRepository } from './UsuarioRepository.js';
+import { UsuarioService } from '../service/UsuarioService.js';
+import { UsuarioRepository } from '../repository/UsuarioRepository.js';
 
 const usuarioRepository = new UsuarioRepository();
 const usuarioService = new UsuarioService(usuarioRepository);
