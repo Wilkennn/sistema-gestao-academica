@@ -1,13 +1,9 @@
 import Connection from './Connection.js';
+import { config } from '../config/config.js';
 
 export default class CargoRepository {
   constructor() {
-    this.connection = new Connection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'mydb'
-    });
+    this.connection = new Connection(config);
   }
 
   getAll(callback) {
