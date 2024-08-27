@@ -21,7 +21,7 @@ USE `sis_matricula` ;
 -- Table `sis_matricula`.`AlunoStatus`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`AlunoStatus` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -31,7 +31,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Aluno`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Aluno` (
-  `matricula` INT NOT NULL,
+  `matricula` INT NOT NULL AUTO_INCREMENT,
   `periodo` VARCHAR(45) NOT NULL,
   `data_ingresso` DATE NOT NULL,
   `AlunoStatus_id` INT NOT NULL,
@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Usuario` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   `cpf` CHAR(15) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Curso`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Curso` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   `duracao` INT NOT NULL,
   `creditos` INT NOT NULL,
@@ -86,7 +86,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Disciplina`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Disciplina` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   `carga_horaria` VARCHAR(255) NOT NULL,
   `valor` DOUBLE NOT NULL,
@@ -98,7 +98,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Mensalidade`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Mensalidade` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `mes` CHAR(2) NOT NULL,
   `ano` CHAR(4) NOT NULL,
   `data_validade` DATE NOT NULL,
@@ -118,7 +118,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`MensalidadeStatus`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`MensalidadeStatus` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   `Mensalidade_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -135,7 +135,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Notificacao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Notificacao` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `conteudo` VARCHAR(1000) NOT NULL,
   `Aluno_matricula` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -152,7 +152,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Funcionarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Funcionarios` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `salario` DOUBLE NOT NULL,
   `data_admissao` DATE NOT NULL,
   `Usuario_id` INT NOT NULL,
@@ -170,7 +170,7 @@ ENGINE = InnoDB;
 -- Table `sis_matricula`.`Cargo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sis_matricula`.`Cargo` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   `Funcionarios_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -229,7 +229,6 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Aluno_Disciplina` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
