@@ -1,4 +1,4 @@
-import Connection from './Connection.js';
+import Connection from '../connection/connection.js';
 import { config } from '../config/config.js';
 
 export default class NotificacaoRepository {
