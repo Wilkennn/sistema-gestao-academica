@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Aluno` (
   `data_ingresso` DATE NOT NULL,
   `AlunoStatus_id` INT NOT NULL,
   PRIMARY KEY (`matricula`),
-  INDEX `fk_Aluno_AlunoStatus1_idx` (`AlunoStatus_id` ASC) VISIBLE,
+  INDEX `fk_Aluno_AlunoStatus1_idx` (`AlunoStatus_id` ASC),
   CONSTRAINT `fk_Aluno_AlunoStatus1`
     FOREIGN KEY (`AlunoStatus_id`)
     REFERENCES `sis_matricula`.`AlunoStatus` (`id`)
@@ -58,13 +58,13 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Usuario` (
   `data_nascimento` DATE NOT NULL,
   `login` VARCHAR(255) NOT NULL,
   `senha` VARCHAR(255) NOT NULL,
-  `Aluno_matricula` INT NOT NULL,
+  `Aluno_matricula` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Usuario_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
+  INDEX `fk_Usuario_Aluno1_idx` (`Aluno_matricula` ASC),
   CONSTRAINT `fk_Usuario_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
     REFERENCES `sis_matricula`.`Aluno` (`matricula`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Mensalidade` (
   `valor` DOUBLE NOT NULL,
   `Aluno_matricula` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Mensalidade_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
+  INDEX `fk_Mensalidade_Aluno1_idx` (`Aluno_matricula` ASC),
   CONSTRAINT `fk_Mensalidade_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
     REFERENCES `sis_matricula`.`Aluno` (`matricula`)
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`MensalidadeStatus` (
   `nome` VARCHAR(255) NOT NULL,
   `Mensalidade_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_MensalidadeStatus_Mensalidade1_idx` (`Mensalidade_id` ASC) VISIBLE,
+  INDEX `fk_MensalidadeStatus_Mensalidade1_idx` (`Mensalidade_id` ASC),
   CONSTRAINT `fk_MensalidadeStatus_Mensalidade1`
     FOREIGN KEY (`Mensalidade_id`)
     REFERENCES `sis_matricula`.`Mensalidade` (`id`)
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Notificacao` (
   `conteudo` VARCHAR(1000) NOT NULL,
   `Aluno_matricula` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Notificacao_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
+  INDEX `fk_Notificacao_Aluno1_idx` (`Aluno_matricula` ASC),
   CONSTRAINT `fk_Notificacao_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
     REFERENCES `sis_matricula`.`Aluno` (`matricula`)
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Funcionarios` (
   `data_admissao` DATE NOT NULL,
   `Usuario_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Funcionarios_Usuario_idx` (`Usuario_id` ASC) VISIBLE,
+  INDEX `fk_Funcionarios_Usuario_idx` (`Usuario_id` ASC),
   CONSTRAINT `fk_Funcionarios_Usuario`
     FOREIGN KEY (`Usuario_id`)
     REFERENCES `sis_matricula`.`Usuario` (`id`)
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Cargo` (
   `nome` VARCHAR(255) NOT NULL,
   `Funcionarios_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Cargo_Funcionarios1_idx` (`Funcionarios_id` ASC) VISIBLE,
+  INDEX `fk_Cargo_Funcionarios1_idx` (`Funcionarios_id` ASC),
   CONSTRAINT `fk_Cargo_Funcionarios1`
     FOREIGN KEY (`Funcionarios_id`)
     REFERENCES `sis_matricula`.`Funcionarios` (`id`)
@@ -192,8 +192,8 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Curso_Aluno` (
   `periodo` INT NOT NULL,
   `aproveitamento` FLOAT NULL,
   PRIMARY KEY (`Curso_id`, `Aluno_matricula`),
-  INDEX `fk_Curso_has_Aluno_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
-  INDEX `fk_Curso_has_Aluno_Curso1_idx` (`Curso_id` ASC) VISIBLE,
+  INDEX `fk_Curso_has_Aluno_Aluno1_idx` (`Aluno_matricula` ASC),
+  INDEX `fk_Curso_has_Aluno_Curso1_idx` (`Curso_id` ASC),
   CONSTRAINT `fk_Curso_has_Aluno_Curso1`
     FOREIGN KEY (`Curso_id`)
     REFERENCES `sis_matricula`.`Curso` (`id`)
@@ -216,8 +216,8 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Aluno_Disciplina` (
   `nota` DOUBLE NOT NULL,
   `frequencia` FLOAT NOT NULL,
   PRIMARY KEY (`Aluno_matricula`, `Disciplina_id`),
-  INDEX `fk_Aluno_has_Disciplina_Disciplina1_idx` (`Disciplina_id` ASC) VISIBLE,
-  INDEX `fk_Aluno_has_Disciplina_Aluno1_idx` (`Aluno_matricula` ASC) VISIBLE,
+  INDEX `fk_Aluno_has_Disciplina_Disciplina1_idx` (`Disciplina_id` ASC),
+  INDEX `fk_Aluno_has_Disciplina_Aluno1_idx` (`Aluno_matricula` ASC),
   CONSTRAINT `fk_Aluno_has_Disciplina_Aluno1`
     FOREIGN KEY (`Aluno_matricula`)
     REFERENCES `sis_matricula`.`Aluno` (`matricula`)
@@ -230,6 +230,28 @@ CREATE TABLE IF NOT EXISTS `sis_matricula`.`Aluno_Disciplina` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `sis_matricula`.`Mensalidade_Disciplina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sis_matricula`.`Mensalidade_Disciplina` (
+  `Mensalidade_id` INT NOT NULL,
+  `Disciplina_id` INT NOT NULL,
+  PRIMARY KEY (`Mensalidade_id`, `Disciplina_id`),
+  INDEX `fk_Mensalidade_has_Disciplina_Disciplina1_idx` (`Disciplina_id` ASC),
+  INDEX `fk_Mensalidade_has_Disciplina_Mensalidade1_idx` (`Mensalidade_id` ASC),
+  CONSTRAINT `fk_Mensalidade_has_Disciplina_Mensalidade1`
+    FOREIGN KEY (`Mensalidade_id`)
+    REFERENCES `sis_matricula`.`Mensalidade` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Mensalidade_has_Disciplina_Disciplina1`
+    FOREIGN KEY (`Disciplina_id`)
+    REFERENCES `sis_matricula`.`Disciplina` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

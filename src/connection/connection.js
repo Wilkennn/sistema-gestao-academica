@@ -3,7 +3,7 @@ import mysql from 'mysql2';
 export default class Connection {
   constructor(config) {
     this.pool = mysql.createPool(config);
-    this.poolPromise = this.pool.promise(); // Usar promessas
+    this.poolPromise = this.pool.promise();
   }
 
   async connect() {

@@ -18,7 +18,7 @@ export default class UsuarioRepository {
 
   create(usuario, callback) {
     const sql = 'INSERT INTO Usuario (id, nome, cpf, email, endereco, telefone, data_nascimento, login, senha, Aluno_matricula) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    this.connection.query(sql, [usuario.id, usuario.nome, usuario.cpf, usuario.email, usuario.endereco, usuario.telefone, usuario.data_nascimento, usuario.login, usuario.senha, usuario.Aluno_matricula], callback);
+    this.connection.query(sql, [usuario.id, usuario.nome, usuario.cpf, usuario.email, usuario.endereco, usuario.telefone, usuario.data_nascimento, usuario.login, usuario.senha, usuario.aluno_matricula], callback);
   }
 
   update(id, usuario, callback) {
