@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrícula em Disciplinas</title>
+</head>
+<body>
+    <h1>Matrícula em Disciplinas</h1>
+    <form action="/matricula" method="post">
+        <h2>Disciplinas Obrigatórias</h2>
+        <% obrigatorias.forEach(disciplina => { %>
+            <input type="checkbox" id="disciplina_<%= disciplina.id %>" name="obrigatorias" value="<%= disciplina.id %>">
+            <label for="disciplina_<%= disciplina.id %>"><%= disciplina.nome %></label><br>
+        <% }) %>
+        
+        <h2>Disciplinas Optativas</h2>
+        <% optativas.forEach(disciplina => { %>
+            <input type="checkbox" id="disciplina_<%= disciplina.id %>" name="optativas" value="<%= disciplina.id %>">
+            <label for="disciplina_<%= disciplina.id %>"><%= disciplina.nome %></label><br>
+        <% }) %>
+        
+        <button type="submit">Confirmar Matrícula</button>
+    </form>
+</body>
+</html>
