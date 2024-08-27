@@ -1,4 +1,4 @@
-import CargoRepository from './CargoRepository.js';
+import CargoRepository from '../repository/CargoRepository.js';
 
 export default class CargoService {
   constructor() {
