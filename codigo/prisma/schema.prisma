@@ -16,8 +16,8 @@ generator client {
 }
 
 model CursoStatus {
-  id     Int     @id @default(autoincrement())
-  nome   String
+  id          Int           @id @default(autoincrement())
+  nome        String
   cursosAluno Curso_Aluno[]
 }
 
@@ -94,32 +94,42 @@ model Notificacao {
 }
 
 model Funcionarios {
-  id            Int      @id @default(autoincrement())
+  id            Int                 @id @default(autoincrement())
   salario       Float
   data_admissao DateTime
-  usuario       Usuario  @relation(fields: [usuarioId], references: [id])
-  usuarioId     Int      @unique
-  cargos        Cargo[]
+  usuario       Usuario             @relation(fields: [usuarioId], references: [id])
+  usuarioId     Int                 @unique
+  cargos        CargoFuncionarios[]
 }
 
 model Cargo {
-  id             Int          @id @default(autoincrement())
-  nome           String
-  funcionarios   Funcionarios @relation(fields: [funcionariosId], references: [id])
-  funcionariosId Int
+  id           Int                 @id @default(autoincrement())
+  nome         String
+  funcionarios CargoFuncionarios[]
+}
+
+model CargoFuncionarios {
+  id            Int @id @default(autoincrement())
+  funcionarioId Int
+  cargoId       Int
+
+  funcionario Funcionarios @relation(fields: [funcionarioId], references: [id])
+  cargo       Cargo        @relation(fields: [cargoId], references: [id])
+
+  @@unique([funcionarioId, cargoId])
 }
 
 model Curso_Aluno {
-  curso          Curso  @relation(fields: [cursoId], references: [id])
+  curso          Curso       @relation(fields: [cursoId], references: [id])
   cursoId        Int
-  aluno          Aluno  @relation(fields: [alunoMatricula], references: [matricula])
+  aluno          Aluno       @relation(fields: [alunoMatricula], references: [matricula])
   alunoMatricula Int
   periodo        Int
   aproveitamento Float?
-  cursoStatusId Int
-  cursoStatus   CursoStatus   @relation(fields: [cursoStatusId], references: [id])
+  cursoStatusId  Int
+  cursoStatus    CursoStatus @relation(fields: [cursoStatusId], references: [id])
 
-  @@id([cursoId, alunoMatricula])
+  @@id([cursoId, alunoMatricula]) // Define uma chave primária composta
 }
 
 model Aluno_Disciplina {
