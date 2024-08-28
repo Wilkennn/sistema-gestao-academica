@@ -129,7 +129,7 @@ model Curso_Aluno {
   cursoStatusId  Int
   cursoStatus    CursoStatus @relation(fields: [cursoStatusId], references: [id])
 
-  @@id([cursoId, alunoMatricula]) // Define uma chave primária composta
+  @@id([cursoId, alunoMatricula])
 }
 
 model Aluno_Disciplina {
