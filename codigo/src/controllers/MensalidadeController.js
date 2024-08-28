@@ -1,7 +1,7 @@
 // controllers/MensalidadeController.js
 import MensalidadeService from '../services/MensalidadeService.js';
 
-class MensalidadeController {
+export class MensalidadeController {
   async getAll(req, res) {
     try {
       const mensalidades = await MensalidadeService.getAllMensalidades();
@@ -56,5 +56,3 @@ class MensalidadeController {
     }
   }
 }
-
-export default new MensalidadeController();

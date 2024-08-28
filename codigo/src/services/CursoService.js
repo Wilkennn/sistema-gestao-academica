@@ -1,9 +1,8 @@
-// services/CursoService.js
-import { prisma } from '../prismaClient.js';
+import { prismaClient } from '../database/prismaClient.js';
 
 class CursoService {
   async getAllCursos() {
-    return prisma.curso.findMany({
+    return prismaClient.curso.findMany({
       include: {
         alunos: true,
       },
@@ -11,7 +10,7 @@ class CursoService {
   }
 
   async getCursoById(id) {
-    return prisma.curso.findUnique({
+    return prismaClient.curso.findUnique({
       where: { id: Number(id) },
       include: {
         alunos: true,
@@ -20,20 +19,20 @@ class CursoService {
   }
 
   async createCurso(cursoData) {
-    return prisma.curso.create({
+    return prismaClient.curso.create({
       data: cursoData,
     });
   }
 
   async updateCurso(id, cursoData) {
-    return prisma.curso.update({
+    return prismaClient.curso.update({
       where: { id: Number(id) },
       data: cursoData,
     });
   }
 
   async deleteCurso(id) {
-    return prisma.curso.delete({
+    return prismaClient.curso.delete({
       where: { id: Number(id) },
     });
   }

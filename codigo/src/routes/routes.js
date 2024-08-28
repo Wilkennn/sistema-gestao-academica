@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { UsuarioController } from '../controller/UsuarioController.js'
+import { UsuarioController } from '../controllers/UsuarioController.js'
 const router = Router();
 
 // Dados mock para disciplinas

@@ -1,9 +1,8 @@
-// services/AlunoService.js
-import { prisma } from '../prismaClient.js';
+import { prismaClient } from '../database/prismaClient.js';
 
 class AlunoService {
   async getAllAlunos() {
-    return prisma.aluno.findMany({
+    return prismaClient.aluno.findMany({
       include: {
         alunoStatus: true,
         mensalidades: true,
@@ -16,7 +15,7 @@ class AlunoService {
   }
 
   async getAlunoById(matricula) {
-    return prisma.aluno.findUnique({
+    return prismaClient.aluno.findUnique({
       where: { matricula: Number(matricula) },
       include: {
         alunoStatus: true,
@@ -30,20 +29,20 @@ class AlunoService {
   }
 
   async createAluno(alunoData) {
-    return prisma.aluno.create({
+    return prismaClient.aluno.create({
       data: alunoData,
     });
   }
 
   async updateAluno(matricula, alunoData) {
-    return prisma.aluno.update({
+    return prismaClient.aluno.update({
       where: { matricula: Number(matricula) },
       data: alunoData,
     });
   }
 
   async deleteAluno(matricula) {
-    return prisma.aluno.delete({
+    return prismaClient.aluno.delete({
       where: { matricula: Number(matricula) },
     });
   }

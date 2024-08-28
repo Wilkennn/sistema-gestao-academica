@@ -1,7 +1,7 @@
 // controllers/FuncionarioController.js
 import FuncionarioService from '../services/FuncionarioService.js';
 
-class FuncionarioController {
+export class FuncionarioController {
   async getAll(req, res) {
     try {
       const funcionarios = await FuncionarioService.getAllFuncionarios();
@@ -56,5 +56,3 @@ class FuncionarioController {
     }
   }
 }
-
-export default new FuncionarioController();

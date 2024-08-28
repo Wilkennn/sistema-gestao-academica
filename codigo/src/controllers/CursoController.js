@@ -1,7 +1,6 @@
-// controllers/CursoController.js
 import CursoService from '../services/CursoService.js';
 
-class CursoController {
+export class CursoController {
   async getAll(req, res) {
     try {
       const cursos = await CursoService.getAllCursos();
@@ -56,5 +55,3 @@ class CursoController {
     }
   }
 }
-
-export default new CursoController();

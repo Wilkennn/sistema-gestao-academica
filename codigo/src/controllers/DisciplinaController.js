@@ -1,7 +1,7 @@
 // services/DisciplinaService.js
 import { prisma } from '../prismaClient.js';
 
-class DisciplinaService {
+export class DisciplinaService {
   async getAllDisciplinas() {
     return prisma.disciplina.findMany({
       include: {
@@ -40,5 +40,3 @@ class DisciplinaService {
     });
   }
 }
-
-export default new DisciplinaService();

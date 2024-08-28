@@ -1,9 +1,8 @@
-// services/MensalidadeService.js
-import { prisma } from '../prismaClient.js';
+import { prismaClient } from '../database/prismaClient.js';
 
 class MensalidadeService {
   async getAllMensalidades() {
-    return prisma.mensalidade.findMany({
+    return prismaClient.mensalidade.findMany({
       include: {
         aluno: true,
         disciplinas: true,
@@ -12,7 +11,7 @@ class MensalidadeService {
   }
 
   async getMensalidadeById(id) {
-    return prisma.mensalidade.findUnique({
+    return prismaClient.mensalidade.findUnique({
       where: { id: Number(id) },
       include: {
         aluno: true,
@@ -22,20 +21,20 @@ class MensalidadeService {
   }
 
   async createMensalidade(mensalidadeData) {
-    return prisma.mensalidade.create({
+    return prismaClient.mensalidade.create({
       data: mensalidadeData,
     });
   }
 
   async updateMensalidade(id, mensalidadeData) {
-    return prisma.mensalidade.update({
+    return prismaClient.mensalidade.update({
       where: { id: Number(id) },
       data: mensalidadeData,
     });
   }
 
   async deleteMensalidade(id) {
-    return prisma.mensalidade.delete({
+    return prismaClient.mensalidade.delete({
       where: { id: Number(id) },
     });
   }
