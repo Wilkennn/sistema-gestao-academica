@@ -15,126 +15,139 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model AlunoStatus {
-  id   Int    @id @default(autoincrement())
-  nome String
-  alunos Aluno[]
+model CursoStatus {
+  id          Int           @id @default(autoincrement())
+  nome        String
+  cursosAluno Curso_Aluno[]
 }
 
 model Aluno {
-  matricula    Int             @id @default(autoincrement())
-  periodo      String
+  matricula     Int                @id @default(autoincrement())
+  periodo       String
   data_ingresso DateTime
-  alunoStatus  AlunoStatus     @relation(fields: [alunoStatusId], references: [id])
-  alunoStatusId Int
-  mensalidades Mensalidade[]
-  notificacoes Notificacao[]
-  cursos       Curso_Aluno[]
-  disciplinas  Aluno_Disciplina[]
+  mensalidades  Mensalidade[]
+  notificacoes  Notificacao[]
+  cursos        Curso_Aluno[]
+  disciplinas   Aluno_Disciplina[]
 
   Usuario Usuario[]
 }
 
 model Usuario {
-  id             Int            @id @default(autoincrement())
-  nome           String
-  cpf            String
-  email          String
-  endereco       String
-  telefone       String
+  id              Int           @id @default(autoincrement())
+  nome            String
+  cpf             String
+  email           String
+  endereco        String
+  telefone        String
   data_nascimento DateTime
-  login          String
-  senha          String
-  aluno          Aluno?         @relation(fields: [alunoMatricula], references: [matricula])
-  alunoMatricula Int?
-  funcionarios   Funcionarios?
+  login           String
+  senha           String
+  aluno           Aluno?        @relation(fields: [alunoMatricula], references: [matricula])
+  alunoMatricula  Int?
+  funcionarios    Funcionarios?
 }
 
 model Curso {
-  id          Int          @id @default(autoincrement())
-  nome        String
-  duracao     Int
-  creditos    Int
+  id            Int           @id @default(autoincrement())
+  nome          String
+  duracao       Int
+  creditos      Int
   carga_horaria Int
-  alunos      Curso_Aluno[]
+  alunos        Curso_Aluno[]
 }
 
 model Disciplina {
-  id             Int              @id @default(autoincrement())
-  nome           String
-  carga_horaria  String
-  valor          Float
-  alunos         Aluno_Disciplina[]
-  mensalidades   Mensalidade_Disciplina[]
+  id            Int                      @id @default(autoincrement())
+  nome          String
+  carga_horaria String
+  valor         Float
+  alunos        Aluno_Disciplina[]
+  mensalidades  Mensalidade_Disciplina[]
 }
 
 model Mensalidade {
-  id           Int                @id @default(autoincrement())
-  mes          String
-  ano          String
-  data_validade DateTime
-  valor        Float
-  aluno        Aluno              @relation(fields: [alunoMatricula], references: [matricula])
+  id             Int                      @id @default(autoincrement())
+  mes            String
+  ano            String
+  data_validade  DateTime
+  valor          Float
+  aluno          Aluno                    @relation(fields: [alunoMatricula], references: [matricula])
   alunoMatricula Int
-  disciplinas  Mensalidade_Disciplina[]
+  disciplinas    Mensalidade_Disciplina[]
 
   MensalidadeStatus MensalidadeStatus[]
 }
 
 model MensalidadeStatus {
-  id              Int            @id @default(autoincrement())
-  nome            String
-  mensalidade     Mensalidade   @relation(fields: [mensalidadeId], references: [id])
-  mensalidadeId   Int
+  id            Int         @id @default(autoincrement())
+  nome          String
+  mensalidade   Mensalidade @relation(fields: [mensalidadeId], references: [id])
+  mensalidadeId Int
 }
 
 model Notificacao {
-  id         Int      @id @default(autoincrement())
-  conteudo   String
-  aluno      Aluno    @relation(fields: [alunoMatricula], references: [matricula])
+  id             Int    @id @default(autoincrement())
+  conteudo       String
+  aluno          Aluno  @relation(fields: [alunoMatricula], references: [matricula])
   alunoMatricula Int
 }
 
 model Funcionarios {
-  id             Int         @id @default(autoincrement())
-  salario        Float
-  data_admissao  DateTime
-  usuario        Usuario    @relation(fields: [usuarioId], references: [id])
-  usuarioId      Int @unique
-  cargos         Cargo[]
+  id            Int                 @id @default(autoincrement())
+  salario       Float
+  data_admissao DateTime
+  usuario       Usuario             @relation(fields: [usuarioId], references: [id])
+  usuarioId     Int                 @unique
+  cargos        CargoFuncionarios[]
 }
 
 model Cargo {
-  id             Int         @id @default(autoincrement())
-  nome           String
-  funcionarios   Funcionarios @relation(fields: [funcionariosId], references: [id])
-  funcionariosId Int
+  id           Int                 @id @default(autoincrement())
+  nome         String
+  funcionarios CargoFuncionarios[]
+}
+
+model CargoFuncionarios {
+  id            Int @id @default(autoincrement())
+  funcionarioId Int
+  cargoId       Int
+
+  funcionario Funcionarios @relation(fields: [funcionarioId], references: [id])
+  cargo       Cargo        @relation(fields: [cargoId], references: [id])
+
+  @@unique([funcionarioId, cargoId])
 }
 
 model Curso_Aluno {
-  curso     Curso   @relation(fields: [cursoId], references: [id])
-  cursoId   Int
-  aluno    Aluno   @relation(fields: [alunoMatricula], references: [matricula])
+  curso          Curso       @relation(fields: [cursoId], references: [id])
+  cursoId        Int
+  aluno          Aluno       @relation(fields: [alunoMatricula], references: [matricula])
   alunoMatricula Int
-  periodo   Int
+  periodo        Int
   aproveitamento Float?
+  cursoStatusId  Int
+  cursoStatus    CursoStatus @relation(fields: [cursoStatusId], references: [id])
+
   @@id([cursoId, alunoMatricula])
 }
 
 model Aluno_Disciplina {
-  aluno     Aluno      @relation(fields: [alunoMatricula], references: [matricula])
+  aluno          Aluno      @relation(fields: [alunoMatricula], references: [matricula])
   alunoMatricula Int
-  disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
-  disciplinaId Int
-  nota       Float
-  frequencia Float
+  disciplina     Disciplina @relation(fields: [disciplinaId], references: [id])
+  disciplinaId   Int
+  nota           Float
+  frequencia     Float
+
   @@id([alunoMatricula, disciplinaId])
 }
 
 model Mensalidade_Disciplina {
-  mensalidade Mensalidade @relation(fields: [mensalidadeId], references: [id])
+  mensalidade   Mensalidade @relation(fields: [mensalidadeId], references: [id])
   mensalidadeId Int
-  disciplina  Disciplina @relation(fields: [disciplinaId], references: [id])
-  disciplinaId Int
+  disciplina    Disciplina  @relation(fields: [disciplinaId], references: [id])
+  disciplinaId  Int
+
   @@id([mensalidadeId, disciplinaId])
 }

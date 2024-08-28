@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `AlunoStatus` (
+CREATE TABLE `CursoStatus` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(191) NOT NULL,
 
@@ -11,7 +11,6 @@ CREATE TABLE `Aluno` (
     `matricula` INTEGER NOT NULL AUTO_INCREMENT,
     `periodo` VARCHAR(191) NOT NULL,
     `data_ingresso` DATETIME(3) NOT NULL,
-    `alunoStatusId` INTEGER NOT NULL,
 
     PRIMARY KEY (`matricula`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -98,17 +97,18 @@ CREATE TABLE `Funcionarios` (
 CREATE TABLE `Cargo` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(191) NOT NULL,
-    `funcionariosId` INTEGER NOT NULL,
+    `funcionariosId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- CreateTable
+-- CreateTableQ
 CREATE TABLE `Curso_Aluno` (
     `cursoId` INTEGER NOT NULL,
     `alunoMatricula` INTEGER NOT NULL,
     `periodo` INTEGER NOT NULL,
     `aproveitamento` DOUBLE NULL,
+    `cursoStatusId` INTEGER NOT NULL,
 
     PRIMARY KEY (`cursoId`, `alunoMatricula`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -132,9 +132,6 @@ CREATE TABLE `Mensalidade_Disciplina` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Aluno` ADD CONSTRAINT `Aluno_alunoStatusId_fkey` FOREIGN KEY (`alunoStatusId`) REFERENCES `AlunoStatus`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `Usuario` ADD CONSTRAINT `Usuario_alunoMatricula_fkey` FOREIGN KEY (`alunoMatricula`) REFERENCES `Aluno`(`matricula`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -153,12 +150,6 @@ ALTER TABLE `Funcionarios` ADD CONSTRAINT `Funcionarios_usuarioId_fkey` FOREIGN 
 ALTER TABLE `Cargo` ADD CONSTRAINT `Cargo_funcionariosId_fkey` FOREIGN KEY (`funcionariosId`) REFERENCES `Funcionarios`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Curso_Aluno` ADD CONSTRAINT `Curso_Aluno_cursoId_fkey` FOREIGN KEY (`cursoId`) REFERENCES `Curso`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Curso_Aluno` ADD CONSTRAINT `Curso_Aluno_alunoMatricula_fkey` FOREIGN KEY (`alunoMatricula`) REFERENCES `Aluno`(`matricula`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `Aluno_Disciplina` ADD CONSTRAINT `Aluno_Disciplina_alunoMatricula_fkey` FOREIGN KEY (`alunoMatricula`) REFERENCES `Aluno`(`matricula`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -169,3 +160,30 @@ ALTER TABLE `Mensalidade_Disciplina` ADD CONSTRAINT `Mensalidade_Disciplina_mens
 
 -- AddForeignKey
 ALTER TABLE `Mensalidade_Disciplina` ADD CONSTRAINT `Mensalidade_Disciplina_disciplinaId_fkey` FOREIGN KEY (`disciplinaId`) REFERENCES `Disciplina`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE `Curso_Aluno`  ADD CONSTRAINT `Curso_Aluno_cursoId_fkey` FOREIGN KEY (`cursoId`) REFERENCES `Curso`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE `Curso_Aluno` ADD CONSTRAINT `Curso_Aluno_alunoMatricula_fkey` FOREIGN KEY (`alunoMatricula`) REFERENCES `Aluno`(`matricula`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- Remove a chave estrangeira duplicada
+ALTER TABLE `Curso_Aluno` DROP FOREIGN KEY `Curso_Aluno_cursoId_fkey`;
+
+-- Adicione a chave estrangeira correta
+ALTER TABLE `Curso_Aluno` ADD CONSTRAINT `Curso_Aluno_cursoId_fkey` FOREIGN KEY (`cursoId`) REFERENCES `Curso`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+DROP TABLE IF EXISTS `Curso_Aluno`, `Curso`, `Aluno`, ...;
+
+DROP TABLE IF EXISTS 
+`Curso_Aluno`, 
+`Curso`, 
+`Aluno`, 
+`Usuario`, 
+`Disciplina`, 
+`Mensalidade`, 
+`MensalidadeStatus`, 
+`Notificacao`, 
+`Funcionarios`, 
+`Cargo`, 
+`CargoFuncionarios`, 
+`Aluno_Disciplina`, 
+`Mensalidade_Disciplina`;
