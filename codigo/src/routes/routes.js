@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { UsuarioController } from '../controller/UsuarioController.js'
+import { UsuarioController } from '../controllers/UsuarioController.js'
 const router = Router();
 
 // Dados mock para disciplinas
@@ -19,6 +19,6 @@ const curriculos = {
 const usuarioController = new UsuarioController();
 
 // Rota para emissão de currículo
-router.get('/', usuarioController.create);
+router.get('/', usuarioController.getAll);
 
 export default router;

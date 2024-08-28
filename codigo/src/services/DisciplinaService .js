@@ -1,9 +1,8 @@
-// services/DisciplinaService.js
-import { prisma } from '../prismaClient.js';
+import { prismaClient } from '../database/prismaClient.js';
 
 class DisciplinaService {
   async getAllDisciplinas() {
-    return prisma.disciplina.findMany({
+    return prismaClient.disciplina.findMany({
       include: {
         alunos: true,
         mensalidades: true,
@@ -12,7 +11,7 @@ class DisciplinaService {
   }
 
   async getDisciplinaById(id) {
-    return prisma.disciplina.findUnique({
+    return prismaClient.disciplina.findUnique({
       where: { id: Number(id) },
       include: {
         alunos: true,
@@ -22,20 +21,20 @@ class DisciplinaService {
   }
 
   async createDisciplina(disciplinaData) {
-    return prisma.disciplina.create({
+    return prismaClient.disciplina.create({
       data: disciplinaData,
     });
   }
 
   async updateDisciplina(id, disciplinaData) {
-    return prisma.disciplina.update({
+    return prismaClient.disciplina.update({
       where: { id: Number(id) },
       data: disciplinaData,
     });
   }
 
   async deleteDisciplina(id) {
-    return prisma.disciplina.delete({
+    return prismaClient.disciplina.delete({
       where: { id: Number(id) },
     });
   }

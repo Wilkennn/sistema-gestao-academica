@@ -1,7 +1,7 @@
 import express from 'express';
-import routes from './routes/routes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import routes from './src/routes/routes.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);

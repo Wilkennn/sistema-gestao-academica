@@ -1,9 +1,8 @@
-// services/FuncionarioService.js
-import { prisma } from '../prismaClient.js';
+import { prismaClient } from '../database/prismaClient.js';
 
 class FuncionarioService {
   async getAllFuncionarios() {
-    return prisma.funcionario.findMany({
+    return prismaClient.funcionario.findMany({
       include: {
         usuario: true,
       },
@@ -11,7 +10,7 @@ class FuncionarioService {
   }
 
   async getFuncionarioById(id) {
-    return prisma.funcionario.findUnique({
+    return prismaClient.funcionario.findUnique({
       where: { id: Number(id) },
       include: {
         usuario: true,
@@ -20,20 +19,20 @@ class FuncionarioService {
   }
 
   async createFuncionario(funcionarioData) {
-    return prisma.funcionario.create({
+    return prismaClient.funcionario.create({
       data: funcionarioData,
     });
   }
 
   async updateFuncionario(id, funcionarioData) {
-    return prisma.funcionario.update({
+    return prismaClient.funcionario.update({
       where: { id: Number(id) },
       data: funcionarioData,
     });
   }
 
   async deleteFuncionario(id) {
-    return prisma.funcionario.delete({
+    return prismaClient.funcionario.delete({
       where: { id: Number(id) },
     });
   }
