@@ -9,37 +9,51 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/disciplinas.css">
+    <link rel="stylesheet" href="../public/css/home.css">
 </head>
 
 <body>
-    <!-- Navbar -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">
+     <!-- Navbar -->
+     <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#" id="logo">
                 <img src="../public/image/logo-puc-minas.jpg" alt="logo" class="logo">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(atual)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contato</a>
-                    </li>
-                </ul>
-            </div>
         </nav>
+        <div id="sidebar" class="sidebar">
+            <div class="icon-item">
+                <i class="fas fa-info-circle" style="color: #f1c40f;"></i>
+                <p>Informações</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-calendar-alt" style="color: #27ae60;"></i>
+                <p>Calendário</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-th" style="color: #f39c12;"></i>
+                <p>Grade de Horários</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-chart-bar" style="color: #3498db;"></i>
+                <p>Notas e Frequências</p>
+            </div>
+            <div class="icon-item">
+                <i class="fab fa-microsoft" style="color: #6c5ce7;"></i>
+                <p>Teams</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-chalkboard-teacher" style="color: #e74c3c;"></i>
+                <p>Canvas</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-handshake" style="color: #16a085;"></i>
+                <p>Parcerias</p>
+            </div>
+        </div>
     </header>
+    
+    
 
-    <!-- Container Principal -->
     <div id="main-container" class="container mt-4">
         <h2>Minhas Disciplinas</h2>
         <hr>
@@ -50,9 +64,6 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="fas fa-book"></i> Matemática
-                            <a href="#" class="float-right">
-                                <i class="fas fa-edit" style="color: #21bc74;"></i>
-                            </a>
                         </h5>
                         <h6 class="card-subtitle mb-2 text-muted">Código: MAT101</h6>
                         <p class="card-text">Descrição: Fundamentos de álgebra, geometria e cálculo diferencial.</p>
@@ -66,9 +77,6 @@
                         <h5 class="card-title">
                             <i class="fas fa-code"></i>
                             Programação
-                            <a href="#" class="float-right">
-                                <i class="fas fa-edit" style="color: #21bc74;"></i>
-                            </a>
                         </h5>
                         <h6 class="card-subtitle mb-2 text-muted">Código: PROG202</h6>
                         <p class="card-text">Descrição: Introdução às linguagens de programação e desenvolvimento de
@@ -132,6 +140,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('logo').addEventListener('click', function () {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        });
+
+    </script>
 </body>
 
 </html>
