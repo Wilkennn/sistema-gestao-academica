@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `AlunoStatus` (
+CREATE TABLE `CursoStatus` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(191) NOT NULL,
 
@@ -11,7 +11,6 @@ CREATE TABLE `Aluno` (
     `matricula` INTEGER NOT NULL AUTO_INCREMENT,
     `periodo` VARCHAR(191) NOT NULL,
     `data_ingresso` DATETIME(3) NOT NULL,
-    `alunoStatusId` INTEGER NOT NULL,
 
     PRIMARY KEY (`matricula`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -103,12 +102,13 @@ CREATE TABLE `Cargo` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- CreateTable
+-- CreateTableQ
 CREATE TABLE `Curso_Aluno` (
     `cursoId` INTEGER NOT NULL,
     `alunoMatricula` INTEGER NOT NULL,
     `periodo` INTEGER NOT NULL,
     `aproveitamento` DOUBLE NULL,
+    'cursoStatusId' INTEGER NOT NULL,
 
     PRIMARY KEY (`cursoId`, `alunoMatricula`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

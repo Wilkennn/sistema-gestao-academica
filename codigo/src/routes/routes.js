@@ -2,13 +2,13 @@
 import { Router } from 'express';
 import { UsuarioController } from '../controllers/UsuarioController.js';
 import { AlunoController } from '../controllers/AlunoController.js';
-import { AlunoStatusController } from '../controllers/AlunoStatusController.js'; // Importando corretamente
+import { CursoStatusController } from '../controllers/CursoStatusController.js';
 
 const router = Router();
 
 const usuarioController = new UsuarioController();
 const alunoController = new AlunoController();
-const alunoStatusController = new AlunoStatusController(); // Usando a classe importada corretamente
+const cursoStatusController = new CursoStatusController();
 
 // Rotas para usuário
 router.get('/', usuarioController.getAll);
@@ -19,10 +19,10 @@ router.get('/alunos', alunoController.getAll);
 router.post('/alunos', alunoController.create);
 
 // Rotas para status de aluno
-router.get('/aluno-status', alunoStatusController.getAll);
-router.get('/aluno-status/:id', alunoStatusController.getById);
-router.post('/aluno-status', alunoStatusController.create);
-router.put('/aluno-status/:id', alunoStatusController.update);
-router.delete('/aluno-status/:id', alunoStatusController.delete);
+router.get('/curso-status', cursoStatusController.getAll);
+router.get('/curso-status/:id', cursoStatusController.getById);
+router.post('/curso-status', cursoStatusController.create);
+router.put('/curso-status/:id', cursoStatusController.update);
+router.delete('/curso-status/:id', cursoStatusController.delete);
 
 export default router;
