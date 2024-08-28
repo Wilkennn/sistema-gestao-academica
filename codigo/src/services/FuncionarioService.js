@@ -2,7 +2,7 @@ import { prismaClient } from '../database/prismaClient.js';
 
 class FuncionarioService {
   async getAllFuncionarios() {
-    return prismaClient.funcionario.findMany({
+    return prismaClient.funcionarios.findMany({
       include: {
         usuario: true,
       },
@@ -10,7 +10,7 @@ class FuncionarioService {
   }
 
   async getFuncionarioById(id) {
-    return prismaClient.funcionario.findUnique({
+    return prismaClient.funcionarios.findUnique({
       where: { id: Number(id) },
       include: {
         usuario: true,
@@ -19,20 +19,20 @@ class FuncionarioService {
   }
 
   async createFuncionario(funcionarioData) {
-    return prismaClient.funcionario.create({
+    return prismaClient.funcionarios.create({
       data: funcionarioData,
     });
   }
 
   async updateFuncionario(id, funcionarioData) {
-    return prismaClient.funcionario.update({
+    return prismaClient.funcionarios.update({
       where: { id: Number(id) },
       data: funcionarioData,
     });
   }
 
   async deleteFuncionario(id) {
-    return prismaClient.funcionario.delete({
+    return prismaClient.funcionarios.delete({
       where: { id: Number(id) },
     });
   }

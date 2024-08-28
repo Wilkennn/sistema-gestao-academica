@@ -1,0 +1,46 @@
+body {
+    background-color: #f8f9fa; /* Cor de fundo do corpo da página */
+}
+
+header {
+    color: red !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a soft shadow to the header */
+}
+
+.logo {
+    border-radius: 20%;
+    height: 60px;
+    object-fit: cover; /* Add this to scale the image */
+    object-position: center; /* Add this to center the image */
+    overflow: hidden;
+    width: 60px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto; /* Add this line */
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    word-break: break-word; /* Add this line */
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+.table-icon {
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
