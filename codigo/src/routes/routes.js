@@ -1,24 +1,28 @@
+// routes/index.js
 import { Router } from 'express';
-import { UsuarioController } from '../controllers/UsuarioController.js'
+import { UsuarioController } from '../controllers/UsuarioController.js';
+import { AlunoController } from '../controllers/AlunoController.js';
+import { AlunoStatusController } from '../controllers/AlunoStatusController.js'; // Importando corretamente
+
 const router = Router();
 
-// Dados mock para disciplinas
-const disciplinas = [
-  { id: '1', nome: 'Matemática' },
-  { id: '2', nome: 'Programação' },
-  { id: '3', nome: 'Física' },
-  { id: '4', nome: 'Química' }
-];
-
-// Dados mock para currículos
-const curriculos = {
-  '2024-1': 'https://example.com/curriculo_2024_1.pdf',
-  '2024-2': 'https://example.com/curriculo_2024_2.pdf'
-};
-
 const usuarioController = new UsuarioController();
+const alunoController = new AlunoController();
+const alunoStatusController = new AlunoStatusController(); // Usando a classe importada corretamente
 
-// Rota para emissão de currículo
+// Rotas para usuário
 router.get('/', usuarioController.getAll);
+router.post('/usuario', usuarioController.create);
+
+// Rotas para aluno
+router.get('/alunos', alunoController.getAll);
+router.post('/alunos', alunoController.create);
+
+// Rotas para status de aluno
+router.get('/aluno-status', alunoStatusController.getAll);
+router.get('/aluno-status/:id', alunoStatusController.getById);
+router.post('/aluno-status', alunoStatusController.create);
+router.put('/aluno-status/:id', alunoStatusController.update);
+router.delete('/aluno-status/:id', alunoStatusController.delete);
 
 export default router;

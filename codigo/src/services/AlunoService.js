@@ -46,6 +46,14 @@ class AlunoService {
       where: { matricula: Number(matricula) },
     });
   }
+
+  async createAlunoStatus(alunoStatusData) {
+    return prismaClient.alunoStatus.create({
+      include: {
+        data: alun,
+      },
+    });
+  }
 }
 
 export default new AlunoService();
