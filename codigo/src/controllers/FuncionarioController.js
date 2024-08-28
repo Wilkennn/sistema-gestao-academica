@@ -1,7 +1,7 @@
-// controllers/FuncionarioController.js
 import FuncionarioService from '../services/FuncionarioService.js';
 
 export class FuncionarioController {
+
   async getAll(req, res) {
     try {
       const funcionarios = await FuncionarioService.getAllFuncionarios();

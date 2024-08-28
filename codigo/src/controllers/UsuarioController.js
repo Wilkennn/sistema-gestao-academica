@@ -1,6 +1,7 @@
 import UsuarioService from '../services/UsuarioService.js';
 
 export class UsuarioController {
+  
   async getAll(req, res) {
     try {
       const usuarios = await UsuarioService.getAllUsuarios();

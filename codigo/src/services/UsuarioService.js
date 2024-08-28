@@ -1,44 +1,59 @@
 import { prismaClient } from '../database/prismaClient.js';
 
 class UsuarioService {
+  
   async getAllUsuarios() {
-    return prismaClient.usuario.findMany({
-      include: {
-        aluno: true,
-        funcionarios: true,
-      },
-    });
+    try {
+      return await prismaClient.usuario.findMany({
+        include: {
+          aluno: true,
+          funcionarios: true,
+        },
+      });
+    } catch (error) {
+      console.error('Erro ao buscar usuários:', error.message);
+      throw new Error('Não foi possível buscar os usuários. Tente novamente mais tarde.');
+    }
   }
 
   async getUsuarioById(id) {
-    return prismaClient.usuario.findUnique({
-      where: { id: Number(id) },
-      include: {
-        aluno: true,
-        funcionarios: true,
-      },
-    });
+    try {
+      const usuario = await prismaClient.usuario.findUnique({
+        where: { id: Number(id) },
+        include: {
+          aluno: true,
+          funcionarios: true,
+        },
+      });
+
+      if (!usuario) {
+        throw new Error('Usuário não encontrado.');
+      }
+
+      return usuario;
+    } catch (error) {
+      console.error('Erro ao buscar usuário:', error.message);
+      throw new Error('Não foi possível encontrar o usuário. Tente novamente mais tarde.');
+    }
   }
 
   async createUsuario(usuarioData) {
-    if (typeof usuarioData.data_nascimento === 'string') {
-      try {
-        usuarioData.data_nascimento = new Date(usuarioData.data_nascimento);
-        if (isNaN(usuarioData.data_nascimento.getTime())) {
-          throw new Error('Data de nascimento inválida.');
-        }
-      } catch (error) {
-        throw new Error('Formato de data inválido. Por favor, use o formato ISO 8601.');
-      }
-    } else if (!(usuarioData.data_nascimento instanceof Date)) {
-      throw new Error('Data de nascimento deve ser uma string ou uma instância de Date.');
-    }
-
     try {
-      const newUsuario = await prismaClient.usuario.create({
+      if (usuarioData.data_nascimento) {
+        if (typeof usuarioData.data_nascimento === 'string') {
+          usuarioData.data_nascimento = new Date(usuarioData.data_nascimento);
+          if (isNaN(usuarioData.data_nascimento.getTime())) {
+            throw new Error('Formato de data inválido. Por favor, use o formato ISO 8601.');
+          }
+        } else if (!(usuarioData.data_nascimento instanceof Date)) {
+          throw new Error('Data de nascimento deve ser uma string ou uma instância de Date.');
+        }
+      }
+
+      return await prismaClient.usuario.create({
         data: usuarioData,
       });
-      return newUsuario;
+
     } catch (error) {
       if (error.code === 'P2002') {
         throw new Error('Usuário já existe com este identificador.');
@@ -49,16 +64,38 @@ class UsuarioService {
   }
   
   async updateUsuario(id, usuarioData) {
-    return prismaClient.usuario.update({
-      where: { id: Number(id) },
-      data: usuarioData,
-    });
+    try {
+      const usuario = await prismaClient.usuario.update({
+        where: { id: Number(id) },
+        data: usuarioData,
+      });
+
+      if (!usuario) {
+        throw new Error('Usuário não encontrado para atualização.');
+      }
+
+      return usuario;
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error.message);
+      throw new Error('Não foi possível atualizar o usuário. Tente novamente mais tarde.');
+    }
   }
 
   async deleteUsuario(id) {
-    return prismaClient.usuario.delete({
-      where: { id: Number(id) },
-    });
+    try {
+      const usuario = await prismaClient.usuario.delete({
+        where: { id: Number(id) },
+      });
+
+      if (!usuario) {
+        throw new Error('Usuário não encontrado para exclusão.');
+      }
+
+      return usuario;
+    } catch (error) {
+      console.error('Erro ao deletar usuário:', error.message);
+      throw new Error('Não foi possível deletar o usuário. Tente novamente mais tarde.');
+    }
   }
 }
 

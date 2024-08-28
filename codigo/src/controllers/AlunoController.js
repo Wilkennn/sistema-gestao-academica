@@ -1,6 +1,7 @@
+// controllers/AlunoController.js
 import AlunoService from '../services/AlunoService.js';
 
-export class AlunoController {
+class AlunoController {
   async getAll(req, res) {
     try {
       const alunos = await AlunoService.getAllAlunos();
