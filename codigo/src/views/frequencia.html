@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGA</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/frequencia.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#" id="logo">
+                <img src="../public/image/logo-puc-minas.jpg" alt="logo" class="logo">
+            </a>
+        </nav>
+        <div id="sidebar" class="sidebar">
+            <div class="icon-item">
+                <i class="fas fa-info-circle" style="color: #f1c40f;"></i>
+                <p>Informações</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-calendar-alt" style="color: #27ae60;"></i>
+                <p>Calendário</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-th" style="color: #f39c12;"></i>
+                <p>Grade de Horários</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-chart-bar" style="color: #3498db;"></i>
+                <p>Notas e Frequências</p>
+            </div>
+            <div class="icon-item">
+                <i class="fab fa-microsoft" style="color: #6c5ce7;"></i>
+                <p>Teams</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-chalkboard-teacher" style="color: #e74c3c;"></i>
+                <p>Canvas</p>
+            </div>
+            <div class="icon-item">
+                <i class="fas fa-handshake" style="color: #16a085;"></i>
+                <p>Parcerias</p>
+            </div>
+        </div>
+    </header>
+
+    <div id="main-container" class="container mt-4">
+        <h2>Boletim Escolar</h2>
+        <hr>
+        <div class="row mt-2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>Frequência (%)</th>
+                        <th>Nota (0-100)</th>
+                        <th>Média da Disciplina</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Matemática</td>
+                        <td>85%</td>
+                        <td>8,5</td>
+                        <td>8,5</td>
+                        <td class="status aprovado">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>Português</td>
+                        <td>90%</td>
+                        <td>9,0</td>
+                        <td>9,0</td>
+                        <td class="status aprovado">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>Ciências</td>
+                        <td>78%</td>
+                        <td>7,8</td>
+                        <td>7,8</td>
+                        <td class="status reprovado">Reprovado</td>
+                    </tr>
+                    <tr>
+                        <td>História</td>
+                        <td>92%</td>
+                        <td>9,2</td>
+                        <td>9,2</td>
+                        <td class="status aprovado">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>Geografia</td>
+                        <td>88%</td>
+                        <td>8,8</td>
+                        <td>8,8</td>
+                        <td class="status aprovado">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>Arte</td>
+                        <td>82%</td>
+                        <td>8,2</td>
+                        <td>8,2</td>
+                        <td class="status aprovado">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>Educação Física</td>
+                        <td>95%</td>
+                        <td>9,5</td>
+                        <td>9,5</td>
+                        <td class="status aprovado">Aprovado</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <!-- jQuery e Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            document.getElementById('logo').addEventListener('click', function () {
+                var sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('active');
+            });
+
+        </script>
+</body>
+
+</html>
