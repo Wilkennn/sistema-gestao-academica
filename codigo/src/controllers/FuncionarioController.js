@@ -5,6 +5,7 @@ export class FuncionarioController {
   async getAll(req, res) {
     try {
       const funcionarios = await FuncionarioService.getAllFuncionarios();
+      console.log(funcionarios)
       res.status(200).json(funcionarios);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching employees', error });

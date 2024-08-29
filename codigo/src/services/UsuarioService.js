@@ -14,11 +14,7 @@ class UsuarioService {
   async getUsuarioById(id) {
     try {
       const usuario = await prismaClient.usuario.findUnique({
-        where: { id: Number(id) },
-        include: {
-          alunos: true,       // Verifique se este é o nome correto do relacionamento
-          funcionarios: true  // Verifique se este é o nome correto do relacionamento
-        },
+        where: { id: parseInt(id) }
       });
   
       if (!usuario) {

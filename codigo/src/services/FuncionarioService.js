@@ -1,4 +1,3 @@
-import { cache } from 'ejs';
 import { prismaClient } from '../database/prismaClient.js';
 
 class FuncionarioService {
