@@ -44,6 +44,7 @@ export class UsuarioController {
     try {
       const usuarioData = req.body;
       const newUsuario = await UsuarioService.createUsuario(usuarioData);
+      console.log(newUsuario);
       res.status(201).json({ message: 'Usuário criado com sucesso.', usuario: newUsuario });
     } catch (error) {
       res.status(500).json({

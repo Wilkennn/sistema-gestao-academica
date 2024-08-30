@@ -2,12 +2,12 @@ import { prismaClient } from '../database/prismaClient.js';
 
 class DisciplinaService {
   async getAllDisciplinas() {
-    return prismaClient.disciplina.findMany({
-      include: {
-        alunos: true,
-        mensalidades: true,
-      },
-    });
+    try{
+      return prismaClient.disciplina.findMany();
+    }catch(error){
+      console.error(error);
+      throw new Error('Error ao buscar disciplinas');
+    }
   }
 
   async getDisciplinaById(id) {

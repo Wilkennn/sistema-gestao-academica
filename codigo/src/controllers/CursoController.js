@@ -27,6 +27,11 @@ export class CursoController {
   async create(req, res) {
     try {
       const cursoData = req.body;
+
+      if (!cursoData.nome ||!cursoData.cargaHoraria) {
+        return res.status(400).json({ message: 'Missing required fields: nome and cargaHoraria' });
+      }
+
       const newCurso = await CursoService.createCurso(cursoData);
       res.status(201).json(newCurso);
     } catch (error) {

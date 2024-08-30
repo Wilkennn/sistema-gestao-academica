@@ -5,7 +5,6 @@ export class FuncionarioController {
   async getAll(req, res) {
     try {
       const funcionarios = await FuncionarioService.getAllFuncionarios();
-      console.log(funcionarios)
       res.status(200).json(funcionarios);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching employees', error });
@@ -29,10 +28,21 @@ export class FuncionarioController {
   async create(req, res) {
     try {
       const funcionarioData = req.body;
+  
+      if (!funcionarioData.salario || !funcionarioData.dataAdmissao) {
+        return res.status(400).json({ message: 'Dados incompletos. Por favor, forneça todos os campos necessários.' });
+      }
+  
+      if (funcionarioData.usuarioId && isNaN(Number(funcionarioData.usuarioId))) {
+        return res.status(400).json({ message: 'usuarioId inválido. Deve ser um número.' });
+      }
+  
       const newFuncionario = await FuncionarioService.createFuncionario(funcionarioData);
+      
       res.status(201).json(newFuncionario);
     } catch (error) {
-      res.status(500).json({ message: 'Error creating employee', error });
+      console.error('Erro ao criar funcionário:', error); // Log do erro completo para depuração
+      res.status(500).json({ message: 'Erro ao criar funcionário', error: error.message });
     }
   }
 

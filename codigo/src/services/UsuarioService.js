@@ -34,13 +34,9 @@ class UsuarioService {
     if (!usuarioData.dataNascimento || typeof usuarioData.dataNascimento !== 'string') {
       throw new Error('Data de nascimento inválida ou ausente.');
     }
-
     const dataFormatted = usuarioData.dataNascimento.split('/').reverse().join('-');
-    console.log(dataFormatted);
-    const dataDate = new Date(dataFormatted);       //porque é diferente o data_nascimento 
-    console.log(dataDate);
-    usuarioData.dataNascimento = dataDate;          //aqui usa o dataNascimento e não data_nascimento        
-      console.log(usuarioData)
+    const dataDate = new Date(dataFormatted);
+    usuarioData.dataNascimento = dataDate;        
       return await prismaClient.usuario.create({       
         data: usuarioData,
       });
@@ -48,7 +44,7 @@ class UsuarioService {
   async updateUsuario(id, usuarioData) {
     try {
       const usuario = await prismaClient.usuario.update({
-        where: { id: Number(id) },
+        where: { id: parseInt(id) },
         data: usuarioData,
       });
 

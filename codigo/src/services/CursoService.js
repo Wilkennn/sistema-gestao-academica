@@ -2,18 +2,14 @@ import { prismaClient } from '../database/prismaClient.js';
 
 class CursoService {
   async getAllCursos() {
-    return prismaClient.curso.findMany({
-      include: {
-        alunos: true,
-      },
-    });
+    return prismaClient.curso.findMany();
   }
 
   async getCursoById(id) {
     return prismaClient.curso.findUnique({
-      where: { id: Number(id) },
+      where: { id: parseInt(id) },
       include: {
-        alunos: true,
+        cursoAluno: true,
       },
     });
   }
