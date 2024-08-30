@@ -1,10 +1,10 @@
-// controllers/AlunoController.js
 import AlunoService from '../services/AlunoService.js';
 
 export class AlunoController {
   async getAll(req, res) {
     try {
       const alunos = await AlunoService.getAllAlunos();
+      console.log(alunos)
       res.status(200).json(alunos);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching students', error });
@@ -14,6 +14,7 @@ export class AlunoController {
   async getById(req, res) {
     try {
       const { id } = req.params;
+      
       const aluno = await AlunoService.getAlunoById(id);
       if (aluno) {
         res.status(200).json(aluno);
@@ -37,9 +38,11 @@ export class AlunoController {
 
   async update(req, res) {
     try {
+      console.log(req.params);
       const { id } = req.params;
+      console.log(req.params);
       const alunoData = req.body;
-      const updatedAluno = await AlunoService.updateAluno(id, alunoData);
+      const updatedAluno = await AlunoService.updateAluno(id);
       res.status(200).json(updatedAluno);
     } catch (error) {
       res.status(500).json({ message: 'Error updating student', error });

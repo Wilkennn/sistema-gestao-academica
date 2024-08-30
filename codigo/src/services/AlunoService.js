@@ -2,21 +2,25 @@ import { prismaClient } from '../database/prismaClient.js';
 
 class AlunoService {
   async getAllAlunos() {
-    return prismaClient.aluno.findMany();
+    try{
+     
+      return prismaClient.aluno.findMany();
+    }catch(error) {
+      console.error(error);
+      throw new Error('Error ao buscar alunos');
+    }
+    
   }
 
-  async getAlunoById(matricula) {
-    return prismaClient.aluno.findUnique({
-      where: { matricula: Number(matricula) },
-      include: {
-        alunoStatus: true,
-        mensalidades: true,
-        notificacoes: true,
-        cursos: true,
-        disciplinas: true,
-        Usuario: true,
-      },
-    });
+  async getAlunoById(id) {
+    try {
+          return prismaClient.aluno.findUnique({
+            where: { id: parseInt(id) }
+          });
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error ao buscar aluno');
+  }
   }
 
   async createAluno(alunoData) {
@@ -38,13 +42,6 @@ class AlunoService {
     });
   }
 
-  async createAlunoStatus(alunoStatusData) {
-    return prismaClient.alunoStatus.create({
-      include: {
-        data: alun,
-      },
-    });
-  }
 }
 
 export default new AlunoService();

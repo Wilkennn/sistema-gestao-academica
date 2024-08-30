@@ -8,75 +8,64 @@ generator client {
 }
 
 model Usuario {
-  id              Int           @id @default(autoincrement())
-  nome            String
-  cpf             String        @unique
-  email           String        @unique
-  endereco        String
-  telefone        String
-  dataNascimento  DateTime      @map("data_nascimento")
-  login           String        @unique
-  senha           String
+  id             Int      @id @default(autoincrement())
+  nome           String
+  cpf            String   @unique
+  email          String   @unique
+  endereco       String
+  telefone       String
+  dataNascimento DateTime @map("data_nascimento")
+  login          String   @unique
+  senha          String
 
-  alunos          Aluno[]
-  funcionarios    Funcionario[]
+  alunos       Aluno[]
+  funcionarios Funcionario[]
 }
 
 model Aluno {
-  id              Int                @id @default(autoincrement())
-  periodo         String
-  dataIngresso    DateTime           @map("data_ingresso")
-  mensalidades    Mensalidade[]
-  cursos          Curso_Aluno[]
-  disciplinas     Aluno_Disciplina[]
+  id           Int                @id @default(autoincrement())
+  periodo      String
+  dataIngresso DateTime           @map("data_ingresso")
+  mensalidades Mensalidade[]
+  cursos       Curso_Aluno[]
+  disciplinas  Aluno_Disciplina[]
 
-  usuarioId       Int?
-  usuario         Usuario?           @relation(fields: [usuarioId], references: [id])
+  usuarioId Int?
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
 }
-
 
 model Funcionario {
-  id            Int                 @id @default(autoincrement())
-  salario       Float
-  dataAdmissao  DateTime           @map("data_admissao")
-  cargos        Cargo_Funcionario[]
-  usuarioId       Int?
-  usuario         Usuario?           @relation(fields: [usuarioId], references: [id])
-
-}
-
-model Cargo {
   id           Int                 @id @default(autoincrement())
-  nome         String
-  funcionarios Cargo_Funcionario[]
+  salario      Float
+  dataAdmissao DateTime            @map("data_admissao")
+  cargo        Cargo
+  usuarioId    Int
+  usuario      Usuario             @relation(fields: [usuarioId], references: [id])
 }
 
-model Cargo_Funcionario {
-  funcionario  Funcionario @relation(fields: [funcionarioId], references: [id])
-  funcionarioId Int
-  cargo         Cargo       @relation(fields: [cargoId], references: [id])
-  cargoId       Int
-
-  @@id([funcionarioId, cargoId])
+enum Cargo {
+  PROFESSOR
+  SECRETARIA
 }
+
 
 model Curso {
-  id            Int           @id @default(autoincrement())
-  nome          String
-  duracao       Int
-  creditos      Int
-  cargaHoraria  Int           @map("carga_horaria")
+  id           Int    @id @default(autoincrement())
+  nome         String
+  duracao      Int
+  creditos     Int
+  cargaHoraria Int    @map("carga_horaria")
 
-  cursoAluno  Curso_Aluno[]
+  cursoAluno Curso_Aluno[]
 }
 
 model Curso_Aluno {
-  curso          Curso       @relation(fields: [cursoId], references: [id])
-  cursoId        Int
-  aluno          Aluno       @relation(fields: [alunoId], references: [id])
-  alunoId       Int
-  periodo        Int
-  cursoStatus    CursoStatus
+  curso       Curso       @relation(fields: [cursoId], references: [id])
+  cursoId     Int
+  aluno       Aluno       @relation(fields: [alunoId], references: [id])
+  alunoId     Int
+  periodo     Int
+  cursoStatus CursoStatus
 
   @@id([cursoId, alunoId])
   @@index([cursoId, alunoId])
@@ -90,40 +79,39 @@ enum CursoStatus {
 }
 
 model Disciplina {
-  id            Int                      @id @default(autoincrement())
-  nome          String
-  cargaHoraria  String
-  valor         Float
-  alunos        Aluno_Disciplina[]
+  id           Int                @id @default(autoincrement())
+  nome         String
+  cargaHoraria String
+  valor        Float
+  alunos       Aluno_Disciplina[]
 }
 
 model Aluno_Disciplina {
-  aluno          Aluno      @relation(fields: [alunoId], references: [id])
-  alunoId        Int
-  disciplina     Disciplina @relation(fields: [disciplinaId], references: [id])
-  disciplinaId   Int
-  nota           Float
-  frequencia     Float
+  aluno        Aluno      @relation(fields: [alunoId], references: [id])
+  alunoId      Int
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+  disciplinaId Int
+  nota         Float
+  frequencia   Float
 
   @@id([alunoId, disciplinaId])
 }
 
 model Mensalidade {
-  id             Int                      @id @default(autoincrement())
-  mes            String
-  ano            String
-  dataValidade   DateTime
-  valor          Float
-  aluno          Aluno                    @relation(fields: [alunoId], references: [id])
-  alunoId       Int
-  status         MensalidadeStatus[]
+  id           Int                             @id @default(autoincrement())
+  mes          String
+  ano          String
+  dataValidade DateTime
+  valor        Float
+  aluno        Aluno                           @relation(fields: [alunoId], references: [id])
+  alunoId      Int
+  status       MensalidadeStatus
 
   @@index([alunoId])
 }
 
-model MensalidadeStatus {
-  id            Int         @id @default(autoincrement())
-  nome          String
-  mensalidade   Mensalidade @relation(fields: [mensalidadeId], references: [id])
-  mensalidadeId Int
+enum MensalidadeStatus {
+  PAGO
+  ATRASADO
 }
+
