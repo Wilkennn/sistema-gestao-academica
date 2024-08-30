@@ -5,6 +5,8 @@ import { AlunoController } from '../controllers/AlunoController.js';
 import { FuncionarioController } from '../controllers/FuncionarioController.js';
 import { CursoController } from '../controllers/CursoController.js';
 import { DisciplinaController } from '../controllers/DisciplinaController.js';
+import { AlunoDisciplinaController } from '../controllers/AlunoDisciplinaController.js';
+import { CursoAlunoController } from '../controllers/CursoAlunoController.js';
 
 
 const router = Router();
@@ -14,6 +16,8 @@ const usuarioController = new UsuarioController();
 const alunoController = new AlunoController();
 const funcionarioController = new FuncionarioController();
 const disciplinaController = new DisciplinaController();
+const alunoDisciplinaController = new AlunoDisciplinaController();
+const cursoAlunoController = new CursoAlunoController();
 
 
 // Rotas para usuário
@@ -50,6 +54,20 @@ router.get('/disciplina/:id', disciplinaController.getById);
 router.post('/disciplina', disciplinaController.create);
 router.put('/disciplina/:id', disciplinaController.update);
 router.delete('/disciplina/:id', disciplinaController.delete);
+
+// Rotas para Aluno_Disciplina
+router.get('/aluno-disciplina', alunoDisciplinaController.getAll);
+router.get('/aluno-disciplina/:id', alunoDisciplinaController.getById);
+router.post('/aluno-disciplina', alunoDisciplinaController.create);
+router.put('/aluno-disciplina/:id', alunoDisciplinaController.update);
+router.delete('/aluno-disciplina/:id', alunoDisciplinaController.delete);
+
+// Rotas para Curso_Aluno 
+router.get('/curso-aluno', cursoAlunoController.getAll);
+router.get('/curso-aluno/:id/:id', cursoAlunoController.getById);
+router.post('/curso-aluno', cursoAlunoController.create);
+router.put('/curso-aluno/:id/:id', cursoAlunoController.update);
+router.delete('/curso-aluno/:id/:id', cursoAlunoController.delete);
 
 
 

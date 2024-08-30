@@ -38,14 +38,19 @@ export class AlunoController {
 
   async update(req, res) {
     try {
-      console.log(req.params);
       const { id } = req.params;
-      console.log(req.params);
       const alunoData = req.body;
-      const updatedAluno = await AlunoService.updateAluno(id);
-      res.status(200).json(updatedAluno);
+      const updatedAluno = await AlunoService.updateAluno(id, alunoData);
+      if (updatedAluno) {
+        res.status(200).json({ message: 'Aluno atualizado com sucesso.', usuario: updatedAluno });
+      } else {
+        res.status(404).json({ message: `Aluno com ID ${id} não encontrado para atualização.` });
+      }
     } catch (error) {
-      res.status(500).json({ message: 'Error updating student', error });
+      res.status(500).json({
+        message: 'Não foi possível atualizar o aluno. Verifique os dados e tente novamente.',
+        error: error.message
+      });
     }
   }
 

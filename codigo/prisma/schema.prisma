@@ -29,6 +29,7 @@ model Aluno {
   mensalidades Mensalidade[]
   cursos       Curso_Aluno[]
   disciplinas  Aluno_Disciplina[]
+  
 
   usuarioId Int?
   usuario   Usuario? @relation(fields: [usuarioId], references: [id])

@@ -3,8 +3,7 @@ import { prismaClient } from '../database/prismaClient.js';
 class AlunoService {
   async getAllAlunos() {
     try{
-     
-      return prismaClient.aluno.findMany();
+      return await prismaClient.aluno.findMany();
     }catch(error) {
       console.error(error);
       throw new Error('Error ao buscar alunos');
@@ -29,19 +28,23 @@ class AlunoService {
     });
   }
 
-  async updateAluno(matricula, alunoData) {
-    return prismaClient.aluno.update({
-      where: { matricula: Number(matricula) },
-      data: alunoData,
-    });
+  async updateAluno(id, alunoData) {
+    try {
+          return prismaClient.aluno.update({
+            where: { id: parseInt(id) },
+            data: alunoData,
+          });
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error ao atualizar aluno');
+    }
   }
 
-  async deleteAluno(matricula) {
+  async deleteAluno(id) {
     return prismaClient.aluno.delete({
-      where: { matricula: Number(matricula) },
+      where: { id: parseInt(id) },
     });
   }
-
 }
 
 export default new AlunoService();
