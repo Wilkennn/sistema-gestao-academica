@@ -2,16 +2,7 @@ import { prismaClient } from '../database/prismaClient.js';
 
 class AlunoService {
   async getAllAlunos() {
-    return prismaClient.aluno.findMany({
-      include: {
-        alunoStatus: true,
-        mensalidades: true,
-        notificacoes: true,
-        cursos: true,
-        disciplinas: true,
-        Usuario: true,
-      },
-    });
+    return prismaClient.aluno.findMany();
   }
 
   async getAlunoById(matricula) {
