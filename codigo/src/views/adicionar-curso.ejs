@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGA</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/disciplinas.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="image/logo-puc-minas.jpg" alt="logo" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(atual)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Container Principal -->
+    <div id="cursos-container" class="container mt-5">
+        <div class="header">
+            <h2>Adicionar Cursos</h2>
+            <% if (message) { %>
+                <div id="alert-message" data-type="<%= su %>" data-message="<%= message %>"></div>
+            <% } %>
+        </div>
+        <hr>
+        <div class="form-container">
+            <form class="row g-3" method="post" action="/curso">
+                <div class="col-md-12">
+                    <label for="nome">Nome do Curso</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do curso" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="icon">Ícone</label>
+                    <input type="text" class="form-control" id="icon" name="icon" placeholder="Classe do ícone Font Awesome" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="duracao">Duração (em períodos)</label>
+                    <input type="number" class="form-control" id="duracao" name="duracao" placeholder="Duração do curso" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="creditos">Créditos</label>
+                    <input type="number" class="form-control" id="creditos" name="creditos" placeholder="Créditos do curso" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="cargaHoraria">Carga Horária (em horas)</label>
+                    <input type="number" class="form-control" id="cargaHoraria" name="cargaHoraria" placeholder="Carga horária do curso" required>
+                </div>
+                <div class="col-md-12">
+                    <label for="descricao">Descrição</label>
+                    <textarea class="form-control" id="descricao" name="descricao" rows="4" placeholder="Descrição do curso" required></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block mt-5">
+                        <i class="fas fa-save"></i> Salvar Curso
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/adicionar-curso.js"></script>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -4,7 +4,13 @@ export class CursoController {
   async getAll(req, res) {
     try {
       const cursos = await CursoService.getAllCursos();
-      res.status(200).json(cursos);
+
+      if (req.query.format === 'json') {
+        return res.status(200).json(cursos);
+      } else {
+        return res.render('cursos', { cursos });
+      }
+
     } catch (error) {
       res.status(500).json({ message: 'Error fetching courses', error });
     }
@@ -28,14 +34,28 @@ export class CursoController {
     try {
       const cursoData = req.body;
 
-      if (!cursoData.nome ||!cursoData.cargaHoraria) {
+      if (!cursoData.nome || !cursoData.cargaHoraria) {
         return res.status(400).json({ message: 'Missing required fields: nome and cargaHoraria' });
       }
 
+      cursoData.duracao = parseInt(cursoData.duracao);
+      cursoData.creditos = parseInt(cursoData.creditos);
+      cursoData.cargaHoraria = parseInt(cursoData.cargaHoraria);
+
       const newCurso = await CursoService.createCurso(cursoData);
-      res.status(201).json(newCurso);
+
+      if (req.query.format === 'json') {
+        return res.status(201).json(newCurso);
+      } else {
+        return res.render('adicionar-curso', { success: true,  messageType: 'success', message: "Curso criado com sucesso! <i class='fas fa-check check-icon'></i>" });
+      }
+
     } catch (error) {
-      res.status(500).json({ message: 'Error creating course', error });
+      if (req.query.format === 'json') {
+        return res.status(500).json({ success: false, message: error })
+      } else {
+        return res.status(500).render('adicionar-curso', { success: false,  messageType: 'error', message: "Erro ao criar o curso! <i class='fas fa-check error-icon'></i>" });
+      }
     }
   }
 

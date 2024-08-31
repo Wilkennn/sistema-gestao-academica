@@ -2,35 +2,78 @@ import { prismaClient } from '../database/prismaClient.js';
 
 class CursoService {
   async getAllCursos() {
-    return prismaClient.curso.findMany();
+    try {
+      return await prismaClient.curso.findMany();
+    } catch (error) {
+      console.error('Erro ao buscar todos os cursos:', error);
+      throw new Error('Não foi possível buscar os cursos');
+    }
   }
 
   async getCursoById(id) {
-    return prismaClient.curso.findUnique({
-      where: { id: parseInt(id) },
-      include: {
-        cursoAluno: true,
-      },
-    });
+    try {
+      const curso = await prismaClient.curso.findUnique({
+        where: { id: Number(id) },
+        include: { cursoAluno: true },
+      });
+
+      if (!curso) {
+        throw new Error(`Curso com id ${id} não encontrado`);
+      }
+
+      return curso;
+    } catch (error) {
+      console.error(`Erro ao buscar curso com id ${id}:`, error);
+      throw error;
+    }
   }
 
   async createCurso(cursoData) {
-    return prismaClient.curso.create({
-      data: cursoData,
-    });
+    try {
+      const curso = await prismaClient.curso.create({
+        data: cursoData,
+      });
+
+      return curso;
+    } catch (error) {
+      console.error('Erro ao criar curso:', error);
+      throw new Error('Não foi possível criar o curso');
+    }
   }
 
   async updateCurso(id, cursoData) {
-    return prismaClient.curso.update({
-      where: { id: Number(id) },
-      data: cursoData,
-    });
+    try {
+      const curso = await prismaClient.curso.update({
+        where: { id: Number(id) },
+        data: cursoData,
+      });
+
+      if (!curso) {
+        throw new Error(`Curso com id ${id} não encontrado`);
+      }
+
+      return curso;
+    } catch (error) {
+      console.error(`Erro ao atualizar curso com id ${id}:`, error);
+      throw error;
+    }
   }
 
   async deleteCurso(id) {
-    return prismaClient.curso.delete({
-      where: { id: Number(id) },
-    });
+    try {
+      const curso = await prismaClient.curso.delete({
+        where: { id: Number(id) },
+      });
+
+      if (!curso) {
+        throw new Error(`Curso com id ${id} não encontrado`);
+      }
+
+      return curso;
+    } catch (error) {
+      console.error(`Erro ao deletar curso com id ${id}:`, error);
+      throw error;
+    }
   }
 }
 

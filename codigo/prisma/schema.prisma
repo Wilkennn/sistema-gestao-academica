@@ -53,6 +53,8 @@ enum Cargo {
 model Curso {
   id           Int    @id @default(autoincrement())
   nome         String
+  descricao    String?
+  icon         String?
   duracao      Int
   creditos     Int
   cargaHoraria Int    @map("carga_horaria")

@@ -34,4 +34,14 @@ header {
     justify-content: center; /* Centraliza verticalmente o conteúdo dentro do card */
 }
 
+#cursos-container .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+#cursos-container .header h2 {
+margin: 0;
+}
+
 

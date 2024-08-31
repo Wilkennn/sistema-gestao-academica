@@ -31,25 +31,10 @@ CREATE TABLE `Funcionario` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `salario` DOUBLE NOT NULL,
     `data_admissao` DATETIME(3) NOT NULL,
-    `usuarioId` INTEGER NULL,
+    `cargo` ENUM('PROFESSOR', 'SECRETARIA') NOT NULL,
+    `usuarioId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Cargo` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nome` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Cargo_Funcionario` (
-    `funcionarioId` INTEGER NOT NULL,
-    `cargoId` INTEGER NOT NULL,
-
-    PRIMARY KEY (`funcionarioId`, `cargoId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -102,17 +87,9 @@ CREATE TABLE `Mensalidade` (
     `dataValidade` DATETIME(3) NOT NULL,
     `valor` DOUBLE NOT NULL,
     `alunoId` INTEGER NOT NULL,
+    `status` ENUM('PAGO', 'ATRASADO') NOT NULL,
 
     INDEX `Mensalidade_alunoId_idx`(`alunoId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `MensalidadeStatus` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nome` VARCHAR(191) NOT NULL,
-    `mensalidadeId` INTEGER NOT NULL,
-
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -120,13 +97,7 @@ CREATE TABLE `MensalidadeStatus` (
 ALTER TABLE `Aluno` ADD CONSTRAINT `Aluno_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuario`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Funcionario` ADD CONSTRAINT `Funcionario_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuario`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Cargo_Funcionario` ADD CONSTRAINT `Cargo_Funcionario_funcionarioId_fkey` FOREIGN KEY (`funcionarioId`) REFERENCES `Funcionario`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Cargo_Funcionario` ADD CONSTRAINT `Cargo_Funcionario_cargoId_fkey` FOREIGN KEY (`cargoId`) REFERENCES `Cargo`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Funcionario` ADD CONSTRAINT `Funcionario_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuario`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Curso_Aluno` ADD CONSTRAINT `Curso_Aluno_cursoId_fkey` FOREIGN KEY (`cursoId`) REFERENCES `Curso`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -142,6 +113,3 @@ ALTER TABLE `Aluno_Disciplina` ADD CONSTRAINT `Aluno_Disciplina_disciplinaId_fke
 
 -- AddForeignKey
 ALTER TABLE `Mensalidade` ADD CONSTRAINT `Mensalidade_alunoId_fkey` FOREIGN KEY (`alunoId`) REFERENCES `Aluno`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `MensalidadeStatus` ADD CONSTRAINT `MensalidadeStatus_mensalidadeId_fkey` FOREIGN KEY (`mensalidadeId`) REFERENCES `Mensalidade`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

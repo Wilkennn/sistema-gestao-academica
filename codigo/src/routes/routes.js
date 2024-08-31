@@ -48,6 +48,9 @@ router.post('/curso', cursoController.create);
 router.put('/curso/:id', cursoController.update);
 router.delete('/curso/:id', cursoController.delete);
 
+router.get('/adicionar-curso', (req, res) => { res.render('adicionar-curso'); });
+  
+
 // Rotas para disciplina
 router.get('/disciplina', disciplinaController.getAll);
 router.get('/disciplina/:id', disciplinaController.getById);
