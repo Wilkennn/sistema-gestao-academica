@@ -4,7 +4,7 @@ export class UsuarioController {
 
   async getAll(req, res) {
     try {
-      const usuarios = await UsuarioService.getAllUsuarios();
+      const usuarios = await UsuarioService.getAllUsuarios();      
       res.status(200).json(usuarios);
     } catch (error) {
       res.status(500).json({
@@ -42,6 +42,13 @@ export class UsuarioController {
     try {
       const usuarioData = req.body;
       const newUsuario = await UsuarioService.createUsuario(usuarioData);
+
+      if (req.query.format === 'json') {
+        return res.status(201).json(newCurso);
+      } else {
+        return res.render('cadastro', { success: true,  messageType: 'success', message: "Usuario criado com sucesso! <i class='fas fa-check check-icon'></i>" });
+      }
+
       console.log(newUsuario);
       res.status(201).json({ message: 'Usuário criado com sucesso.', usuario: newUsuario });
     } catch (error) {

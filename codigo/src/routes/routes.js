@@ -31,15 +31,18 @@ router.delete('/usuario/:id', usuarioController.delete);
 router.get('/aluno', alunoController.getAll);
 router.get('/aluno/:id', alunoController.getById);
 router.post('/aluno', alunoController.create);
-router.put('/aluno/:id', alunoController.update);
-router.delete('/aluno/:id', alunoController.delete);
+router.post('/aluno/:id/editar', alunoController.update);
+router.get('/aluno/:id/editar', (req, res) => {req.query.page = 'editar'; alunoController.getById(req, res);});
+router.delete('/aluno/:id/deletar', alunoController.delete);
+router.get('/aluno/:id/deletar', (req, res) => {req.query.page = 'deletar'; alunoController.getAll(req, res);});
+
 
 // Rotas para funcionario
 router.get('/funcionario', funcionarioController.getAll);
 router.get('/funcionario/:id', funcionarioController.getById);
 router.post('/funcionario', funcionarioController.create);
-router.put('/funcionario/:id', funcionarioController.update);
-router.delete('/funcionario/:id', funcionarioController.delete);
+router.post('/funcionario/editar/:id', funcionarioController.update);
+router.post('/funcionario/:id/deletar', funcionarioController.delete);
 
 // Rotas para curso
 router.get('/curso', cursoController.getAll);
@@ -47,7 +50,6 @@ router.get('/curso/:id', cursoController.getById);
 router.post('/curso', cursoController.create);
 router.put('/curso/:id', cursoController.update);
 router.delete('/curso/:id', cursoController.delete);
-
 router.get('/adicionar-curso', (req, res) => { res.render('adicionar-curso'); });
   
 

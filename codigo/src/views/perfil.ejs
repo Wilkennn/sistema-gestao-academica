@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Perfil</title>
+    <style>
+        /* Adicione aqui o CSS */
+        body {
+            background-color: #f8f9fa; /* Cor de fundo do corpo da página */
+            min-height: 100vh;
+        }
+
+        header {
+            color: red !important;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave ao cabeçalho */
+        }
+
+        .logo {
+            border-radius: 20%;
+            height: 60px;
+            object-fit: cover; /* Escala a imagem */
+            object-position: center; /* Centraliza a imagem */
+            overflow: hidden;
+            width: 60px;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #ffffff; /* Cor de fundo dos cards */
+            border: 1px solid #e0e0e0; /* Borda leve para os cards */
+            border-radius: 12px;
+            cursor: pointer;
+            height: 100%; /* Faz com que todos os cards tenham a mesma altura */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centraliza verticalmente o conteúdo dentro do card */
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .profile-header h2 {
+            margin: 0;
+        }
+
+        footer {
+            background-color: #0f70b7;
+            text-align: center;
+            color: white;
+            padding: 8px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="bg-light py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="logo.png" alt="Logo" class="logo">
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Sobre</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+
+
+            <div class="profile-header">
+            
+            <div>
+                <h2><%=aluno.usuario.nome%></h2>
+                <p><%=aluno.usuario.login%> </p>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Informações Pessoais</h5>
+                <p class="card-text">Email: <%= aluno.usuario.email %></p>
+                <p class="card-text">Telefone: <%= aluno.usuario.telefone %></p>
+                <p class="card-text">Endereço: <%= aluno.usuario.endereco %></p>
+                <p class="card-text">CPF: <%= aluno.usuario.cpf %></p>
+                <p class="card-text">Data Nascimento: <%= aluno.usuario.dataNascimento %></p>
+            </div>
+        </div>
+
+        <% if(aluno.cursos) { %>
+            <div class="card mt-4">
+                <% aluno.cursos.forEach(c => { %>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= c.curso.nome %></h5>
+                        <p class="card-text">Período: <%= c.periodo %></p>
+                        <p class="card-text">Status: <%= c.cursoStatus %></p>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+
+    <footer>
+        Todos os direitos reservados ao SGA
+    </footer>
+</body>
+</html>

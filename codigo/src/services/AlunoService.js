@@ -23,7 +23,15 @@ class AlunoService {
   async getAlunoById(id) {
     try {
           return prismaClient.aluno.findUnique({
-            where: { id: parseInt(id) }
+            where: { id: parseInt(id) },
+            include: {
+              usuario: true,
+              cursos: {
+                include: {
+                  curso: true,
+                },
+              },
+            },
           });
     } catch (error) {
       console.error(error);
@@ -35,9 +43,9 @@ class AlunoService {
     try {
 
 
-        const dataFormatted = alunoData.dataIngresso.split('/').reverse().join('-');
-        const dataDate = new Date(dataFormatted);
-        alunoData.dataIngresso = dataDate;  
+      const dataFormatted = alunoData.dataIngresso.split('/').reverse().join('-');
+      const dataDate = new Date(dataFormatted);
+      alunoData.dataIngresso = dataDate;  
 
       console.log(alunoData.dataIngresso);
 

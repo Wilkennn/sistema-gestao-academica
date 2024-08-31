@@ -27,9 +27,19 @@
                         <% }); %>
                         
                         <td>
-                            <i class="fas fa-eye table-icon" title="Visualizar"></i>
-                            <i class="fas fa-edit table-icon mx-2" title="Editar"></i>
-                            <i class="fas fa-trash table-icon" title="Excluir"></i>
+                            <form onclick="window.location.href='/aluno/<%= aluno.id %>';">
+                                <i class="fas fa-eye table-icon" title="Visualizar"></i>
+                            </form>
+                            <form  onclick="window.location.href='/aluno/<%= aluno.id %>/editar';">
+                                <i class="fas fa-edit table-icon mx-2" title="Editar"></i>
+                            </form>
+                            <form action="/aluno/<%= aluno.id %>/deletar" method="DELETE" onsubmit="return confirm('Tem certeza que deseja deletar este aluno?');" style="display:inline;">
+                                <button type="submit" class="btn btn-link">
+                                    <i class="fas fa-trash table-icon" title="Excluir"></i>
+                                </button>
+                            </form>
+                            
+                            
                         </td>
                     </tr>
                 <% }); %>

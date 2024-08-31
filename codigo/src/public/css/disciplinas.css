@@ -17,6 +17,10 @@ header {
     width: 60px;
 }
 
+form{
+    cursor: pointer;
+}
+
 .container {
     margin-top: 20px;
 }
