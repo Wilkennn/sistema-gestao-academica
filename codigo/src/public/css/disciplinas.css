@@ -1,5 +1,6 @@
 body {
     background-color: #f8f9fa; /* Cor de fundo do corpo da página */
+    min-height: 100vh;
 }
 
 header {
@@ -44,4 +45,11 @@ header {
 margin: 0;
 }
 
+footer{
+      
+    background-color: #0f70b7;
+    text-align: center;
+    color:white;
+    padding: 8px 0;
+}
 

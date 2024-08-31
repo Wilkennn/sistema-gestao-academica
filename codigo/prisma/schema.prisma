@@ -86,6 +86,7 @@ model Disciplina {
   nome         String
   cargaHoraria String
   valor        Float
+  creditos     Int
   alunos       Aluno_Disciplina[]
 }
 

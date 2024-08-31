@@ -5,6 +5,14 @@ export class AlunoController {
     try {
       const alunos = await AlunoService.getAllAlunos();
       console.log(alunos)
+
+      if (req.query.format === 'json') {
+        return res.status(200).json(alunos);
+      } else {
+        return res.render('alunos', { alunos });
+      }
+
+      console.log(alunos)
       res.status(200).json(alunos);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching students', error });

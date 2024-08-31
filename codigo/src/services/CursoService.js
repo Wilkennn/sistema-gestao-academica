@@ -33,7 +33,6 @@ class CursoService {
       const curso = await prismaClient.curso.create({
         data: cursoData,
       });
-
       return curso;
     } catch (error) {
       console.error('Erro ao criar curso:', error);

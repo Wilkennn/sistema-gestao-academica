@@ -30,7 +30,6 @@ class UsuarioService {
   
   
   async createUsuario(usuarioData) {
-
     if (!usuarioData.dataNascimento || typeof usuarioData.dataNascimento !== 'string') {
       throw new Error('Data de nascimento inválida ou ausente.');
     }
