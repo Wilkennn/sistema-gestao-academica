@@ -34,8 +34,9 @@ router.get('/aluno/:id/editar', (req, res) => { req.query.page = 'editar'; aluno
 router.delete('/aluno/:id/deletar', alunoController.delete);
 router.get('/aluno/:id/deletar', alunoController.getAll);
 router.get('/aluno/:id/adicionar-curso', alunoController.mostrarCursos);
+
 router.post('/aluno/:id/adicionar-curso', alunoController.addCurso);
-router.get('/aluno/cadastrar', (req, res) => {
+router.get('/aluno-cadastrar', (req, res) => {
     console.log('Acessando a página de cadastro de aluno');
     res.render('cadastrar-aluno')
     });

@@ -1,5 +1,7 @@
 import { prismaClient } from '../database/prismaClient.js';
 import UsuarioService  from '../services/UsuarioService.js';
+import CursoService  from '../services/CursoService.js';
+import CursoAlunoService  from '../services/CursoAlunoService.js';
 
 class AlunoService {
   async getAllAlunos() {
@@ -43,20 +45,23 @@ class AlunoService {
   async createAluno(alunoData) {
     try {
 
-      console.log(alunoData)
+      console.log(alunoData) 
 
       let usuario = await prismaClient.usuario.findUnique({
         where: { email: alunoData.email },
       });
 
       if (!usuario) {
+
+        const formattedDate = new Date(alunoData.data).toISOString();
+
         usuario = await UsuarioService.createUsuario({
           nome: alunoData.nome,
           email: alunoData.email,
           cpf: alunoData.cpf,
           endereco: alunoData.endereco,
           telefone: alunoData.telefone,
-          dataNascimento: alunoData.dataNascimento,
+          dataNascimento: formattedDate,
           login: alunoData.login,
           senha: alunoData.senha,
         });
@@ -64,26 +69,38 @@ class AlunoService {
 
       const aluno = await prismaClient.aluno.create({
         data: {
-          periodo: alunoData.periodo,
-          dataIngresso: alunoData.dataIngresso,
-          usuarioId: 1,
+          periodo: "1",
+          dataIngresso: new Date(),
+          usuarioId: usuario.id,
         },
       });
 
+      console.log("Criou o aluno");
+
+      let curso = await prismaClient.curso.findUnique({
+        where: { id: parseInt(alunoData.cursoId) },
+      })
+
+      if (!curso) {
+        console.error("Curso não encontrado");
+      } else {
+        await prismaClient.curso_Aluno.create({
+          data: {
+            alunoId: aluno.id,
+            cursoId: parseInt(alunoData.cursoId),
+            periodo: 1,
+            cursoStatus: 'CANCELADO',
+          },
+        });
+      }
       return aluno;
 
-      const dataFormatted = alunoData.dataIngresso.split('/').reverse().join('-');
-      const dataDate = new Date(dataFormatted);
-      alunoData.dataIngresso = dataDate;
-
-      console.log(alunoData.dataIngresso);
-
-      alunoData.periodo = alunoData.periodo.toString();
-      return prismaClient.aluno.create({
-        data: alunoData,
-      });
     } catch (error) {
-      es.status(500).json({ message: 'Error creating student', error });
+      console.error("Erro ao criar aluno", error);
+      return res.status(500).json({
+        message: 'Erro ao criar aluno',
+        error: error.message || error,
+      });
     }
   }
 
