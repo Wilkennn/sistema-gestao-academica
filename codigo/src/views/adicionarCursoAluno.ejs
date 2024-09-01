@@ -1,0 +1,21 @@
+<%- include('partials/header.html') %>
+
+
+    <div class="container">
+        <h2>Adicionar Curso ao Aluno <%= aluno.usuario.nome %></h2>
+        <form action="/aluno/<%= aluno.id %>/adicionar-curso" method="post">
+            <div class="form-group">
+                <label for="curso">Selecione um Curso:</label>
+                <select id="curso" name="cursoId" class="form-control">
+                    <% cursos.forEach(curso => { %>
+                        <option value="<%= curso.id %>"><%= curso.nome %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Curso</button>
+        </form>
+    </div>
+
+    <!-- Adicione seus scripts aqui -->
+</body>
+</html>

@@ -3,6 +3,8 @@
     <!-- Container Principal -->
     <div class="container mt-4">
         <h2>Alunos</h2>
+
+
         <hr>
         <table class="table table-bordered mt-4">
             <thead>
@@ -22,7 +24,12 @@
                         <td><%= aluno.usuario.nome %></td>
                         <td><%= aluno.usuario.email %></td>
                         <% aluno.cursos.forEach(alunoCurso => { %>
-                            <td><%=alunoCurso.curso.nome%></td>
+                            <td><%=alunoCurso.curso.nome%></br>
+                            <form onclick="window.location.href='/aluno/<%= aluno.id %>/adicionar-curso';">
+                                <i class="fas fa-plus table-icon"></i>
+                            </form>
+                               
+                        </td>
                             <td><%=alunoCurso.cursoStatus%></td>
                         <% }); %>
                         
@@ -33,7 +40,8 @@
                             <form  onclick="window.location.href='/aluno/<%= aluno.id %>/editar';">
                                 <i class="fas fa-edit table-icon mx-2" title="Editar"></i>
                             </form>
-                            <form action="/aluno/<%= aluno.id %>/deletar" method="DELETE" onsubmit="return confirm('Tem certeza que deseja deletar este aluno?');" style="display:inline;">
+                            <form action="/aluno/<%= aluno.id %>/deletar" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este aluno?');" style="display:inline;">
+                                <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-link">
                                     <i class="fas fa-trash table-icon" title="Excluir"></i>
                                 </button>
@@ -47,10 +55,13 @@
         </table>
     </div>
 
+
     <!-- jQuery e Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
 
     <%- include('partials/footer.html') %>
 </body>

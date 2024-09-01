@@ -71,9 +71,27 @@ class AlunoService {
   }
 
   async deleteAluno(id) {
+    console.log(id);
     return prismaClient.aluno.delete({
+      
       where: { id: parseInt(id) },
     });
+  }
+
+  async addCursoAluno(alunoId, cursoId) {
+    try {
+      return await prismaClient.curso_Aluno.create({
+        data: {
+          alunoId: parseInt(alunoId),
+          cursoId: parseInt(cursoId),
+          periodo: 1,
+          cursoStatus: 'CANCELADO'
+        },
+      });
+    } catch (error) {
+      console.error('Erro ao adicionar curso ao aluno:', error.message);
+      throw new Error('Não foi possível adicionar o curso ao aluno.');
+    }
   }
 }
 

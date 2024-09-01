@@ -34,8 +34,9 @@ router.post('/aluno', alunoController.create);
 router.post('/aluno/:id/editar', alunoController.update);
 router.get('/aluno/:id/editar', (req, res) => { req.query.page = 'editar'; alunoController.getById(req, res); });
 router.delete('/aluno/:id/deletar', alunoController.delete);
-router.get('/aluno/:id/deletar', (req, res) => { req.query.page = 'deletar'; alunoController.getAll(req, res); });
-
+router.get('/aluno/:id/deletar', alunoController.getAll);
+router.get('/aluno/:id/adicionar-curso', alunoController.mostrarCursos);
+router.post('/aluno/:id/adicionar-curso', alunoController.addCurso);
 
 // Rotas para funcionario
 router.get('/funcionario', funcionarioController.getAll);

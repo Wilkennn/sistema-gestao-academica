@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (alertMessage) {
       Swal.fire({
-        icon: alertMessage.dataset.type === "success" ? "success" : "error",
+        icon: alertMessage.dataset.type === "sucess" ? "success" : "error",
         title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
         html: alertMessage.dataset.message,
         showConfirmButton: true,
@@ -15,4 +15,5 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+  
   
