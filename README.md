@@ -27,6 +27,8 @@ O sistema oferece uma série de funcionalidades para atender às necessidades de
 2. **Navegue até o diretório do projeto:**
 
     ```bash
+    cd repo_sis_matriculas
+    cd codigo
     cd src
     cd backend
     ```
