@@ -1,0 +1,44 @@
+<%- include('partials/header.html') %>
+    <!-- Container Principal -->
+    <div id="cursos-container" class="container mt-5">
+        <div class="header">
+            <h2>Cadastrar Disciplina</h2>
+        </div>
+        <hr>
+        <div class="form-container">
+            <form class="row g-3" method="post" action="/cadastrar-disciplina">
+                <div class="col-md-12">
+                    <label for="nome">Nome da Disciplina</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da Disciplina" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="cargaHoraria">Carga Horária (em horas)</label>
+                    <input type="number" class="form-control" id="cargaHoraria" name="cargaHoraria" placeholder="Carga horária do curso" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="valor">Valor</label>
+                    <input type="number" class="form-control" id="valor" name="valor" placeholder="Valor da disciplina" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="creditos">Créditos</label>
+                    <input type="number" class="form-control" id="creditos" name="creditos" placeholder="Créditos da disciplina" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block mt-5">
+                        <i class="fas fa-save"></i> Salvar Disciplina
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <%- include('partials/footer.html') %>
+
+</body>
+
+</html>

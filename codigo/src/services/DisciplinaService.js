@@ -12,21 +12,30 @@ class DisciplinaService {
 
   async getDisciplinaById(id) {
     return prismaClient.disciplina.findUnique({
-      where: { id: Number(id) },
-      include: {
-        alunos: true,
-        mensalidades: true,
-      },
+      where: { id: parseInt(id) },
     });
   }
 
   async createDisciplina(disciplinaData) {
-    return prismaClient.disciplina.create({
-      data: disciplinaData,
-    });
+    try {
+      console.log(disciplinaData)
+          disciplinaData.valor = parseFloat(disciplinaData.valor);
+          disciplinaData.creditos = parseInt(disciplinaData.creditos);
+          const disciplina = prismaClient.disciplina.create({
+            data: disciplinaData,
+          });
+          console.log(disciplina)
+          return disciplina;
+    } catch (error) {
+      
+    }
   }
 
   async updateDisciplina(id, disciplinaData) {
+
+    disciplinaData.valor = parseFloat(disciplinaData.valor);
+    disciplinaData.creditos = parseInt(disciplinaData.creditos);
+
     return prismaClient.disciplina.update({
       where: { id: Number(id) },
       data: disciplinaData,

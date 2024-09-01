@@ -1,0 +1,42 @@
+<%- include('partials/header.html') %>
+
+    <!-- Container Principal -->
+    <div id="cursos-container" class="container mt-4">
+        <div class="header">
+          <h2>Disciplinas</h2>
+          <button class="btn btn-primary" onclick="window.location.href='/cadastrar-disciplina';">
+            <i class="fas fa-plus"></i> Adicionar
+          </button>
+        </div>
+        <hr>
+        <div class="row mt-2" style="margin-bottom: 5rem;">
+          <%  disciplinas.forEach(function(disciplina) { %>
+            <div class="col-md-4 mb-3">
+              <a href="/disciplina/<%= disciplina.id %>" class="card-link">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                     <%= disciplina.nome %>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Código: <%= disciplina.nome.slice(0, 3).toUpperCase() + disciplina.id %></h6>
+                    <p class="card-text">Carga Horaria: <%= disciplina.cargaHoraria %></p>
+                    <p class="card-text">Valor: R$<%= disciplina.valor %></p>
+                    <p class="card-text">Créditos: <%= disciplina.creditos %></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          <% }) %>
+        </div>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <%- include('partials/footer.html') %>
+
+</body>
+
+</html>

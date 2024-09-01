@@ -93,9 +93,14 @@ router.get('/adicionar-curso', (req, res) => {
 // Rotas para disciplina
 router.get('/disciplina', disciplinaController.getAll);
 router.get('/disciplina/:id', disciplinaController.getById);
-router.post('/disciplina', disciplinaController.create);
 router.put('/disciplina/:id', disciplinaController.update);
 router.delete('/disciplina/:id', disciplinaController.delete);
+router.get('/cadastrar-disciplina', (req, res) => {
+    console.log('Acessando a página de cadastro de disciplina');
+    res.render('cadastrar-disciplina')
+    });
+router.post('/cadastrar-disciplina', disciplinaController.create);
+
 
 // Rotas para Aluno_Disciplina
 router.get('/aluno-disciplina', alunoDisciplinaController.getAll);

@@ -5,6 +5,13 @@ export class DisciplinaController {
   async getAll(req, res) {
     try {
       const disciplinas = await DisciplinaService.getAllDisciplinas();
+
+      if (req.query.format === 'json') {
+        return res.status(200).json(disciplinas);
+      }else {
+        return res.render('disciplinas', { disciplinas });
+      }
+
       res.status(200).json(disciplinas);
     } catch (error) {
       console.error('Erro ao listar disciplinas:', error);
@@ -17,11 +24,13 @@ export class DisciplinaController {
       const { id } = req.params;
       const disciplina = await DisciplinaService.getDisciplinaById(id);
 
-      if (disciplina) {
-        res.status(200).json(disciplina);
-      } else {
-        res.status(404).json({ message: `Disciplina com ID ${id} não encontrada.` });
+
+      if (req.query.format === 'json') {
+        return res.status(200).json(disciplina);
+      }else {
+        return res.render('editar-disciplina', { disciplina });
       }
+
     } catch (error) {
       console.error('Erro ao buscar disciplina:', error);
       res.status(500).json({ message: 'Erro ao buscar disciplina', error });
@@ -32,7 +41,11 @@ export class DisciplinaController {
     try {
       const disciplinaData = req.body;
       const newDisciplina = await DisciplinaService.createDisciplina(disciplinaData);
-      res.status(201).json(newDisciplina);
+      if (req.query.format === 'json') {
+        return res.status(201).json({ message: "Disciplina criada com sucesso!", id });;
+      } else {
+        return res.redirect('/disciplina');
+      }
     } catch (error) {
       console.error('Erro ao criar disciplina:', error);
       res.status(500).json({ message: 'Erro ao criar disciplina', error });
@@ -45,10 +58,10 @@ export class DisciplinaController {
       const disciplinaData = req.body;
       const updatedDisciplina = await DisciplinaService.updateDisciplina(id, disciplinaData);
 
-      if (updatedDisciplina) {
-        res.status(200).json(updatedDisciplina);
+      if (req.query.format === 'json') {
+        return res.status(201).json({ message: "Disciplina alterada com sucesso!", id });;
       } else {
-        res.status(404).json({ message: `Disciplina com ID ${id} não encontrada.` });
+        return res.redirect('/disciplina');
       }
     } catch (error) {
       console.error('Erro ao atualizar disciplina:', error);
