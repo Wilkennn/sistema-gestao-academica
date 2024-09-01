@@ -2,7 +2,7 @@ import { prismaClient } from '../database/prismaClient.js';
 
 class AlunoService {
   async getAllAlunos() {
-    try{
+    try {
       return await prismaClient.aluno.findMany({
         include: {
           usuario: true,
@@ -10,60 +10,86 @@ class AlunoService {
             include: {
               curso: true,
             },
-          } 
+          }
         },
       });
-    }catch(error) {
+    } catch (error) {
       console.error(error);
       throw new Error('Error ao buscar alunos');
     }
-    
+
   }
 
   async getAlunoById(id) {
     try {
-          return prismaClient.aluno.findUnique({
-            where: { id: parseInt(id) },
+      return prismaClient.aluno.findUnique({
+        where: { id: parseInt(id) },
+        include: {
+          usuario: true,
+          cursos: {
             include: {
-              usuario: true,
-              cursos: {
-                include: {
-                  curso: true,
-                },
-              },
+              curso: true,
             },
-          });
+          },
+        },
+      });
     } catch (error) {
       console.error(error);
       throw new Error('Error ao buscar aluno');
-  }
+    }
   }
 
   async createAluno(alunoData) {
     try {
 
+      let usuario = await prismaClient.usuario.findUnique({
+        where: { email: alunoData.email },
+      });
+
+      if (!usuario) {
+        usuario = await UsuarioService.createUsuario({
+          nome: alunoData.nome,
+          email: alunoData.email,
+          cpf: alunoData.cpf,
+          endereco: alunoData.endereco,
+          telefone: alunoData.telefone,
+          dataNascimento: alunoData.dataNascimento,
+          login: alunoData.login,
+          senha: alunoData.senha,
+        });
+      }
+
+      const aluno = await prismaClient.aluno.create({
+        data: {
+          periodo: alunoData.periodo,
+          dataIngresso: alunoData.dataIngresso,
+          usuarioId: usuario.id,
+        },
+      });
+
+      return aluno;
 
       const dataFormatted = alunoData.dataIngresso.split('/').reverse().join('-');
       const dataDate = new Date(dataFormatted);
-      alunoData.dataIngresso = dataDate;  
+      alunoData.dataIngresso = dataDate;
 
       console.log(alunoData.dataIngresso);
 
-      alunoData.periodo  = alunoData.periodo.toString();
-          return prismaClient.aluno.create({
-            data: alunoData,
-          });
+      alunoData.periodo = alunoData.periodo.toString();
+      return prismaClient.aluno.create({
+        data: alunoData,
+      });
     } catch (error) {
-        es.status(500).json({ message: 'Error creating student', error });
+      es.status(500).json({ message: 'Error creating student', error });
     }
   }
 
   async updateAluno(id, alunoData) {
     try {
-          return prismaClient.aluno.update({
-            where: { id: parseInt(id) },
-            data: alunoData,
-          });
+      return prismaClient.aluno.update({
+        where: { id: parseInt(id) },
+        data: alunoData,
+      });
     } catch (error) {
       console.error(error);
       throw new Error('Error ao atualizar aluno');
@@ -73,7 +99,7 @@ class AlunoService {
   async deleteAluno(id) {
     console.log(id);
     return prismaClient.aluno.delete({
-      
+
       where: { id: parseInt(id) },
     });
   }

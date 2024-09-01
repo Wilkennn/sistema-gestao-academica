@@ -48,12 +48,18 @@ export class AlunoController {
   async create(req, res) {
     try {
       const alunoData = req.body;
+      
       const newAluno = await AlunoService.createAluno(alunoData);
-
+      
+      if (req.query.format === 'json') {
+        return res.status(201).json({ message: "Aluno criado com sucesso!", id });;
+      } else {
+        return res.redirect('/aluno');
+      }
       
       res.status(201).json(newAluno);
     } catch (error) {
-      res.status(500).json({ message: 'Error creating student', error });
+      res.status(500).json({ message: 'Erro ao criar aluno', error });
     }
   }
 
