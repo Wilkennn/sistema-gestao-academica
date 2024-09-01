@@ -1,0 +1,65 @@
+header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 70px;
+}
+
+.logo {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+    position: fixed; /* Fixa a logo na tela */
+    top: 10px;       /* Ajusta a logo ao topo */
+    left: 97.5px;      /* Mantém a logo à esquerda */
+    z-index: 100;    /* Mantém a logo no topo, acima da sidebar */
+}
+
+.sidebar {
+    width: 0;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow: hidden;
+    transition: 0.5s;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    padding-top: 60px; /* Espaçamento para a logo */
+    z-index: 99; /* Sidebar abaixo da logo */
+}
+
+.sidebar.active {
+    width: 250px;
+}
+
+.sidebar .icon-item {
+    padding: 10px 15px;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+    cursor: pointer;
+}
+
+.sidebar .icon-item i {
+    font-size: 30px;
+}
+
+.sidebar .icon-item p {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.logo {
+    border-radius: 20%;
+    height: 60px;
+    object-fit: cover; /* Add this to scale the image */
+    object-position: center; /* Add this to center the image */
+    overflow: hidden;
+    width: 60px;
+}

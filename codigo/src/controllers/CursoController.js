@@ -47,7 +47,7 @@ export class CursoController {
       if (req.query.format === 'json') {
         return res.status(201).json(newCurso);
       } else {
-        return res.render('adicionar-curso', { success: true,  messageType: 'success', message: "Curso criado com sucesso! <i class='fas fa-check check-icon'></i>" });
+        return res.redirect('/adicionar-curso?success=true&message=Curso criado com sucesso!&messageType=success');
       }
 
     } catch (error) {

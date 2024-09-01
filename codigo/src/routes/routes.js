@@ -32,9 +32,9 @@ router.get('/aluno', alunoController.getAll);
 router.get('/aluno/:id', alunoController.getById);
 router.post('/aluno', alunoController.create);
 router.post('/aluno/:id/editar', alunoController.update);
-router.get('/aluno/:id/editar', (req, res) => {req.query.page = 'editar'; alunoController.getById(req, res);});
+router.get('/aluno/:id/editar', (req, res) => { req.query.page = 'editar'; alunoController.getById(req, res); });
 router.delete('/aluno/:id/deletar', alunoController.delete);
-router.get('/aluno/:id/deletar', (req, res) => {req.query.page = 'deletar'; alunoController.getAll(req, res);});
+router.get('/aluno/:id/deletar', (req, res) => { req.query.page = 'deletar'; alunoController.getAll(req, res); });
 
 
 // Rotas para funcionario
@@ -50,8 +50,17 @@ router.get('/curso/:id', cursoController.getById);
 router.post('/curso', cursoController.create);
 router.put('/curso/:id', cursoController.update);
 router.delete('/curso/:id', cursoController.delete);
-router.get('/adicionar-curso', (req, res) => { res.render('adicionar-curso'); });
-  
+
+router.get('/adicionar-curso', (req, res) => {
+
+    const { success, message, messageType } = req.query;
+
+    res.render('adicionar-curso', {
+        success: success || false,
+        messageType: messageType || '',
+        message: message || ''
+    });
+});
 
 // Rotas para disciplina
 router.get('/disciplina', disciplinaController.getAll);
