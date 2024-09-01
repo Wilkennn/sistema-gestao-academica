@@ -13,7 +13,7 @@ class CursoService {
   async getCursoById(id) {
     try {
       const curso = await prismaClient.curso.findUnique({
-        where: { id: Number(id) },
+        where: { id: parseInt(id) },
         include: { cursoAluno: true },
       });
 
@@ -43,7 +43,7 @@ class CursoService {
   async updateCurso(id, cursoData) {
     try {
       const curso = await prismaClient.curso.update({
-        where: { id: Number(id) },
+        where: { id: parseInt(id) },
         data: cursoData,
       });
 

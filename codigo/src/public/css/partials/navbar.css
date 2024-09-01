@@ -1,10 +1,23 @@
 header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    height: 70px;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 60px;
+    width: 100%;
+    background-color: #fff;
+    padding: 0 20px;
+    z-index: 1000;
+    transition: background-color 0.3s;
 }
+
+header.scrolled {
+    background-color: #f8f9fa;
+}
+
 
 .logo {
     border-radius: 50%;
@@ -13,10 +26,14 @@ header {
     object-fit: cover;
     object-position: center;
     cursor: pointer;
-    position: fixed; /* Fixa a logo na tela */
-    top: 10px;       /* Ajusta a logo ao topo */
-    left: 97.5px;      /* Mantém a logo à esquerda */
-    z-index: 100;    /* Mantém a logo no topo, acima da sidebar */
+    position: fixed;
+    /* Fixa a logo na tela */
+    top: 10px;
+    /* Ajusta a logo ao topo */
+    left: 97.5px;
+    /* Mantém a logo à esquerda */
+    z-index: 100;
+    /* Mantém a logo no topo, acima da sidebar */
 }
 
 .sidebar {
@@ -29,8 +46,10 @@ header {
     overflow: hidden;
     transition: 0.5s;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    padding-top: 60px; /* Espaçamento para a logo */
-    z-index: 99; /* Sidebar abaixo da logo */
+    padding-top: 60px;
+    /* Espaçamento para a logo */
+    z-index: 99;
+    /* Sidebar abaixo da logo */
 }
 
 .sidebar.active {
@@ -57,9 +76,11 @@ header {
 
 .logo {
     border-radius: 20%;
-    height: 60px;
-    object-fit: cover; /* Add this to scale the image */
-    object-position: center; /* Add this to center the image */
+    height: 40px;
+    object-fit: cover;
+    /* Add this to scale the image */
+    object-position: center;
+    /* Add this to center the image */
     overflow: hidden;
-    width: 60px;
+    width: 40px;
 }

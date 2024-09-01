@@ -19,7 +19,6 @@ const disciplinaController = new DisciplinaController();
 const alunoDisciplinaController = new AlunoDisciplinaController();
 const cursoAlunoController = new CursoAlunoController();
 
-
 // Rotas para usuário
 router.get('/usuario', usuarioController.getAll);
 router.get('/usuario/:id', usuarioController.getById);
@@ -66,6 +65,29 @@ router.get('/adicionar-curso', (req, res) => {
         message: message || ''
     });
 });
+
+router.get('/adicionar-curso', (req, res) => {
+
+    const { success, message, messageType } = req.query;
+
+    res.render('adicionar-curso', {
+        success: success || false,
+        messageType: messageType || '',
+        message: message || ''
+    });
+});
+
+
+// router.get('/editar-curso/', (req, res) => {
+
+//     const { success, message, messageType } = req.query;
+
+//     res.render('adicionar-curso', {
+//         success: success || false,
+//         messageType: messageType || '',
+//         message: message || ''
+//     });
+// });
 
 // Rotas para disciplina
 router.get('/disciplina', disciplinaController.getAll);

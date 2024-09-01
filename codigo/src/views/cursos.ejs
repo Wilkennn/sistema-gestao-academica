@@ -1,6 +1,5 @@
 <%- include('partials/header.html') %>
 
-
     <!-- Container Principal -->
     <div id="cursos-container" class="container mt-4">
         <div class="header">
@@ -10,21 +9,20 @@
           </button>
         </div>
         <hr>
-        <div class="row mt-2">
+        <div class="row mt-2" style="margin-bottom: 5rem;">
           <%  cursos.forEach(function(curso) { %>
             <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <i class="<%= curso.icon %>"></i> <%= curso.nome %>
-                    <a href="#" class="float-right">
-                      <i class="fas fa-edit" style="color: #0d6efd; font-size: 15px;"></i>
-                    </a>
-                  </h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Código: <%= curso.nome.slice(0, 3).toUpperCase() + curso.id %> </h6>
-                  <p class="card-text"><%= curso.descricao %></p>
+              <a href="/curso/<%= curso.id %>" class="card-link">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <i class="<%= curso.icon %>"></i> <%= curso.nome %>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Código: <%= curso.nome.slice(0, 3).toUpperCase() + curso.id %></h6>
+                    <p class="card-text"><%= curso.descricao %></p>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
           <% }) %>
         </div>
