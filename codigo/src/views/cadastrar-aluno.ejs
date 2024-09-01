@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Aluno</title>
+    <style>
+        /* General Body and Header Styles */
+        body {
+            background-color: #f8f9fa; /* Cor de fundo do corpo da página */
+            min-height: 100vh;
+            font-family: Arial, sans-serif; /* Font family for the page */
+        }
+
+        header {
+            color: red !important;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a soft shadow to the header */
+            padding: 16px;
+        }
+
+        .logo {
+            border-radius: 20%;
+            height: 60px;
+            object-fit: cover; /* Add this to scale the image */
+            object-position: center; /* Add this to center the image */
+            overflow: hidden;
+            width: 60px;
+        }
+
+        form {
+            cursor: pointer;
+        }
+
+        .container {
+            margin-top: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .card {
+            background-color: #ffffff; /* Cor de fundo dos cards */
+            border: 1px solid #e0e0e0; /* Borda leve para os cards */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for the card */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centraliza verticalmente o conteúdo dentro do card */
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+
+        .btn-primary {
+            background-color: #0f70b7;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background-color: #0d5a9b;
+        }
+
+        footer {
+            background-color: #0f70b7;
+            text-align: center;
+            color: white;
+            padding: 8px 0;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="/path/to/logo.png" alt="Logo" class="logo">
+            <h1>Cadastro de Aluno</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form action="/aluno/cadastrar" method="POST">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="periodo">Período:</label>
+                        <input type="text" id="periodo" name="periodo" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dataIngresso">Data de Ingresso:</label>
+                        <input type="date" id="dataIngresso" name="dataIngresso" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Seu Site. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

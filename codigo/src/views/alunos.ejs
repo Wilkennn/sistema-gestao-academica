@@ -2,8 +2,11 @@
 
     <!-- Container Principal -->
     <div class="container mt-4">
-        <h2>Alunos</h2>
-
+        <h2>Alunos
+            <form onclick="window.location.href='/aluno/cadastrar';">
+                <i class="fas fa-plus table-icon"></i>
+            </form>
+        </h2>
 
         <hr>
         <table class="table table-bordered mt-4">
@@ -23,15 +26,9 @@
                         <td><%= aluno.id%></td>
                         <td><%= aluno.usuario.nome %></td>
                         <td><%= aluno.usuario.email %></td>
-                        <% aluno.cursos.forEach(alunoCurso => { %>
-                            <td><%=alunoCurso.curso.nome%></br>
-                            <form onclick="window.location.href='/aluno/<%= aluno.id %>/adicionar-curso';">
-                                <i class="fas fa-plus table-icon"></i>
-                            </form>
-                               
-                        </td>
-                            <td><%=alunoCurso.cursoStatus%></td>
-                        <% }); %>
+                        <td>
+                            <%= aluno.cursos.map(alunoCurso => alunoCurso.nome).join(', ') %>
+                        </td>                     
                         
                         <td>
                             <form onclick="window.location.href='/aluno/<%= aluno.id %>';">
