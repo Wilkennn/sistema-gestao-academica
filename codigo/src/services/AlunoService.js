@@ -1,4 +1,5 @@
 import { prismaClient } from '../database/prismaClient.js';
+import UsuarioService  from '../services/UsuarioService.js';
 
 class AlunoService {
   async getAllAlunos() {
@@ -42,6 +43,8 @@ class AlunoService {
   async createAluno(alunoData) {
     try {
 
+      console.log(alunoData)
+
       let usuario = await prismaClient.usuario.findUnique({
         where: { email: alunoData.email },
       });
@@ -63,7 +66,7 @@ class AlunoService {
         data: {
           periodo: alunoData.periodo,
           dataIngresso: alunoData.dataIngresso,
-          usuarioId: usuario.id,
+          usuarioId: 1,
         },
       });
 
