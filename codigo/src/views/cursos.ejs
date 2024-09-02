@@ -1,40 +1,39 @@
 <%- include('partials/header.html') %>
 
-    <!-- Container Principal -->
-    <div id="cursos-container" class="container mt-4">
-        <div class="header">
-          <h2>Cursos</h2>
-          <button class="btn btn-primary" onclick="window.location.href='/adicionar-curso';">
-            <i class="fas fa-plus"></i> Adicionar
-          </button>
-        </div>
-        <hr>
-        <div class="row mt-2" style="margin-bottom: 5rem;">
-          <%  cursos.forEach(function(curso) { %>
-            <div class="col-md-4 mb-3">
-              <a href="/curso/<%= curso.id %>" class="card-link">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <i class="<%= curso.icon %>"></i> <%= curso.nome %>
-                    </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Código: <%= curso.nome.slice(0, 3).toUpperCase() + curso.id %></h6>
-                    <p class="card-text"><%= curso.descricao %></p>
-                  </div>
-                </div>
-              </a>
-            </div>
-          <% }) %>
-        </div>
+<!-- Container Principal -->
+<div id="cursos-container" class="container mt-4">
+    <div class="header d-flex justify-content-between align-items-center">
+      <h2>Cursos</h2>
+      <button class="btn btn-primary" onclick="window.location.href='/adicionar-curso';">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
     </div>
+    <hr>
+    <div class="row mt-2" style="margin-bottom: 5rem;">
+      <% if (cursos && cursos.length > 0) { %>
+        <% cursos.forEach(function(curso) { %>
+          <div class="col-md-4 mb-3">
+            <a href="/curso/<%= curso.id %>" class="card-link">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <i class="<%= curso.icon %>"></i> <%= curso.nome %>
+                  </h5>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Código: <%= curso.nome.slice(0, 3).toUpperCase() + curso.id %>
+                  </h6>
+                  <p class="card-text"><%= curso.descricao %></p>
+                </div>
+              </div>
+            </a>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="col-12">
+          <p>Nenhum curso disponível.</p>
+        </div>
+      <% } %>
+    </div>
+</div>
 
-    <!-- jQuery e Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <%- include('partials/footer.html') %>
-
-</body>
-
-</html>
+<%- include('partials/footer.html') %>

@@ -1,148 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Aluno</title>
-    <style>
-        /* General Body and Header Styles */
-        body {
-            background-color: #f8f9fa; /* Cor de fundo do corpo da página */
-            min-height: 100vh;
-            font-family: Arial, sans-serif; /* Font family for the page */
-        }
+<%- include('partials/header.html') %>
 
-        header {
-            color: red !important;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a soft shadow to the header */
-            padding: 16px;
-        }
-
-        .logo {
-            border-radius: 20%;
-            height: 60px;
-            object-fit: cover; /* Add this to scale the image */
-            object-position: center; /* Add this to center the image */
-            overflow: hidden;
-            width: 60px;
-        }
-
-        form {
-            cursor: pointer;
-        }
-
-        .container {
-            margin-top: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-        }
-
-        .card {
-            background-color: #ffffff; /* Cor de fundo dos cards */
-            border: 1px solid #e0e0e0; /* Borda leve para os cards */
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for the card */
-        }
-
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Centraliza verticalmente o conteúdo dentro do card */
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
-        }
-
-        .btn-primary {
-            background-color: #0f70b7;
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn-primary:hover {
-            background-color: #0d5a9b;
-        }
-
-
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <img src="/path/to/logo.png" alt="Logo" class="logo">
-            <h1>Cadastro de Aluno</h1>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <form action="/aluno/cadastrar" method="POST">
-                    <div class="form-group">
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nome">CPF:</label>
-                        <input type="number" id="cpf" name="cpf" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="endereco">Endereco:</label>
-                        <input type="text" id="endereco" name="endereco" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefone">Telefone:</label>
-                        <input type="tel" id="telefone" name="telefone" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="data">Data Nascimento:</label>
-                        <input type="date" id="data" name="data" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="login">Login</label>
-                        <input type="text" id="login" name="login" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cursoId">ID do Curso</label>
-                        <input type="number" id="cursoId" name="cursoId" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+<!-- Container Principal -->
+<div class="container mt-5">
+    <!-- Cabeçalho com título -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Cadastro de Aluno</h2>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Seu Site. Todos os direitos reservados.</p>
-    </footer>
-</body>
-</html>
+    <hr>
+
+    <!-- Formulário de Cadastro de Aluno -->
+    <div class="form-container">
+        <form class="row g-3" method="POST" action="/aluno/cadastrar">
+            <div class="col-md-12">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Aluno" required>
+            </div>
+            <div class="col-md-6">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF do Aluno" required>
+            </div>
+            <div class="col-md-6">
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Endereço do Aluno" required>
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email do Aluno" required>
+            </div>
+            <div class="col-md-6">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="Telefone do Aluno" required>
+            </div>
+            <div class="col-md-6">
+                <label for="data" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="data" name="data" required>
+            </div>
+            <div class="col-md-6">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" class="form-control" id="login" name="login" placeholder="Login do Aluno" required>
+            </div>
+            <div class="col-md-6">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha do Aluno" required>
+            </div>
+            <div class="col-md-6">
+                <label for="cursoId" class="form-label">ID do Curso</label>
+                <input type="number" class="form-control" id="cursoId" name="cursoId" placeholder="ID do Curso" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block mt-4">
+                    <i class="fas fa-save"></i> Cadastrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertMessage = document.getElementById('alert-message');
+
+        if (alertMessage) {
+            Swal.fire({
+                icon: alertMessage.dataset.type === "success" ? "success" : "error",
+                title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
+                html: alertMessage.dataset.message,
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed && alertMessage.dataset.type === "success") {
+                    window.location.href = '/funcionarios';
+                }
+            });
+        }
+    });
+</script>
+
+<%- include('partials/footer.html') %>

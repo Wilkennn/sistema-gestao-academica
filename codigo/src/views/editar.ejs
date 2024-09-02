@@ -1,38 +1,66 @@
 <%- include('partials/header.html') %>
 
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-body">
-                <form action="/aluno/<%= aluno.id %>/editar" method="POST">
-                    <input type="hidden" name="_method" value="POST">
+    <!-- Container Principal -->
+    <div class="container mt-5">
+        <!-- Cabeçalho com título -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Edição de Aluno</h2>
+        </div>
 
-                    <!-- Dados do Aluno -->
-                    <div class="form-group">
-                        <label for="periodo">Período:</label>
-                        <input type="text" id="periodo" name="periodo" class="form-control" value="<%= aluno.periodo %>" required>
-                    </div>
+        <hr>
 
-                    <!-- Dados do Usuário -->
-                    <div class="form-group">
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" class="form-control" value="<%= aluno.usuario.nome %>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" class="form-control" value="<%= aluno.usuario.email %>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                    </div>
-                </form>
-                
-            </div>
+        <!-- Formulário de Cadastro de Aluno -->
+        <div class="form-container">
+            <form class="row g-3" method="POST" action="/aluno/cadastrar">
+                <div class="col-md-12">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Aluno" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF do Aluno" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="endereco" class="form-label">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco"
+                        placeholder="Endereço do Aluno" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email do Aluno"
+                        required>
+                </div>
+                <div class="col-md-6">
+                    <label for="telefone" class="form-label">Telefone</label>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="Telefone do Aluno"
+                        required>
+                </div>
+                <div class="col-md-6">
+                    <label for="data" class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="data" name="data" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" class="form-control" id="login" name="login" placeholder="Login do Aluno"
+                        required>
+                </div>
+                <div class="col-md-6">
+                    <label for="senha" class="form-label">Senha</label>
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha do Aluno"
+                        required>
+                </div>
+                <div class="col-md-6">
+                    <label for="cursoId" class="form-label">ID do Curso</label>
+                    <input type="number" class="form-control" id="cursoId" name="cursoId" placeholder="ID do Curso"
+                        required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block mt-4">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Seu Site. Todos os direitos reservados.</p>
-    </footer>
-</body>
-</html>
+    <%- include('partials/footer.html') %>

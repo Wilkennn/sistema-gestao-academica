@@ -1,67 +1,69 @@
 <%- include('partials/header.html') %>
 
-    <!-- Container Principal -->
-    <div class="container mt-4">
-        <h2>Alunos
-            <form onclick="window.location.href='/aluno-cadastrar';">
-                <i class="fas fa-plus table-icon"></i>
-            </form>
-        </h2>
-
-        <hr>
-        <table class="table table-bordered mt-4">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Curso</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% alunos.forEach(aluno => { %>
-                    <tr>
-                        <td><%= aluno.id%></td>
-                        <td><%= aluno.usuario.nome %></td>
-                        <td><%= aluno.usuario.email %></td>
-                        <td>
-                            <%= aluno.cursos.map(alunoCurso => alunoCurso.nome).join(', ') %>
-                        </td>                     
-                        
-                        <td>
-                            <form onclick="window.location.href='/aluno/<%= aluno.id %>';">
-                                <i class="fas fa-eye table-icon" title="Visualizar"></i>
-                            </form>
-                            <form  onclick="window.location.href='/aluno/<%= aluno.id %>/editar';">
-                                <i class="fas fa-edit table-icon mx-2" title="Editar"></i>
-                            </form>
-                            <form action="/aluno/<%= aluno.id %>/deletar" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este aluno?');" style="display:inline;">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn btn-link">
-                                    <i class="fas fa-trash table-icon" title="Excluir"></i>
-                                </button>
-                            </form>
-                            
-                            
-                        </td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
+<!-- Container Principal -->
+<div class="container mt-4">
+    <!-- Cabeçalho com título e botão -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Alunos</h2>
+        <button class="btn btn-primary" onclick="window.location.href='/aluno-cadastrar';">
+            <i class="fas fa-plus"></i> Adicionar
+        </button>
     </div>
 
-
-    <!-- jQuery e Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <hr>
     
+    <!-- Tabela de Alunos -->
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Curso(s)</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (alunos && alunos.length > 0) { %>
+                <% alunos.forEach(aluno => { %>
+                    <tr>
+                        <td><%= aluno.id %></td>
+                        <td><%= aluno.usuario.nome %></td>
+                        <td><%= aluno.usuario.email %></td>
+                        <td><%= aluno.cursos.map(alunoCurso => alunoCurso.nome).join(', ') %></td>
+                        <td><%= aluno.status %></td>                     
+                        <td class="text-center">
+                            <button class="btn btn-link p-0" onclick="window.location.href='/aluno/<%= aluno.id %>';" title="Visualizar">
+                                <i class="fas fa-eye table-icon"></i>
+                            </button>
+                            <button class="btn btn-link p-0 mx-2" onclick="window.location.href='/aluno/<%= aluno.id %>/editar';" title="Editar">
+                                <i class="fas fa-edit table-icon"></i>
+                            </button>
+                            <form action="/aluno/<%= aluno.id %>/deletar" method="post" class="d-inline" onsubmit="return confirm('Tem certeza que deseja deletar este aluno?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-link p-0" title="Excluir">
+                                    <i class="fas fa-trash table-icon"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="6" class="text-center">Nenhum aluno encontrado.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
 
-    <%- include('partials/footer.html') %>
+<!-- jQuery e Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<%- include('partials/footer.html') %>
 </body>
-
 
 </html>

@@ -1,82 +1,73 @@
 <%- include('partials/header.html') %>
-    <!-- Container Principal -->
-    <div id="cursos-container" class="container mt-5">
-        <div class="header">
-            <h2>Editar Cursos</h2>
-            <% if (message) { %>
-                <div id="alert-message" data-type="<%= messageType %>" data-message="<%- message %>"></div>
-                <% } %>
-        </div>
-        <hr>
-        <div class="form-container">
-            <form class="row g-3" action="/curso/<%= curso.id %>?_method=put" method="POST">
-                <div class="col-md-12">
-                    <label for="nome">Nome do Curso</label>
-                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do curso"
-                        value="<%= curso.nome %>" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="icon">Ícone</label>
-                    <input type="text" class="form-control" id="icon" name="icon"
-                        placeholder="Classe do ícone Font Awesome" value="<%= curso.icon %>" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="duracao">Duração (em períodos)</label>
-                    <input type="number" class="form-control" id="duracao" name="duracao" placeholder="Duração do curso"
-                        value="<%= curso.duracao %>" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="creditos">Créditos</label>
-                    <input type="number" class="form-control" id="creditos" name="creditos"
-                        placeholder="Créditos do curso" value="<%= curso.creditos %>" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="cargaHoraria">Carga Horária (em horas)</label>
-                    <input type="number" class="form-control" id="cargaHoraria" name="cargaHoraria"
-                        placeholder="Carga horária do curso" value="<%= curso.cargaHoraria %>" required>
-                </div>
-                <div class="col-md-12">
-                    <label for="descricao">Descrição</label>
-                    <textarea class="form-control" id="descricao" name="descricao" rows="4"
-                        placeholder="Descrição do curso" required><%= curso.descricao %></textarea>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block mt-5">
-                        <i class="fas fa-save"></i> Salvar Curso
-                    </button>
-                </div>
-            </form>
-        </div>
+
+<!-- Container Principal -->
+<div id="cursos-container" class="container mt-5">
+    <div class="header">
+        <h2>Editar Cursos</h2>
+        <% if (message) { %>
+            <div id="alert-message" data-type="<%= messageType %>" data-message="<%- message %>"></div>
+        <% } %>
     </div>
+    <hr>
+    <div class="form-container">
+        <form class="row g-3" action="/curso/<%= curso.id %>?_method=put" method="POST">
+            <div class="col-md-12">
+                <label for="nome">Nome do Curso</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do curso" 
+                       value="<%= curso.nome %>" required>
+            </div>
+            <div class="col-md-3">
+                <label for="icon">Ícone</label>
+                <input type="text" class="form-control" id="icon" name="icon" 
+                       placeholder="Classe do ícone Font Awesome" value="<%= curso.icon %>" required>
+            </div>
+            <div class="col-md-3">
+                <label for="duracao">Duração (em períodos)</label>
+                <input type="number" class="form-control" id="duracao" name="duracao" 
+                       placeholder="Duração do curso" value="<%= curso.duracao %>" required>
+            </div>
+            <div class="col-md-3">
+                <label for="creditos">Créditos</label>
+                <input type="number" class="form-control" id="creditos" name="creditos" 
+                       placeholder="Créditos do curso" value="<%= curso.creditos %>" required>
+            </div>
+            <div class="col-md-3">
+                <label for="cargaHoraria">Carga Horária (em horas)</label>
+                <input type="number" class="form-control" id="cargaHoraria" name="cargaHoraria" 
+                       placeholder="Carga horária do curso" value="<%= curso.cargaHoraria %>" required>
+            </div>
+            <div class="col-md-12">
+                <label for="descricao">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="4" 
+                          placeholder="Descrição do curso" required><%= curso.descricao %></textarea>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block mt-5">
+                    <i class="fas fa-save"></i> Salvar Curso
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const alertMessage = document.getElementById('alert-message');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertMessage = document.getElementById('alert-message');
 
-            if (alertMessage) {
-                Swal.fire({
-                    icon: alertMessage.dataset.type === "success" ? "success" : "error",
-                    title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
-                    html: alertMessage.dataset.message,
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed && alertMessage.dataset.type === "success") {
-                        window.location.href = '/curso';
-                    }
-                });
-            }
-        });
+        if (alertMessage) {
+            Swal.fire({
+                icon: alertMessage.dataset.type === "success" ? "success" : "error",
+                title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
+                html: alertMessage.dataset.message,
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed && alertMessage.dataset.type === "success") {
+                    window.location.href = '/curso';
+                }
+            });
+        }
+    });
+</script>
 
-    </script>
-
-    <!-- jQuery e Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <%- include('partials/footer.html') %>
-
-        </body>
-
-        </html>
+<%- include('partials/footer.html') %>
