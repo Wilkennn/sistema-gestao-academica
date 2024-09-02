@@ -28,7 +28,7 @@
                         <td><%= aluno.usuario.email %></td>
                         <td>
                             <%= aluno.cursos.map(alunoCurso => alunoCurso.nome).join(', ') %>
-                        </td>                     
+                        </td>
                         
                         <td>
                             <form onclick="window.location.href='/aluno/<%= aluno.id %>';">

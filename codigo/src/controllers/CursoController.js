@@ -1,4 +1,5 @@
 import CursoService from '../services/CursoService.js';
+import CursoDisciplinaService from '../services/CursoDisciplinaService.js';
 
 export class CursoController {
   
@@ -106,7 +107,6 @@ export class CursoController {
     }
   }
   
-
   async delete(req, res) {
     try {
       const { id } = req.params;
@@ -115,5 +115,16 @@ export class CursoController {
     } catch (error) {
       res.status(500).json({ message: 'Error deleting course', error });
     }
+  }
+
+  async gerarCurriculo(req, res) {
+
+    const { id } = req.params;
+
+    const disciplinas = await CursoDisciplinaService.getDisciplinasByCurso(parseInt(id));
+
+    return res.status(200).json({disciplinas });
+
+    //return res.status(500).render('curso-grade-curricular', { cursos } );
   }
 }

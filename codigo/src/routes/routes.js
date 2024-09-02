@@ -7,7 +7,7 @@ import { CursoController } from '../controllers/CursoController.js';
 import { DisciplinaController } from '../controllers/DisciplinaController.js';
 import { AlunoDisciplinaController } from '../controllers/AlunoDisciplinaController.js';
 import { CursoAlunoController } from '../controllers/CursoAlunoController.js';
-
+import { CursoDisciplinaController } from '../controllers/CursoDisciplinaController.js'
 
 const router = Router();
 
@@ -18,6 +18,7 @@ const funcionarioController = new FuncionarioController();
 const disciplinaController = new DisciplinaController();
 const alunoDisciplinaController = new AlunoDisciplinaController();
 const cursoAlunoController = new CursoAlunoController();
+const cursoDisciplinaController = new CursoDisciplinaController();
 
 // Rotas para usuário
 router.get('/usuario', usuarioController.getAll);
@@ -39,7 +40,7 @@ router.post('/aluno/:id/adicionar-curso', alunoController.addCurso);
 router.get('/aluno-cadastrar', (req, res) => {
     console.log('Acessando a página de cadastro de aluno');
     res.render('cadastrar-aluno')
-    });
+});
 router.post('/aluno/cadastrar', alunoController.create);
 
 // Rotas para funcionario
@@ -79,17 +80,7 @@ router.get('/adicionar-curso', (req, res) => {
     });
 });
 
-router.get('/adicionar-curso', (req, res) => {
-
-    const { success, message, messageType } = req.query;
-
-    res.render('adicionar-curso', {
-        success: success || false,
-        messageType: messageType || '',
-        message: message || ''
-    });
-});
-
+router.get('/curso-grade-curricular/:id', cursoController.gerarCurriculo)
 
 // Rotas para disciplina
 router.get('/disciplina', disciplinaController.getAll);
@@ -99,7 +90,7 @@ router.delete('/disciplina/:id', disciplinaController.delete);
 router.get('/cadastrar-disciplina', (req, res) => {
     console.log('Acessando a página de cadastro de disciplina');
     res.render('cadastrar-disciplina')
-    });
+});
 router.post('/cadastrar-disciplina', disciplinaController.create);
 
 
@@ -110,13 +101,16 @@ router.post('/aluno-disciplina', alunoDisciplinaController.create);
 router.put('/aluno-disciplina/:id', alunoDisciplinaController.update);
 router.delete('/aluno-disciplina/:id', alunoDisciplinaController.delete);
 
-// Rotas para Curso_Aluno 
+// Rotas para Curso_Aluno
 router.get('/curso-aluno', cursoAlunoController.getAll);
 router.get('/curso-aluno/:id/:id', cursoAlunoController.getById);
 router.post('/curso-aluno', cursoAlunoController.create);
 router.put('/curso-aluno/:id/:id', cursoAlunoController.update);
 router.delete('/curso-aluno/:id/:id', cursoAlunoController.delete);
 
-
+router.post('/curso-disciplina', cursoDisciplinaController.addDisciplinaToCurso);
+router.delete('/curso-disciplina', cursoDisciplinaController.removeDisciplinaFromCurso);
+router.get('/curso-disciplina/:id', cursoDisciplinaController.getDisciplinasByCurso);
+router.get('/curso-disciplina', cursoDisciplinaController.getCursosByDisciplina);
 
 export default router;

@@ -59,6 +59,7 @@ model Curso {
   creditos     Int
   cargaHoraria Int    @map("carga_horaria")
 
+  disciplinas  CursoDisciplina[]
   cursoAluno Curso_Aluno[]
 }
 
@@ -88,6 +89,17 @@ model Disciplina {
   valor        Float
   creditos     Int
   alunos       Aluno_Disciplina[]
+   cursos       CursoDisciplina[]
+}
+
+model CursoDisciplina {
+  cursoId      Int
+  disciplinaId Int
+
+  curso        Curso      @relation(fields: [cursoId], references: [id])
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+
+  @@id([cursoId, disciplinaId])
 }
 
 model Aluno_Disciplina {
