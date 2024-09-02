@@ -1,76 +1,70 @@
 import { prismaClient } from '../database/prismaClient.js';
 
 class UsuarioService {
-  
   async getAllUsuarios() {
     try {
-      return prismaClient.usuario.findMany();
-    } catch (error) {
-      console.error('Erro ao buscar usuários:', error.message);
+      return await prismaClient.usuario.findMany();
+    } catch (err) {
+      console.error('Erro ao buscar usuários:', err.message);
       throw new Error('Não foi possível buscar os usuários. Tente novamente mais tarde.');
     }
   }
 
   async getUsuarioById(id) {
     try {
-      const usuario = await prismaClient.usuario.findUnique({
-        where: { id: parseInt(id) }
-      });
-  
-      if (!usuario) {
-        throw new Error('Usuário não encontrado.');
-      }
-  
-      return usuario;
-    } catch (error) {
-      console.error('Erro ao buscar usuário:', error.message);
-      throw new Error('Não foi possível encontrar o usuário. Tente novamente mais tarde.');
-    }
-  }
-  
-  
-  async createUsuario(usuarioData) {
-    if (!usuarioData.dataNascimento || typeof usuarioData.dataNascimento !== 'string') {
-      throw new Error('Data de nascimento inválida ou ausente.');
-    }
-    const dataFormatted = usuarioData.dataNascimento.split('/').reverse().join('-');
-    const dataDate = new Date(dataFormatted);
-    usuarioData.dataNascimento = dataDate;        
-      return await prismaClient.usuario.create({       
-        data: usuarioData,
-      });
-  }
-  async updateUsuario(id, usuarioData) {
-    try {
-      const usuario = await prismaClient.usuario.update({
+      return await prismaClient.usuario.findUnique({
         where: { id: parseInt(id) },
-        data: usuarioData,
       });
+    } catch (err) {
+      console.error('Erro ao buscar usuário:', err.message);
+      throw new Error('Não foi possível buscar o usuário. Tente novamente mais tarde.');
+    }
+  }
 
-      if (!usuario) {
-        throw new Error('Usuário não encontrado para atualização.');
-      }
+  async createUsuario(usuarioData) {
+    try {
 
-      return usuario;
-    } catch (error) {
-      console.error('Erro ao atualizar usuário:', error.message);
+      const formattedDate = new Date(usuarioData.dataNascimento).toISOString();
+  
+      const usuarioCriado = await prismaClient.usuario.create({
+        data: {
+          ...usuarioData,
+          dataNascimento: formattedDate,
+        },
+      });
+  
+      return usuarioCriado;
+  
+    } catch (err) {
+      console.error('Erro ao criar usuário:', err.message);
+      throw new Error('Não foi possível criar o usuário. Tente novamente mais tarde.');
+    }
+  }
+  
+  async updateUsuario(id, usuarioData) {
+    const dataNascimento = new Date(usuarioData.dataNascimento).toISOString();
+    
+    try {
+      return await prismaClient.usuario.update({
+        where: { id: parseInt(id) },
+        data: {
+          ...usuarioData,
+          dataNascimento: dataNascimento,
+        },
+      });
+    } catch (err) {
+      console.error('Erro ao atualizar usuário:', err.message);
       throw new Error('Não foi possível atualizar o usuário. Tente novamente mais tarde.');
     }
   }
 
   async deleteUsuario(id) {
     try {
-      const usuario = await prismaClient.usuario.delete({
-        where: { id: Number(id) },
+      return await prismaClient.usuario.delete({
+        where: { id: parseInt(id) },
       });
-
-      if (!usuario) {
-        throw new Error('Usuário não encontrado para exclusão.');
-      }
-
-      return usuario;
-    } catch (error) {
-      console.error('Erro ao deletar usuário:', error.message);
+    } catch (err) {
+      console.error('Erro ao deletar usuário:', err.message);
       throw new Error('Não foi possível deletar o usuário. Tente novamente mais tarde.');
     }
   }

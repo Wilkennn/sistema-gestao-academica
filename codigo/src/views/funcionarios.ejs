@@ -1,0 +1,60 @@
+<%- include('partials/header.html') %>
+
+    <!-- Container Principal -->
+    <div id="cursos-container" class="container mt-4">
+
+        <div class="header">
+            <h2>Funcionarios</h2>
+            <button class="btn btn-primary" onclick="window.location.href='/adicionar-funcionario';">
+              <i class="fas fa-plus"></i> Adicionar
+            </button>
+        </div>
+
+        <hr>
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Cargo</th>
+                    <th>Data Admissao</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% funcionarios.forEach(funcionario => { %>
+                    <tr>
+                        <td><%= funcionario.usuario.id%></td>
+                        <td><%= funcionario.usuario.nome %></td>
+                        <td><%= funcionario.usuario.email %></td>
+                        <td><%= funcionario.cargo %></td>
+                        <td><%= new Date(funcionario.dataAdmissao).toLocaleDateString('pt-BR') %></td>
+                        <td style="text-align: center;">
+                            <a href="/funcionarios/<%= funcionario.id %>" title="Editar" style="display: inline-block; margin-right: 8px;">
+                                <i class="fas fa-edit table-icon"></i>
+                            </a>
+                            <a href="#" title="Excluir" style="display: inline-block;" onclick="if (confirm('Tem certeza que deseja deletar este funcionário?')) { event.preventDefault(); document.getElementById('delete-form-<%= funcionario.usuario.id %>').submit(); }">
+                                <i class="fas fa-trash table-icon"></i>
+                            </a>
+                            <form id="delete-form-<%= funcionario.usuario.id %>" action="/funcionarios/<%= funcionario.id %>/deletar" method="post" style="display:none;">
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <%- include('partials/footer.html') %>
+</body>
+
+
+</html>

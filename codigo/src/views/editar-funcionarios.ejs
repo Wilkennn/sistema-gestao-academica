@@ -1,0 +1,111 @@
+<%- include('partials/header.html') %>
+    <!-- Container Principal -->
+    <div id="cursos-container" class="container mt-5">
+        <div class="header">
+            <h2>Editar Funcionário</h2>
+            <% if (message) { %>
+                <div id="alert-message" data-type="<%= messageType %>" data-message="<%- message %>"></div>
+            <% } %>
+        </div>
+        <hr>
+        <div class="form-container">
+            <form class="row g-3" action="/funcionarios/?funcionarioId=<%= funcionario.id %>&usuarioId=<%= funcionario.usuario.id %>&_method=put" method="POST">
+                <div class="col-md-12">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" class="form-control" id="nome" name="nome"  value="<%= funcionario.usuario.nome %>" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<%= funcionario.usuario.email %>" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" value="<%= funcionario.usuario.telefone %>" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco" value="<%= funcionario.usuario.endereco %>" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" value="<%= funcionario.usuario.cpf %>" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="cargo">Cargo</label>
+                    <select class="form-control" id="cargo" name="cargo" required>
+                      <option value="">Selecione</option>
+                      <option value="PROFESSOR" <%= funcionario.cargo === 'PROFESSOR' ? 'selected' : '' %>>PROFESSOR</option>
+                      <option value="SECRETARIA" <%= funcionario.cargo === 'SECRETARIA' ? 'selected' : '' %>>SECRETARIA</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="dataNascimento">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" value="<%= funcionario.usuario.dataNascimento.toISOString().split('T')[0] %>" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="salario">Salário</label>
+                    <input type="text" class="form-control" id="salario" name="salario" value="<%= funcionario.salario %>" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="dataAdmissao">Data de Admissão</label>
+                    <input type="date" class="form-control" id="dataAdmissao" name="dataAdmissao" value="<%= funcionario.dataAdmissao.toISOString().split('T')[0] %>" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="login">Login</label>
+                    <input type="text" class="form-control" id="login" name="login" value="<%= funcionario.usuario.login %>" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="senha">Senha</label>
+                    <input type="password" class="form-control" id="senha" name="senha" value="<%= funcionario.usuario.senha %>"  readonly>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block mt-5">
+                        <i class="fas fa-save"></i> Salvar Funcionario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertMessage = document.getElementById('alert-message');
+
+            if (alertMessage) {
+                Swal.fire({
+                    icon: alertMessage.dataset.type === "success" ? "success" : "error",
+                    title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
+                    html: alertMessage.dataset.message,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed && alertMessage.dataset.type === "success") {
+                        window.location.href = '/funcionarios';
+                    }
+                });
+            }
+        });
+
+    </script>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <%- include('partials/footer.html') %>
+
+    </body>
+
+</html>
