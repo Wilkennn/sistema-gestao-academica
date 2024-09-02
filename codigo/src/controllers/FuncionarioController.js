@@ -1,59 +1,144 @@
 import FuncionarioService from '../services/FuncionarioService.js';
+import UsuarioService from '../services/UsuarioService.js';
 
 export class FuncionarioController {
 
   async getAll(req, res) {
     try {
       const funcionarios = await FuncionarioService.getAllFuncionarios();
-      res.status(200).json(funcionarios);
+      if (req.query.format === 'json') {
+        return res.status(200).json(funcionarios);
+      } else {
+        return res.status(200).render('funcionarios', { funcionarios });
+      }
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching employees', error });
+      if (req.query.format === 'json') {
+        return res.status(500).json({ message: 'Error fetching employees', error: error.message });
+      } else {
+        return res.status(500).render('error', { message: 'Erro ao buscar funcionários', error: error.message });
+      }
     }
   }
 
   async getById(req, res) {
+
     try {
       const { id } = req.params;
+      const { success, message, messageType } = req.query;
       const funcionario = await FuncionarioService.getFuncionarioById(id);
-      if (funcionario) {
-        res.status(200).json(funcionario);
+
+      if (req.query.format === 'json') {
+        return res.status(200).json(funcionario);
       } else {
-        res.status(404).json({ message: 'Employee not found' });
+        return res.status(200).render('editar-funcionarios', {
+          funcionario,
+          success: success || false,
+          messageType: messageType || '',
+          message: message || ''
+        });
       }
+
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching employee', error });
+      if (req.query.format === 'json') {
+        return res.status(500).json({ message: 'Error fetching employee', error: error.message });
+      } else {
+        return res.status(500).render('error', { message: 'Erro ao buscar funcionário', error: error.message });
+      }
     }
   }
 
   async create(req, res) {
     try {
-      const funcionarioData = req.body;
-  
+      const usuarioData = (({ nome, email, cpf, endereco, login, senha, telefone, dataNascimento }) => ({ nome, email, cpf, endereco, login, senha, telefone, dataNascimento }))(req.body);
+      const funcionarioData = (({ salario, cargo, dataAdmissao }) => ({ salario, cargo, dataAdmissao }))(req.body);
+    
       if (!funcionarioData.salario || !funcionarioData.dataAdmissao) {
-        return res.status(400).json({ message: 'Dados incompletos. Por favor, forneça todos os campos necessários.' });
+        if (req.query.format === 'json') {
+          return res.status(400).json({ message: 'Dados incompletos. Por favor, forneça todos os campos necessários.' });
+        } else {
+          return res.status(400).render('adicionar-funcionario', {
+            success: false,
+            messageType: 'error',
+            message: 'Dados incompletos. Por favor, forneça todos os campos necessários.'
+          });
+        }
       }
-  
+
       if (funcionarioData.usuarioId && isNaN(Number(funcionarioData.usuarioId))) {
-        return res.status(400).json({ message: 'usuarioId inválido. Deve ser um número.' });
+        if (req.query.format === 'json') {
+          return res.status(400).json({ message: 'usuarioId inválido. Deve ser um número.' });
+        } else {
+          return res.status(400).render('adicionar-funcionario', {
+            success: false,
+            messageType: 'error',
+            message: 'usuarioId inválido. Deve ser um número.'
+          });
+        }
       }
-  
+
+      const newUsuario = await UsuarioService.createUsuario(usuarioData);
+
+      funcionarioData.usuarioId = newUsuario.id;
+
       const newFuncionario = await FuncionarioService.createFuncionario(funcionarioData);
-      
-      res.status(201).json(newFuncionario);
+
+      if (req.query.format === 'json') {
+        return res.status(201).json(newFuncionario);
+      } else {
+        return res.redirect('/adicionar-funcionario?success=true&message=Funcionário criado com sucesso!&messageType=success');
+      }
+
     } catch (error) {
-      console.error('Erro ao criar funcionário:', error); // Log do erro completo para depuração
-      res.status(500).json({ message: 'Erro ao criar funcionário', error: error.message });
+      if (req.query.format === 'json') {
+        return res.status(500).json({ success: false, message: error.message });
+      } else {
+        return res.status(500).render('adicionar-funcionario', { 
+          success: false, 
+          messageType: 'error', 
+          message: 'Erro ao criar o funcionário!' 
+        });
+      }
     }
   }
 
   async update(req, res) {
     try {
-      const { id } = req.params;
-      const funcionarioData = req.body;
-      const updatedFuncionario = await FuncionarioService.updateFuncionario(id, funcionarioData);
-      res.status(200).json(updatedFuncionario);
+      const usuarioData = (({ nome, email, cpf, endereco, login, telefone, dataNascimento }) => ({ nome, email, cpf, endereco, login, telefone, dataNascimento }))(req.body);
+      const funcionarioData = (({ salario, cargo, dataAdmissao }) => ({ salario, cargo, dataAdmissao }))(req.body);
+
+      const { funcionarioId, usuarioId  } = req.query;
+
+      if (!funcionarioData.salario || !funcionarioData.dataAdmissao) {
+        if (req.query.format === 'json') {
+          return res.status(400).json({ message: 'Dados incompletos. Por favor, forneça todos os campos necessários.' });
+        } else {
+          return res.status(400).render('editar-funcionarios', {
+            success: false,
+            messageType: 'error',
+            message: 'Dados incompletos. Por favor, forneça todos os campos necessários.' 
+          });
+        }
+      }
+
+      const updatedUsuario = await UsuarioService.updateUsuario(usuarioId, usuarioData);
+      const updatedFuncionario = await FuncionarioService.updateFuncionario(funcionarioId, funcionarioData);
+
+      if (req.query.format === 'json') {
+        return res.status(200).json({updatedFuncionario, updatedUsuario});
+      } else {
+        return res.redirect(`/funcionarios/${funcionarioId}?success=true&message=Funcionário atualizado com sucesso!&messageType=success`);
+      }
     } catch (error) {
-      res.status(500).json({ message: 'Error updating employee', error });
+      console.log(error)
+      if (req.query.format === 'json') {
+        return res.status(500).json({ success: false, message: 'Error updating employee', error: error.message });
+      } else {
+        return res.status(500).render('editar-funcionarios', {
+          success: false,
+          messageType: 'error',
+          message: 'Erro ao atualizar o funcionário!'
+        });
+      }
     }
   }
 
@@ -61,9 +146,18 @@ export class FuncionarioController {
     try {
       const { id } = req.params;
       await FuncionarioService.deleteFuncionario(id);
-      res.status(204).send();
+
+      if (req.query.format === 'json') {
+        return res.status(204).send();
+      } else {
+        return res.redirect('/funcionarios?success=true&message=Funcionário excluído com sucesso!&messageType=success');
+      }
     } catch (error) {
-      res.status(500).json({ message: 'Error deleting employee', error });
+      if (req.query.format === 'json') {
+        return res.status(500).json({ message: 'Error deleting employee', error: error.message });
+      } else {
+        return res.status(500).render('error', { message: 'Erro ao excluir funcionário', error: error.message });
+      }
     }
   }
 }

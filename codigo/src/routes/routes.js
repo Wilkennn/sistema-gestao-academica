@@ -43,13 +43,25 @@ router.get('/aluno-cadastrar', (req, res) => {
 router.post('/aluno/cadastrar', alunoController.create);
 
 // Rotas para funcionario
-router.get('/funcionario', funcionarioController.getAll);
-router.get('/funcionario/:id', funcionarioController.getById);
-router.post('/funcionario', funcionarioController.create);
-router.post('/funcionario/editar/:id', funcionarioController.update);
-router.post('/funcionario/:id/deletar', funcionarioController.delete);
+router.get('/funcionarios', funcionarioController.getAll);
+router.get('/funcionarios/:id', funcionarioController.getById);
+router.post('/funcionarios', funcionarioController.create);
+router.put('/funcionarios', funcionarioController.update);
+router.post('/funcionarios/:id/deletar', funcionarioController.delete);
 
-// Rotas para curso
+router.get('/adicionar-funcionario', (req, res) => {
+
+    const { success, message, messageType } = req.query;
+
+    res.render('adicionar-funcionario', {
+        success: success || false,
+        messageType: messageType || '',
+        message: message || ''
+    });
+});
+
+
+// Rotas para curso'
 router.get('/curso', cursoController.getAll);
 router.get('/curso/:id', cursoController.getById);
 router.post('/curso', cursoController.create);
@@ -78,17 +90,6 @@ router.get('/adicionar-curso', (req, res) => {
     });
 });
 
-
-// router.get('/editar-curso/', (req, res) => {
-
-//     const { success, message, messageType } = req.query;
-
-//     res.render('adicionar-curso', {
-//         success: success || false,
-//         messageType: messageType || '',
-//         message: message || ''
-//     });
-// });
 
 // Rotas para disciplina
 router.get('/disciplina', disciplinaController.getAll);

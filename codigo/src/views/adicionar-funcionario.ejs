@@ -1,0 +1,111 @@
+<%- include('partials/header.html') %>
+    <!-- Container Principal -->
+    <div id="cursos-container" class="container mt-5">
+        <div class="header">
+            <h2>Adicionar Funcionario</h2>
+            <% if (message) { %>
+                <div id="alert-message" data-type="<%= messageType %>" data-message="<%- message %>"></div>
+            <% } %>
+        </div>
+        <hr>
+        <div class="form-container">
+            <form class="row g-3" method="POST" action="/funcionarios/">
+
+                <div class="col-md-12">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="cargo">Cargo</label>
+                    <select class="form-control" id="cargo" name="cargo" required>
+                        <option value="">Selecione</option>
+                        <option value="PROFESSOR">PROFESSOR</option>
+                        <option value="SECRETARIA">SECRETARIA</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="dataNascimento">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="salario">Salário</label>
+                    <input type="text" class="form-control" id="salario" name="salario" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="dataAdmissao">Data de Admissão</label>
+                    <input type="date" class="form-control" id="dataAdmissao" name="dataAdmissao" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="login">Login</label>
+                    <input type="text" class="form-control" id="login" name="login" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="senha">Senha</label>
+                    <input type="password" class="form-control" id="senha" name="senha" required>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block mt-5">
+                        <i class="fas fa-save"></i> Salvar Funcionario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertMessage = document.getElementById('alert-message');
+
+            if (alertMessage) {
+                Swal.fire({
+                    icon: alertMessage.dataset.type === "success" ? "success" : "error",
+                    title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
+                    html: alertMessage.dataset.message,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed && alertMessage.dataset.type === "success") {
+                        window.location.href = '/funcionarios';
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <%- include('partials/footer.html') %>
+
+</body>
+
+</html>

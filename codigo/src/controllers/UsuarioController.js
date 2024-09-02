@@ -44,13 +44,10 @@ export class UsuarioController {
       const newUsuario = await UsuarioService.createUsuario(usuarioData);
 
       if (req.query.format === 'json') {
-        return res.status(201).json(newCurso);
+        return res.status(201).json(newUsuario);
       } else {
         return res.render('cadastro', { success: true,  messageType: 'success', message: "Usuario criado com sucesso! <i class='fas fa-check check-icon'></i>" });
       }
-
-      console.log(newUsuario);
-      res.status(201).json({ message: 'Usuário criado com sucesso.', usuario: newUsuario });
     } catch (error) {
       res.status(500).json({
         message: 'Não foi possível criar o usuário. Verifique os dados fornecidos e tente novamente.',
