@@ -24,13 +24,11 @@ model Usuario {
 
 model Aluno {
   id           Int                @id @default(autoincrement())
-  periodo      String
   dataIngresso DateTime           @map("data_ingresso")
   mensalidades Mensalidade[]
   cursos       Curso_Aluno[]
   disciplinas  Aluno_Disciplina[]
   
-
   usuarioId Int?
   usuario   Usuario? @relation(fields: [usuarioId], references: [id])
 }
@@ -76,10 +74,9 @@ model Curso_Aluno {
 }
 
 enum CursoStatus {
-  APROVADO
-  REPROVADO
-  PENDENTE
-  CANCELADO
+  ATIVO
+  FINALIZADO
+  TRANCADO
 }
 
 model Disciplina {
@@ -95,7 +92,6 @@ model Disciplina {
 model CursoDisciplina {
   cursoId      Int
   disciplinaId Int
-
   curso        Curso      @relation(fields: [cursoId], references: [id])
   disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
 

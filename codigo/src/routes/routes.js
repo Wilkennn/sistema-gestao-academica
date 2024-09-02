@@ -30,18 +30,16 @@ router.delete('/usuario/:id', usuarioController.delete);
 // Rotas para aluno
 router.get('/aluno', alunoController.getAll);
 router.get('/aluno/:id', alunoController.getById);
-router.post('/aluno/:id/editar', alunoController.update);
-router.get('/aluno/:id/editar', (req, res) => { req.query.page = 'editar'; alunoController.getById(req, res); });
-router.delete('/aluno/:id/deletar', alunoController.delete);
-router.get('/aluno/:id/deletar', alunoController.getAll);
+router.get('/editar-aluno/:id', alunoController.getById);
+router.put('/aluno/:id/', alunoController.update);
 router.get('/aluno/:id/adicionar-curso', alunoController.mostrarCursos);
-
 router.post('/aluno/:id/adicionar-curso', alunoController.addCurso);
 router.get('/aluno-cadastrar', (req, res) => {
     console.log('Acessando a página de cadastro de aluno');
     res.render('cadastrar-aluno')
 });
 router.post('/aluno/cadastrar', alunoController.create);
+router.delete('/aluno/:id/deletar-aluno', alunoController.delete);
 
 // Rotas para funcionario
 router.get('/funcionarios', funcionarioController.getAll);

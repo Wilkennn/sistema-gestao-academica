@@ -69,7 +69,6 @@ class AlunoService {
 
       const aluno = await prismaClient.aluno.create({
         data: {
-          periodo: "1",
           dataIngresso: new Date(),
           usuarioId: usuario.id,
         },
@@ -77,19 +76,25 @@ class AlunoService {
 
       console.log("Criou o aluno");
 
-      let curso = await prismaClient.curso.findUnique({
-        where: { id: parseInt(alunoData.cursoId) },
-      })
 
-      if (!curso) {
-        console.error("Curso não encontrado");
-      } else {
+      if (Array.isArray(alunoData.cursoIds)) {
+        for (let cursoId of alunoData.cursoIds) {
+          await prismaClient.curso_Aluno.create({
+            data: {
+              alunoId: aluno.id,
+              cursoId: parseInt(cursoId),
+              periodo: 1,
+              cursoStatus: 'ATIVO',
+            },
+          });
+        }
+      } else if (alunoData.cursoId) {
         await prismaClient.curso_Aluno.create({
           data: {
             alunoId: aluno.id,
             cursoId: parseInt(alunoData.cursoId),
             periodo: 1,
-            cursoStatus: 'CANCELADO',
+            cursoStatus: 'ATIVO',
           },
         });
       }
@@ -105,6 +110,7 @@ class AlunoService {
   }
 
   async updateAluno(id, alunoData) {
+    alunoData.dataIngresso = new Date(usuario.dataAdmissao).toISOString();
     try {
       return prismaClient.aluno.update({
         where: { id: parseInt(id) },
@@ -131,7 +137,7 @@ class AlunoService {
           alunoId: parseInt(alunoId),
           cursoId: parseInt(cursoId),
           periodo: 1,
-          cursoStatus: 'CANCELADO'
+          cursoStatus: 'ATIVO'
         },
       });
     } catch (error) {

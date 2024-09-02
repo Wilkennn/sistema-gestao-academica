@@ -1,57 +1,47 @@
 <%- include('partials/header.html') %>
 
-    <!-- Container Principal -->
     <div class="container mt-5">
-        <!-- Cabeçalho com título -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Edição de Aluno</h2>
         </div>
-
         <hr>
 
-        <!-- Formulário de Cadastro de Aluno -->
         <div class="form-container">
-            <form class="row g-3" method="POST" action="/aluno/cadastrar">
+            <form class="row g-3" action="/aluno/<%= aluno.id %>?_method=put" method="POST">
                 <div class="col-md-12">
                     <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Aluno" required>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Aluno" value="<%= aluno.usuario.nome %>" required>
                 </div>
                 <div class="col-md-6">
                     <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF do Aluno" required>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF do Aluno" value="<%= aluno.usuario.cpf %>" required maxlength="11">
                 </div>
                 <div class="col-md-6">
                     <label for="endereco" class="form-label">Endereço</label>
-                    <input type="text" class="form-control" id="endereco" name="endereco"
+                    <input type="text" class="form-control" id="endereco" name="endereco" value="<%= aluno.usuario.endereco %>"
                         placeholder="Endereço do Aluno" required>
                 </div>
                 <div class="col-md-6">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email do Aluno"
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email do Aluno" value="<%= aluno.usuario.email %>"
                         required>
                 </div>
                 <div class="col-md-6">
                     <label for="telefone" class="form-label">Telefone</label>
-                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="Telefone do Aluno"
-                        required>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="Telefone do Aluno" value="<%= aluno.usuario.telefone %>" required maxlength="11">
                 </div>
                 <div class="col-md-6">
                     <label for="data" class="form-label">Data de Nascimento</label>
-                    <input type="date" class="form-control" id="data" name="data" required>
+                    <input type="date" class="form-control" id="data" name="data" value="<%= aluno.usuario.dataNascimento.toISOString().split('T')[0] %>" required>
                 </div>
                 <div class="col-md-6">
                     <label for="login" class="form-label">Login</label>
-                    <input type="text" class="form-control" id="login" name="login" placeholder="Login do Aluno"
+                    <input type="text" class="form-control" id="login" name="login" placeholder="Login do Aluno" value="<%= aluno.usuario.login %>"
                         required>
                 </div>
                 <div class="col-md-6">
                     <label for="senha" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha do Aluno"
-                        required>
-                </div>
-                <div class="col-md-6">
-                    <label for="cursoId" class="form-label">ID do Curso</label>
-                    <input type="number" class="form-control" id="cursoId" name="cursoId" placeholder="ID do Curso"
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha do Aluno" value="<%= aluno.usuario.senha %>"
                         required>
                 </div>
                 <div class="col-12">
@@ -62,5 +52,6 @@
             </form>
         </div>
     </div>
+
 
     <%- include('partials/footer.html') %>

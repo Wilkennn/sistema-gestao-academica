@@ -58,6 +58,7 @@ export class UsuarioController {
 
   async update(req, res) {
     try {
+
       const { id } = req.params;
       const usuarioData = req.body;
       const updatedUsuario = await UsuarioService.updateUsuario(id, usuarioData);

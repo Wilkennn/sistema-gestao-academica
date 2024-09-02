@@ -15,8 +15,6 @@ export class AlunoController {
         return res.render('alunos', { alunos });
       }
 
-      console.log(alunos)
-      res.status(200).json(alunos);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching students', error });
     }
@@ -29,17 +27,12 @@ export class AlunoController {
 
       if (req.query.format === 'json') {
         return res.status(200).json(aluno);
-      }else if (req.query.page === 'editar') {
-        return res.render('editar', { aluno });
+      }else if (req.originalUrl.includes('/editar-aluno')) {
+        return res.render('editar-aluno', { aluno });
       }else {
         return res.render('perfil', { aluno });
       }
 
-      if (aluno) {
-        res.status(200).json(aluno);
-      } else {
-        res.status(404).json({ message: 'Student not found' });
-      }
     } catch (error) {
       res.status(500).json({ message: 'Error fetching student', error });
     }
@@ -56,8 +49,7 @@ export class AlunoController {
       } else {
         return res.redirect('/aluno');
       }
-      
-      res.status(201).json(newAluno);
+
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar aluno', error });
     }
@@ -65,20 +57,31 @@ export class AlunoController {
 
   async update(req, res) {
     try {
-      const { id } = req.params;
-      const alunoData = req.body;
-  
-      delete alunoData._method;
-  
-      const { nome, email, ...alunoFields } = alunoData;
-      const updatedAluno = await AlunoService.updateAluno(id, alunoFields);
-  
-      if (nome || email) {
-        const usuarioData = { nome, email };
-        await UsuarioService.updateUsuario(updatedAluno.usuarioId, usuarioData);
+
+      const usuarioData = (({ nome, email, cpf, endereco, login, telefone, dataNascimento }) => ({ nome, email, cpf, endereco, login, telefone, dataNascimento }))(req.body);
+
+      const { id } = req.query;
+
+      if (!usuarioData.cpf || !usuarioData.email) {
+        if (req.query.format === 'json') {
+          return res.status(400).json({ message: 'Dados incompletos. Por favor, forneça todos os campos necessários.' });
+        } else {
+          return res.status(400).render('editar-aluno', {
+            success: false,
+            messageType: 'error',
+            message: 'Dados incompletos. Por favor, forneça todos os campos necessários.' 
+          });
+        }
+      }
+
+      const updatedUsuario = await UsuarioService.updateUsuario(id, usuarioData)
+
+      if (req.query.format === 'json') {
+        return res.status(201).json({ message: "Aluno criado com sucesso!", id });;
+      } else {
+        return res.redirect('/aluno?success=true&message=Aluno atualizado com sucesso.');
       }
   
-      res.redirect('/aluno?success=true&message=Aluno atualizado com sucesso.');
     } catch (error) {
       console.error('Erro ao atualizar aluno:', error);
       res.status(500).json({
