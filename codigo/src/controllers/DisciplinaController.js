@@ -42,7 +42,7 @@ export class DisciplinaController {
       const disciplinaData = req.body;
       const newDisciplina = await DisciplinaService.createDisciplina(disciplinaData);
       if (req.query.format === 'json') {
-        return res.status(201).json({ message: "Disciplina criada com sucesso!", id });;
+        return res.status(201).json({ message: "Disciplina criada com sucesso!", newDisciplina });;
       } else {
         return res.redirect('/disciplina');
       }
