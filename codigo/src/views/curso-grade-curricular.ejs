@@ -13,51 +13,46 @@
         </div>
 
         <script>
-            const periodos = [
-                {
-                    nome: '1° período',
-                    disciplinas: [
-                        'ALGORITMOS E ESTRUTURAS DE DADOS I',
-                        'CÁLCULO I',
-                        'DESENVOLVIMENTO DE INTERFACES WEB',
-                        'FUNDAMENTOS DE ENGENHARIA DE SOFTWARE',
-                        'INTRODUÇÃO À COMPUTAÇÃO',
-                        'TRABALHO INTERDISCIPLINAR: APLICAÇÕES WEB'
-                    ]
-                },
-                {
-                    nome: '2° período',
-                    disciplinas: [
-                        'MATEMÁTICA DISCRETA',
-                        'PROGRAMAÇÃO ORIENTADA A OBJETOS',
-                        'BANCO DE DADOS I',
-                        'ENGENHARIA DE REQUISITOS',
-                        'SISTEMAS OPERACIONAIS'
-                    ]
-                }
-            ];
+            const curso = <%- JSON.stringify(curso) %>;
 
             function renderPeriodos() {
                 const container = document.getElementById('periodosContainer');
-                periodos.forEach((periodo, index) => {
+                container.innerHTML = '';
+
+                for (let i = 1; i <= curso.duracao; i++) {
                     const periodoHtml = `
-                        <h6 class="text-black p-2" style="background-color: lightgray; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleList(${index})">
-                            <span>${periodo.nome}</span>
-                            <button class="btn btn-primary btn-sm" onclick="window.location.href='/adicionar-funcionario'; event.stopPropagation();">
-                                <i class="fas fa-plus"></i> Adicionar
+                        <h6 class="text-black p-2" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleList(${i})">
+                            <span>${i}° Semestre</span>
+                            <button class="btn btn-primary btn-sm" style="background-color: #3295ff;" onclick="window.location.href='/adicionar-funcionario'; event.stopPropagation();">
+                                <i class="fas fa-plus"></i>
                             </button>
                         </h6>
-                        <ul id="subjectList-${index}" class="list-unstyled mt-3" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out;">
-                            ${periodo.disciplinas.map(disciplina => `<li><a href="#" class="text-decoration-none text-dark d-block w-100 py-2 px-3" style="background-color: white;">${disciplina}</a></li>`).join('')}
+                    `;
+
+                    const disciplinasHtml = curso.disciplinas
+                        .filter(disciplina => disciplina.periodo === i)
+                        .map(disciplina => `
+                            <li>
+                                <a href="#" class="text-decoration-none text-dark d-block w-100 py-2 px-3">
+                                    ${disciplina.disciplina.nome}
+                                </a>
+                            </li>
+                        `)
+                        .join('');
+
+                    const periodoContentHtml = `
+                        <ul id="subjectList-${i}" class="list-unstyled mt-3" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out;">
+                            ${disciplinasHtml}
                         </ul>
                     `;
-                    container.innerHTML += periodoHtml;
-                });
+
+                    container.innerHTML += '<div>' + periodoHtml + periodoContentHtml + '</div>';
+                }
             }
 
             function toggleList(index) {
                 const list = document.getElementById(`subjectList-${index}`);
-                if (list.style.maxHeight === "0px") {
+                if (list.style.maxHeight === "0px" || list.style.maxHeight === "") {
                     list.style.maxHeight = list.scrollHeight + "px";
                 } else {
                     list.style.maxHeight = "0px";
@@ -65,16 +60,9 @@
             }
 
             renderPeriodos();
-
         </script>
 
-        <!-- jQuery e Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 
         <%- include('partials/footer.html') %>
-
-            </body>
-
-            </html>

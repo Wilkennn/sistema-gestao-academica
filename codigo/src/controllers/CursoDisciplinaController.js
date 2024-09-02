@@ -3,10 +3,10 @@ import CursoDisciplinaService from '../services/CursoDisciplinaService.js';
 export class CursoDisciplinaController {
   
   async addDisciplinaToCurso(req, res) {
-    const { cursoId, disciplinaId } = req.body;
+    const { cursoId, disciplinaId, periodo } = req.body;
 
     try {
-      const result = await CursoDisciplinaService.addDisciplinaToCurso(cursoId, disciplinaId);
+      const result = await CursoDisciplinaService.addDisciplinaToCurso(cursoId, disciplinaId, periodo);
       res.status(201).json(result);
     } catch (error) {
       res.status(500).json({ error: error.message });
