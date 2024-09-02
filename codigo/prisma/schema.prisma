@@ -95,6 +95,7 @@ model Disciplina {
 model CursoDisciplina {
   cursoId      Int
   disciplinaId Int
+  periodo      Int
 
   curso        Curso      @relation(fields: [cursoId], references: [id])
   disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])

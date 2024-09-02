@@ -30,7 +30,7 @@ header.scrolled {
     /* Fixa a logo na tela */
     top: 10px;
     /* Ajusta a logo ao topo */
-    left: 97.5px;
+    left: 98.5px;
     /* Mantém a logo à esquerda */
     z-index: 100;
     /* Mantém a logo no topo, acima da sidebar */
@@ -83,4 +83,5 @@ header.scrolled {
     /* Add this to center the image */
     overflow: hidden;
     width: 40px;
+    left: 107px;
 }

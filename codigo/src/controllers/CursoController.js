@@ -121,10 +121,11 @@ export class CursoController {
 
     const { id } = req.params;
 
-    const disciplinas = await CursoDisciplinaService.getDisciplinasByCurso(parseInt(id));
+    const curso = await CursoDisciplinaService.getDisciplinasByCurso(parseInt(id));
 
-    return res.status(200).json({disciplinas });
 
-    //return res.status(500).render('curso-grade-curricular', { cursos } );
+    //return res.status(200).json({ curso });
+
+    return res.status(200).render('curso-grade-curricular', { curso } );
   }
 }
