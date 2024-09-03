@@ -20,6 +20,7 @@ const alunoDisciplinaController = new AlunoDisciplinaController();
 const cursoAlunoController = new CursoAlunoController();
 const cursoDisciplinaController = new CursoDisciplinaController();
 
+
 // Rotas para usuário
 router.get('/usuario', usuarioController.getAll);
 router.get('/usuario/:id', usuarioController.getById);
@@ -27,7 +28,7 @@ router.post('/usuario', usuarioController.create);
 router.put('/usuario/:id', usuarioController.update);
 router.delete('/usuario/:id', usuarioController.delete);
 
-// Rotas para aluno
+// Rotas para aluno sistema
 router.get('/aluno', alunoController.getAll);
 router.get('/aluno/:id', alunoController.getById);
 router.get('/editar-aluno/:id', alunoController.getById);
@@ -41,7 +42,15 @@ router.get('/aluno-cadastrar', (req, res) => {
 router.post('/aluno/cadastrar', alunoController.create);
 router.delete('/aluno/:id/deletar-aluno', alunoController.delete);
 
-// Rotas para funcionario
+// Rotas para aluno de aluno
+router.get('/login-aluno',(req, res) => {
+    res.render('login-aluno')
+});
+router.get('/menu-aluno/:id', alunoController.getById);
+router.get('/menu-aluno/disciplinas/:id', alunoController.getById)
+
+
+// Rotas para sistema funcionario
 router.get('/funcionarios', funcionarioController.getAll);
 router.get('/funcionarios/:id', funcionarioController.getById);
 router.post('/funcionarios', funcionarioController.create);
@@ -58,6 +67,9 @@ router.get('/adicionar-funcionario', (req, res) => {
         message: message || ''
     });
 });
+
+// Rotas para funcionario funcionario
+router.get('/menu-funcionario/:id', funcionarioController.getById);
 
 
 // Rotas para curso'

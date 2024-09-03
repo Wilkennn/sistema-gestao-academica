@@ -1,0 +1,38 @@
+<%- include('partials/header.html') %>
+
+<!-- Container Principal -->
+<div id="cursos-container" class="container mt-4">
+    <div class="header d-flex justify-content-between align-items-center">
+      <h2>Cursos <a href="/aluno/<%= aluno.id %>"><%= aluno.usuario.nome %></a></h2>
+    </div>
+    <hr>
+    <div class="row mt-2" style="margin-bottom: 5rem;">
+      <% if (aluno.cursos && aluno.cursos.length > 0) { %>
+        <% aluno.cursos.forEach(function(c) { %>
+          <div class="col-md-4 mb-3">
+            <a href="/curso/<%= c.curso.id %>" class="card-link">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <i class="<%= c.curso.icon %>"></i> <%= c.curso.nome %>
+                  </h5>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Código: <%= c.curso.nome.slice(0, 3).toUpperCase() + c.curso.id %>
+                  </h6>
+                  <p class="card-text"><%= c.curso.descricao %></p>
+                  <p class="card-text">Período: <%= c.periodo %></p>
+                  <p class="card-text">Status: <%= c.cursoStatus %></p>
+                </div>
+              </div>
+            </a>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="col-12">
+          <p>Nenhum curso disponível.</p>
+        </div>
+      <% } %>
+    </div>
+</div>
+
+<%- include('partials/footer.html') %>

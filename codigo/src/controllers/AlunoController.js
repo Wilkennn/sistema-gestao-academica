@@ -29,6 +29,8 @@ export class AlunoController {
         return res.status(200).json(aluno);
       }else if (req.originalUrl.includes('/editar-aluno')) {
         return res.render('editar-aluno', { aluno });
+      }else if (req.originalUrl.includes('/menu-aluno')) {
+        return res.render('menu-aluno', { aluno });
       }else {
         return res.render('perfil', { aluno });
       }
@@ -58,9 +60,17 @@ export class AlunoController {
   async update(req, res) {
     try {
 
+      console.log(req.body)
+
       const usuarioData = (({ nome, email, cpf, endereco, login, telefone, dataNascimento }) => ({ nome, email, cpf, endereco, login, telefone, dataNascimento }))(req.body);
 
-      const { id } = req.query;
+      const { id } = req.params;
+
+      const aluno = await AlunoService.getAlunoById(id);
+
+      const idUsuario = aluno.usuarioId;
+
+      console.log("Usuario "+idUsuario);
 
       if (!usuarioData.cpf || !usuarioData.email) {
         if (req.query.format === 'json') {
@@ -74,7 +84,9 @@ export class AlunoController {
         }
       }
 
-      const updatedUsuario = await UsuarioService.updateUsuario(id, usuarioData)
+      const updatedUsuario = await UsuarioService.updateUsuario(idUsuario, usuarioData)
+
+      console.log(updatedUsuario)
 
       if (req.query.format === 'json') {
         return res.status(201).json({ message: "Aluno criado com sucesso!", id });;

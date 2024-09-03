@@ -19,7 +19,8 @@ class FuncionarioService {
       return await prismaClient.funcionario.findUnique({
         where: { id: parseInt(id) },
         include: {
-          usuario: true
+          usuario: true,
+          cursos: true,
         },
       });
     } catch (err) {
