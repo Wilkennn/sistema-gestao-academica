@@ -6,6 +6,7 @@ export class CursoDisciplinaController {
     const { cursoId, disciplinaId, periodo } = req.body;
 
     try {
+      console.log(req.body)
       const result = await CursoDisciplinaService.addDisciplinaToCurso(cursoId, disciplinaId, periodo);
       res.status(201).json(result);
     } catch (error) {

@@ -1,45 +1,56 @@
 import { prismaClient } from '../database/prismaClient.js';
 
 class CursoDisciplinaService {
+
   async addDisciplinaToCurso(cursoId, disciplinaId, periodo) {
-    return prismaClient.cursoDisciplina.create({
-      data: {
-        curso: { connect: { id: cursoId } },
-        disciplina: { connect: { id: disciplinaId } },
-        periodo: periodo
-      }
-    });
+
+    console.log({cursoId, disciplinaId, periodo})
+    try {
+      return await prismaClient.cursoDisciplina.create({
+        data: {
+          curso: { connect: { id: parseInt(cursoId) } },  // Garante que cursoId é um número
+          disciplina: { connect: { id: parseInt(disciplinaId) } },  // Garante que disciplinaId é um número
+          periodo: parseInt(periodo)
+        }
+      });
+    } catch (error) {
+      console.error('Erro ao adicionar disciplina ao curso:', error);
+      throw error; // Propaga o erro para que possa ser tratado em outros lugares, se necessário
+    }
   }
 
   async removeDisciplinaFromCurso(cursoId, disciplinaId) {
-    return prismaClient.cursoDisciplina.deleteMany({
-      where: {
-        cursoId,
-        disciplinaId,
-      },
-    });
+    try {
+      return await prismaClient.cursoDisciplina.deleteMany({
+        where: {
+          cursoId: cursoId,
+          disciplinaId: disciplinaId,
+        },
+      });
+    } catch (error) {
+      console.error('Erro ao remover disciplina do curso:', error);
+      throw error; // Propaga o erro para que possa ser tratado em outros lugares, se necessário
+    }
   }
 
   async getDisciplinasByCurso(cursoId) {
-    return prismaClient.curso.findUnique({
-      where: { id: cursoId },
-      include: {
-        disciplinas: {
-          include: {
-            disciplina: true,  // Inclui os detalhes completos da disciplina
+    try {
+      return await prismaClient.curso.findUnique({
+        where: { id: cursoId },
+        include: {
+          disciplinas: {
+            include: {
+              disciplina: true,  // Inclui os detalhes completos da disciplina
+            },
           },
         },
-      },
-    });
+      });
+    } catch (error) {
+      console.error('Erro ao obter disciplinas do curso:', error);
+      throw error; // Propaga o erro para que possa ser tratado em outros lugares, se necessário
+    }
   }
   
-
-  async getCursosByDisciplina(disciplinaId) {
-    return prismaClient.disciplina.findUnique({
-      where: { id: disciplinaId },
-      include: { cursos: true, disciplina: true},
-    });
-  }
 }
 
 export default new CursoDisciplinaService();

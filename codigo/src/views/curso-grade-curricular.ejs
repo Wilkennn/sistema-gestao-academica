@@ -12,7 +12,53 @@
             </div>
         </div>
 
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Selecione uma Opção</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="post" action="/curso-disciplina">
+                    <input type="hidden" name="periodo" id="periodo">
+                    <input type="hidden" name="cursoId" id="cursoId" value="<%= curso.id %>">
+                    <div class="mb-3">
+                      <label for="exampleSelect" class="form-label">Opções</label>
+                      <select class="form-select" id="disciplinaId" name="disciplinaId">
+                        <% disciplinas.forEach(disciplina => { %>
+                            <option value="<%= disciplina.id %>"><%= disciplina.nome %></option>
+                        <% }) %>
+                    </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="button" id="saveButton"  class="btn btn-primary">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         <script>
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const btns = document.querySelectorAll('#addCursoDisciplinas');
+
+                btns.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        console.log(event.target.name ?? event.target.dataset.name)
+                        document.getElementById('periodo').value = event.target.name ?? event.target.dataset.name;
+                    });
+                });
+
+                document.getElementById('saveButton').addEventListener('click', () => {
+                    const form = document.querySelector('#exampleModal form');
+                    form.submit();
+                });
+            });
+
             const curso = <%- JSON.stringify(curso) %>;
 
             function renderPeriodos() {
@@ -23,8 +69,8 @@
                     const periodoHtml = `
                         <h6 class="text-black p-2" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleList(${i})">
                             <span>${i}° Semestre</span>
-                            <button class="btn btn-primary btn-sm" style="background-color: #3295ff;" onclick="window.location.href='/adicionar-funcionario'; event.stopPropagation();">
-                                <i class="fas fa-plus"></i>
+                            <button id="addCursoDisciplinas" name="${i}" class="btn btn-primary btn-sm" style="background-color: #3295ff;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-param="${i}">
+                                <i class="fas fa-plus" data-name="${i}"></i>
                             </button>
                         </h6>
                     `;
@@ -61,8 +107,5 @@
 
             renderPeriodos();
         </script>
-
-
-
 
         <%- include('partials/footer.html') %>
