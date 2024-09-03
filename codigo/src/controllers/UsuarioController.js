@@ -2,6 +2,25 @@ import UsuarioService from '../services/UsuarioService.js';
 
 export class UsuarioController {
 
+  async loginAluno(req, res) {
+    try {
+      const { login, senha } = req.body;
+
+      const loginAluno = await UsuarioService.loginAluno(login, senha);
+
+      if (req.query.format === 'json') {
+        return res.status(200).json(loginAluno);
+      }else {
+        return res.render('/menu-aluno', { loginAluno });
+      }
+
+      res.json({ success: loginAluno.success, message: loginAluno.message, token: loginAluno.token, user: loginAluno.user });
+  } catch (error) {
+      console.error('Erro durante o login:', error);
+      res.status(500).json({ message: 'Erro durante o login do usuário' });
+  }
+  }
+
   async getAll(req, res) {
     try {
       const usuarios = await UsuarioService.getAllUsuarios();      

@@ -110,7 +110,7 @@ class AlunoService {
   }
 
   async updateAluno(id, alunoData) {
-    alunoData.dataIngresso = new Date(usuario.dataAdmissao).toISOString();
+
     try {
       return prismaClient.aluno.update({
         where: { id: parseInt(id) },

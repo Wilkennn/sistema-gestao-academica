@@ -1,6 +1,19 @@
 import { prismaClient } from '../database/prismaClient.js';
 
 class UsuarioService {
+
+  async loginAluno(login, senha){
+    try {
+      return await prismaClient.usuario.findUnique({
+        where: { login: login, senha: senha },
+        select: { id: true },
+      });
+    } catch (error) {
+      console.error('Erro ao tentar logar:', error.message);
+      throw new Error('Não foi possível logar. Verifique seu login e senha.');
+    }
+  }
+
   async getAllUsuarios() {
     try {
       return await prismaClient.usuario.findMany();
@@ -42,14 +55,25 @@ class UsuarioService {
   }
   
   async updateUsuario(id, usuarioData) {
-    const dataNascimento = new Date(usuarioData.dataNascimento).toISOString();
+   
+    const dataNascimento = usuarioData.dataNascimento || usuarioData.data;
     
+    console.log('Data fornecida:', dataNascimento);
+
+    if (!dataNascimento || isNaN(Date.parse(dataNascimento))) {
+      throw new Error('Data de nascimento inválida.');
+    }
+
+    usuarioData.dataNascimento = new Date(dataNascimento).toISOString();
+    
+    console.log('Data de Nascimento formatado:', usuarioData.dataNascimento);
+
     try {
       return await prismaClient.usuario.update({
         where: { id: parseInt(id) },
         data: {
           ...usuarioData,
-          dataNascimento: dataNascimento,
+          dataNascimento: usuarioData.dataNascimento,
         },
       });
     } catch (err) {
