@@ -90,6 +90,7 @@ model Disciplina {
 }
 
 model CursoDisciplina {
+  
   cursoId      Int
   disciplinaId Int
   periodo      Int

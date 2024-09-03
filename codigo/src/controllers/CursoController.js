@@ -1,4 +1,5 @@
 import CursoService from '../services/CursoService.js';
+import DisciplinaService from '../services/DisciplinaService.js';
 import CursoDisciplinaService from '../services/CursoDisciplinaService.js';
 
 export class CursoController {
@@ -123,9 +124,9 @@ export class CursoController {
 
     const curso = await CursoDisciplinaService.getDisciplinasByCurso(parseInt(id));
 
+    const disciplinas = await DisciplinaService.getAllDisciplinas();
 
-    //return res.status(200).json({ curso });
-
-    return res.status(200).render('curso-grade-curricular', { curso } );
+    //return res.status(200).json( { curso, disciplinas } );
+    return res.status(200).render('curso-grade-curricular', { curso, disciplinas } );
   }
 }
