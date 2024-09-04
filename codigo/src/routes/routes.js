@@ -1,4 +1,5 @@
 // routes/index.js
+
 import { Router } from 'express';
 import { UsuarioController } from '../controllers/UsuarioController.js';
 import { AlunoController } from '../controllers/AlunoController.js';
@@ -21,7 +22,6 @@ const alunoDisciplinaController = new AlunoDisciplinaController();
 const cursoAlunoController = new CursoAlunoController();
 const cursoDisciplinaController = new CursoDisciplinaController();
 
-
 // Rotas para usuário
 router.get('/usuario', usuarioController.getAll);
 router.get('/usuario/:id', usuarioController.getById);
@@ -37,9 +37,7 @@ router.put('/aluno/:id/', alunoController.update);
 router.get('/aluno/:id/adicionar-curso', alunoController.mostrarCursos);
 router.post('/aluno/:id/adicionar-curso', alunoController.addCurso);
 router.get('/aluno-cadastrar', (req, res) => {
-       
     const { success, message, messageType } = req.query;
-
     res.render('cadastrar-aluno', {
         success: success || false,
         messageType: messageType || '',
@@ -49,13 +47,17 @@ router.get('/aluno-cadastrar', (req, res) => {
 router.post('/aluno/cadastrar', alunoController.create);
 router.delete('/aluno/:id/deletar-aluno', alunoController.delete);
 
+// Nova rota para exibir o menu do aluno
+router.get('/menu-aluno/:id', alunoController.exibirMenuAluno);
+
+// Nova rota para processar a escolha do tipo de matéria
+router.post('/menu-aluno/:id/disciplinas', alunoController.processarEscolhaDisciplinas);
+
 // Rotas para aluno de aluno
 router.get('/login-aluno',(req, res) => {
     res.render('login-aluno')
 });
-router.get('/menu-aluno/:id', alunoController.getById);
 router.get('/menu-aluno/disciplinas/:id', alunoController.getById)
-
 
 // Rotas para sistema funcionario
 router.get('/funcionarios', funcionarioController.getAll);
@@ -65,9 +67,7 @@ router.put('/funcionarios', funcionarioController.update);
 router.post('/funcionarios/:id/deletar', funcionarioController.delete);
 
 router.get('/adicionar-funcionario', (req, res) => {
-
     const { success, message, messageType } = req.query;
-
     res.render('adicionar-funcionario', {
         success: success || false,
         messageType: messageType || '',
@@ -75,9 +75,7 @@ router.get('/adicionar-funcionario', (req, res) => {
     });
 });
 
-
-
-// Rotas para curso'
+// Rotas para curso
 router.get('/curso', cursoController.getAll);
 router.get('/curso/:id', cursoController.getById);
 router.post('/curso', cursoController.create);
@@ -85,9 +83,7 @@ router.put('/curso/:id', cursoController.update);
 router.delete('/curso', cursoController.delete);
 
 router.get('/adicionar-curso', (req, res) => {
-
     const { success, message, messageType } = req.query;
-
     res.render('adicionar-curso', {
         success: success || false,
         messageType: messageType || '',
@@ -116,7 +112,6 @@ router.get('/cadastrar-disciplina', async(req, res) => {
     });
 });
 router.post('/cadastrar-disciplina', disciplinaController.create);
-
 
 // Rotas para Aluno_Disciplina
 router.get('/aluno-disciplina', alunoDisciplinaController.getAll);

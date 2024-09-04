@@ -1,0 +1,55 @@
+<%- include('partials/header.html') %>
+
+<div class="container mt-5">
+
+    <div class="header mb-4">
+        <h2 class="text-center">Menu do Aluno</h2>
+        <% if (message) { %>
+            <div id="alert-message" data-type="<%= messageType %>" data-message="<%- message %>"></div>
+        <% } %>
+    </div>
+
+    <hr>
+
+    <div class="form-container">
+        <form class="row g-3 p-4 border rounded bg-light shadow-sm" method="POST" action="/aluno/menu">
+            <div class="col-md-12">
+                <label for="materiaTipo" class="form-label">Escolha o Tipo de Matéria</label>
+                <select class="form-select" id="materiaTipo" name="materiaTipo" required>
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="obrigatoria">Matérias Obrigatórias</option>
+                    <option value="nao-obrigatoria">Matérias Não Obrigatórias</option>
+                </select>
+            </div>
+            
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-check"></i> Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertMessage = document.getElementById('alert-message');
+
+        if (alertMessage) {
+            Swal.fire({
+                icon: alertMessage.dataset.type === "success" ? "success" : "error",
+                title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
+                html: alertMessage.dataset.message,
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed && alertMessage.dataset.type === "success") {
+                    window.location.href = '/aluno';
+                }
+            });
+        }
+    });
+</script>
+
+<%- include('partials/footer.html') %>
