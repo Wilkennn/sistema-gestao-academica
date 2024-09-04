@@ -1,6 +1,6 @@
 import AlunoService from '../services/AlunoService.js';
 import UsuarioService from '../services/UsuarioService.js';
-import CursoService from '../services/CursoService.js'; // Supondo que você tenha um serviço para cursos
+import CursoService from '../services/CursoService.js';
 
 export class AlunoController {
   async getAll(req, res) {
@@ -47,13 +47,16 @@ export class AlunoController {
       const newAluno = await AlunoService.createAluno(alunoData);
       
       if (req.query.format === 'json') {
-        return res.status(201).json({ message: "Aluno criado com sucesso!", id });;
-      } else {
-        return res.redirect('/aluno');
-      }
 
+        return res.status(201).json({ message: "Aluno criado com sucesso!", id: newAluno.id });
+      } else {
+
+        return res.redirect('/aluno-cadastrar?success=true&message= Aluno Cadastrado com sucesso !&messageType=success');
+      }
+  
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao criar aluno', error });
+
+      res.status(500).json({ message: 'Erro ao criar aluno', error: error.message });
     }
   }
 

@@ -44,17 +44,17 @@ class AlunoService {
 
   async createAluno(alunoData) {
     try {
-
-      console.log(alunoData) 
-
+      console.log(alunoData);
+  
+      // Verifica se o usuário já existe com base no e-mail
       let usuario = await prismaClient.usuario.findUnique({
         where: { email: alunoData.email },
       });
-
+  
+      // Se o usuário não existir, cria um novo
       if (!usuario) {
-
-        const formattedDate = new Date(alunoData.data).toISOString();
-
+        const formattedDate = new Date(alunoData.dataNascimento).toISOString();
+  
         usuario = await UsuarioService.createUsuario({
           nome: alunoData.nome,
           email: alunoData.email,
@@ -66,17 +66,18 @@ class AlunoService {
           senha: alunoData.senha,
         });
       }
-
+  
+      // Cria um novo aluno associado ao usuário
       const aluno = await prismaClient.aluno.create({
         data: {
           dataIngresso: new Date(),
           usuarioId: usuario.id,
         },
       });
-
+  
       console.log("Criou o aluno");
-
-
+  
+      // Associa o aluno aos cursos
       if (Array.isArray(alunoData.cursoIds)) {
         for (let cursoId of alunoData.cursoIds) {
           await prismaClient.curso_Aluno.create({
@@ -98,16 +99,16 @@ class AlunoService {
           },
         });
       }
+  
+      // Retorna o objeto do aluno criado, incluindo a ID
       return aluno;
-
+  
     } catch (error) {
       console.error("Erro ao criar aluno", error);
-      return res.status(500).json({
-        message: 'Erro ao criar aluno',
-        error: error.message || error,
-      });
+      throw new Error('Erro ao criar aluno: ' + error.message);
     }
   }
+  
 
   async updateAluno(id, alunoData) {
 
