@@ -147,6 +147,45 @@ export class AlunoController {
       res.status(500).json({ message: 'Erro ao carregar a página', error });
     }
   }
+
+  async exibirMenuAluno(req, res) {
+    try {
+      const { id } = req.params;
+      const aluno = await AlunoService.getAlunoById(id);
+
+      if (!aluno) {
+        return res.status(404).render('404', { message: 'Aluno não encontrado' });
+      }
+
+      res.render('menu-aluno', { aluno });
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao exibir menu do aluno', error });
+    }
+  }
+
+  async processarEscolhaDisciplinas(req, res) {
+    try {
+      const { id } = req.params;
+      const { materiaTipo } = req.body;
+
+      if (!materiaTipo) {
+        return res.status(400).render('menu-aluno', {
+          aluno: await AlunoService.getAlunoById(id),
+          message: 'Por favor, selecione um tipo de matéria.',
+          messageType: 'error'
+        });
+      }
+
+      
+      if (materiaTipo === 'obrigatoria') {
+        const disciplinasObrigatorias = await DisciplinaService.getDisciplinasObrigatorias();
+        return res.render('disciplinas-obrigatorias', { disciplinas: disciplinasObrigatorias });
+      } else {
+        const disciplinasNaoObrigatorias = await DisciplinaService.getDisciplinasNaoObrigatorias();
+        return res.render('disciplinas-nao-obrigatorias', { disciplinas: disciplinasNaoObrigatorias });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao processar escolha de disciplinas', error });
+    }
+  }
 }
-
-
