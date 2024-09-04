@@ -1,1 +1,20 @@
-A
+# Instruções para Configuração do Banco de Dados com Prisma
+
+## Visão Geral
+
+Este documento fornece instruções detalhadas sobre como configurar o banco de dados MySQL para o projeto de Sistema de Gestão Acadêmica utilizando o Prisma ORM. Ele cobre a configuração do banco de dados, a criação do esquema e a execução de migrações.
+
+## Pré-requisitos
+
+- MySQL Server instalado e em execução.
+- Node.js e npm instalados.
+- Prisma CLI instalada (`npm install -g prisma`).
+
+## Configuração do Banco de Dados
+
+1. **Crie o Banco de Dados:**
+
+   Abra seu cliente MySQL e execute o seguinte comando para criar um novo banco de dados:
+
+   ```sql
+   CREATE DATABASE sistema_gestao_academica;
