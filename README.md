@@ -39,7 +39,7 @@ O sistema oferece uma série de funcionalidades para atender às necessidades de
     ```
 
 4. **Configure o banco de dados:**
-   - Crie um banco de dados MySQL e importe o esquema do banco de dados fornecido no diretório [.db.md](`.db.md`).
+   - Crie um banco de dados MySQL e importe o esquema do banco de dados fornecido no diretório [.db.md](.db.md).
 
 5. **Inicie a aplicação:**
 
