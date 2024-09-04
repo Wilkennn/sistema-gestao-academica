@@ -9,10 +9,10 @@ export class CursoDisciplinaController {
     try {
       const result = await CursoDisciplinaService.addDisciplinaToCurso(cursoId, disciplinaId, periodo);
 
-      return res.redirect('/curso-grade-curricular/7?success=true&message=Disciplina vinculada com sucesso!&messageType=success');
+      return res.redirect(`/curso-grade-curricular/${cursoId}?success=true&message=Disciplina vinculada com sucesso!&messageType=success`);
 
     } catch (error) {
-      res.redirect('/curso-grade-curricular/7?success=false&message=Disciplina já está vinculada!&messageType=error');
+      res.redirect(`/curso-grade-curricular/${cursoId}?success=false&message=Disciplina já está vinculada!&messageType=error`);
     }
   }
 
@@ -21,7 +21,7 @@ export class CursoDisciplinaController {
 
     try {
       const result = await CursoDisciplinaService.removeDisciplinaFromCurso(cursoId, disciplinaId, periodo);
-      return res.redirect('/curso-grade-curricular/7?success=true&message=Disciplina removida com sucesso!&messageType=success');
+      return res.redirect(`/curso-grade-curricular/${cursoId}?success=true&message=Disciplina removida com sucesso!&messageType=success`);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

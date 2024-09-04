@@ -18,26 +18,47 @@ class DisciplinaService {
 
   async createDisciplina(disciplinaData) {
     try {
-          disciplinaData.valor = parseFloat(disciplinaData.valor);
-          disciplinaData.creditos = parseInt(disciplinaData.creditos);
-          const disciplina = prismaClient.disciplina.create({
-            data: disciplinaData,
-          });
-          console.log(disciplina)
-          return disciplina;
+      disciplinaData.valor = parseFloat(disciplinaData.valor);
+      disciplinaData.creditos = parseInt(disciplinaData.creditos);
+  
+      const disciplina = await prismaClient.disciplina.create({
+        data: {
+          nome: disciplinaData.nome,
+          cargaHoraria: disciplinaData.cargaHoraria,
+          valor: disciplinaData.valor,
+          creditos: disciplinaData.creditos,
+          funcionario: {
+            connect: {
+              id: parseInt(disciplinaData.funcionario)
+            }
+          }
+        }
+      });
+      return disciplina;
     } catch (error) {
-      
+      console.error("Erro ao criar disciplina:", error);
+      throw new Error("Erro ao criar a disciplina.");
     }
   }
-
+  
   async updateDisciplina(id, disciplinaData) {
 
     disciplinaData.valor = parseFloat(disciplinaData.valor);
     disciplinaData.creditos = parseInt(disciplinaData.creditos);
 
     return prismaClient.disciplina.update({
-      where: { id: Number(id) },
-      data: disciplinaData,
+      where: { id: parseInt(id) },
+      data: {
+        nome: disciplinaData.nome,
+        cargaHoraria: disciplinaData.cargaHoraria,
+        valor: disciplinaData.valor,
+        creditos: disciplinaData.creditos,
+        funcionario: {
+          connect: {
+            id: parseInt(disciplinaData.funcionario)
+          }
+        }
+      }
     });
   }
 

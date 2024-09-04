@@ -23,14 +23,22 @@ export class DisciplinaController {
   async getById(req, res) {
     try {
       const { id } = req.params;
+
+      const { success, message, messageType } = req.query;
+
       const disciplina = await DisciplinaService.getDisciplinaById(id);
       const professores = await FuncionarioService.getAllProfessores();
 
-
       if (req.query.format === 'json') {
-        return res.status(200).json(disciplina, professores);
-      }else {
-        return res.render('editar-disciplina', { disciplina, professores });
+        return res.status(200).json({disciplina, professores});
+      } else {
+        res.render('editar-disciplina', {
+            disciplina,
+            professores,
+            success: success||false,
+            messageType: messageType || '',
+            message: message || ''
+        });
       }
 
     } catch (error) {
@@ -42,11 +50,12 @@ export class DisciplinaController {
   async create(req, res) {
     try {
       const disciplinaData = req.body;
+
       const newDisciplina = await DisciplinaService.createDisciplina(disciplinaData);
       if (req.query.format === 'json') {
         return res.status(201).json({ message: "Disciplina criada com sucesso!", newDisciplina });;
       } else {
-        return res.redirect('/disciplina');
+        return res.redirect('/cadastrar-disciplina?success=true&message=Disciplina criada com sucesso!&messageType=success');
       }
     } catch (error) {
       console.error('Erro ao criar disciplina:', error);
@@ -63,7 +72,7 @@ export class DisciplinaController {
       if (req.query.format === 'json') {
         return res.status(201).json({ message: "Disciplina alterada com sucesso!", id });;
       } else {
-        return res.redirect('/disciplina');
+        return res.redirect(`/disciplina/${id}?success=true&message=Disciplina alterada com sucesso!&messageType=success`);
       }
     } catch (error) {
       console.error('Erro ao atualizar disciplina:', error);
