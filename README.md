@@ -15,6 +15,7 @@ O sistema oferece uma série de funcionalidades para atender às necessidades de
 - **HTML**: Linguagem de marcação para estruturar o conteúdo da web.
 - **CSS**: Linguagem de estilo para a apresentação da web.
 - **MySQL**: Sistema de gerenciamento de banco de dados relacional.
+- **Prisma**: ORM (Object-Relational Mapping) para interagir com o banco de dados de forma segura e eficiente.
 
 ## Instruções de Instalação
 
@@ -29,8 +30,6 @@ O sistema oferece uma série de funcionalidades para atender às necessidades de
     ```bash
     cd repo_sis_matriculas
     cd codigo
-    cd src
-    cd backend
     ```
 
 3. **Instale as dependências:**
@@ -40,7 +39,7 @@ O sistema oferece uma série de funcionalidades para atender às necessidades de
     ```
 
 4. **Configure o banco de dados:**
-   - Crie um banco de dados MySQL e importe o esquema do banco de dados fornecido no diretório `db`.
+   - Crie um banco de dados MySQL e importe o esquema do banco de dados fornecido no diretório [.db.md](`.db.md`).
 
 5. **Inicie a aplicação:**
 
