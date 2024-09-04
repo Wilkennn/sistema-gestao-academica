@@ -1,4 +1,5 @@
 import DisciplinaService from '../services/DisciplinaService.js';
+import FuncionarioService from '../services/FuncionarioService.js';
 
 export class DisciplinaController {
 
@@ -23,12 +24,13 @@ export class DisciplinaController {
     try {
       const { id } = req.params;
       const disciplina = await DisciplinaService.getDisciplinaById(id);
+      const professores = await FuncionarioService.getAllProfessores();
 
 
       if (req.query.format === 'json') {
-        return res.status(200).json(disciplina);
+        return res.status(200).json(disciplina, professores);
       }else {
-        return res.render('editar-disciplina', { disciplina });
+        return res.render('editar-disciplina', { disciplina, professores });
       }
 
     } catch (error) {

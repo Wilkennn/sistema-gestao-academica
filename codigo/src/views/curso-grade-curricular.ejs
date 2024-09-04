@@ -1,12 +1,15 @@
 <%- include('partials/header.html') %>
     <!-- Container Principal -->
     <div id="cursos-container" class="container mt-5">
-        <h2 style="text-align: center;">GRADE CURRICULAR</h2>
+        <h2 style="text-align: center;"><%= curso.nome %> - GRADE CURRICULAR</h2>
         <hr>
         <div class="container-fluid">
             <div class="row my-4">
                 <div class="col-md-12">
                     <h5>Formação:</h5>
+                    <% if (message) { %>
+                        <div id="alert-message" data-type="<%= messageType %>" data-message="<%- message %>"></div>
+                    <% } %>
                     <div id="periodosContainer"></div>
                 </div>
             </div>
@@ -14,41 +17,60 @@
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Selecione uma Opção</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form method="post" action="/curso-disciplina">
-                    <input type="hidden" name="periodo" id="periodo">
-                    <input type="hidden" name="cursoId" id="cursoId" value="<%= curso.id %>">
-                    <div class="mb-3">
-                      <label for="exampleSelect" class="form-label">Opções</label>
-                      <select class="form-select" id="disciplinaId" name="disciplinaId">
-                        <% disciplinas.forEach(disciplina => { %>
-                            <option value="<%= disciplina.id %>"><%= disciplina.nome %></option>
-                        <% }) %>
-                    </select>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Selecione uma Opção</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                  </form>
+                    <div class="modal-body">
+                        <form method="post" action="/curso-disciplina">
+                            <input type="hidden" name="periodo" id="periodo">
+                            <input type="hidden" name="cursoId" id="cursoId" value="<%= curso.id %>">
+                            <div class="mb-3">
+                                <label for="exampleSelect" class="form-label">Opções</label>
+                                <select class="form-select" id="disciplinaId" name="disciplinaId" required>
+                                    <option value="" disabled selected>Selecione a disciplina</option>
+                                    <% disciplinas.forEach(disciplina=> { %>
+                                        <option value="<%= disciplina.id %>">
+                                            <%= disciplina.nome %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" id="saveButton" class="btn btn-primary">Salvar</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                  <button type="button" id="saveButton"  class="btn btn-primary">Salvar</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
 
         <script>
 
+            const alertMessage = document.getElementById('alert-message');
+
+            if (alertMessage) {
+                Swal.fire({
+                    icon: alertMessage.dataset.type === "success" ? "success" : "error",
+                    title: alertMessage.dataset.type === "success" ? "Sucesso" : "Erro",
+                    html: alertMessage.dataset.message,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/curso-grade-curricular/' + <%= curso.id %>
+                    }
+                });
+            }
+
             window.addEventListener('DOMContentLoaded', () => {
                 const btns = document.querySelectorAll('#addCursoDisciplinas');
+                const deleteButtons = document.querySelectorAll('[id^="deleteButton"]');
 
                 btns.forEach(button => {
                     button.addEventListener('click', (event) => {
-                        console.log(event.target.name ?? event.target.dataset.name)
                         document.getElementById('periodo').value = event.target.name ?? event.target.dataset.name;
                     });
                 });
@@ -57,6 +79,27 @@
                     const form = document.querySelector('#exampleModal form');
                     form.submit();
                 });
+
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function (event) {
+                        Swal.fire({
+                            title: 'Tem certeza?',
+                            text: "Você não poderá reverter isso!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sim, excluir!',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                const id = event.target.name ?? event.target.dataset.name;
+                                document.getElementById(`deleteForm${id}`).submit();
+                            }
+                        });
+                    })
+                });
+
             });
 
             const curso = <%- JSON.stringify(curso) %>;
@@ -75,15 +118,28 @@
                         </h6>
                     `;
 
+                    let counter = 1;
                     const disciplinasHtml = curso.disciplinas
                         .filter(disciplina => disciplina.periodo === i)
-                        .map(disciplina => `
-                            <li>
-                                <a href="#" class="text-decoration-none text-dark d-block w-100 py-2 px-3">
-                                    ${disciplina.disciplina.nome}
-                                </a>
-                            </li>
-                        `)
+                        .map(disciplina => {
+                            const html = `
+                                <li class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="text-decoration-none text-dark d-block py-2 px-2">
+                                        ${disciplina.disciplina.nome}
+                                    </a>
+                                    <button id="deleteButton${counter}" name="${counter}" class="btn btn-sm" style="background-color: #FF0000; color:white; margin-right: 0.5rem;">
+                                        <i class="fas fa-trash" data-name="${counter}"></i>
+                                    </button>
+                                    <form id="deleteForm${counter}" action="/curso-disciplina?_method=delete" method="POST" style="display: none;">
+                                        <input type="hidden" name="periodo" value="${i}">
+                                        <input type="hidden" name="cursoId" value="${curso.id}">
+                                        <input type="hidden" name="disciplinaId" value="${disciplina.disciplina.id}">
+                                    </form>
+                                </li>
+                            `;
+                            counter++;
+                            return html;
+                        })
                         .join('');
 
                     const periodoContentHtml = `

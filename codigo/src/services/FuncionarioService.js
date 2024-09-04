@@ -19,13 +19,26 @@ class FuncionarioService {
       return await prismaClient.funcionario.findUnique({
         where: { id: parseInt(id) },
         include: {
-          usuario: true,
-          cursos: true,
+          usuario: true
         },
       });
     } catch (err) {
       console.error('Erro ao buscar funcionário:', err.message);
       throw new Error('Não foi possível buscar o funcionário. Tente novamente mais tarde.');
+    }
+  }
+
+  async getAllProfessores() {
+    try {
+      return await prismaClient.funcionario.findMany({
+        where: { cargo : "PROFESSOR" },
+        include: {
+          usuario: true
+        },
+      });
+    } catch (err) {
+      console.error('Erro ao buscar professores:', err.message);
+      throw new Error('Não foi possível buscar os professores. Tente novamente mais tarde.');
     }
   }
 

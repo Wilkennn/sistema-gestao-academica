@@ -1,3 +1,4 @@
+import { json } from 'express';
 import CursoDisciplinaService from '../services/CursoDisciplinaService.js';
 
 export class CursoDisciplinaController {
@@ -6,20 +7,21 @@ export class CursoDisciplinaController {
     const { cursoId, disciplinaId, periodo } = req.body;
 
     try {
-      console.log(req.body)
       const result = await CursoDisciplinaService.addDisciplinaToCurso(cursoId, disciplinaId, periodo);
-      res.status(201).json(result);
+
+      return res.redirect('/curso-grade-curricular/7?success=true&message=Disciplina vinculada com sucesso!&messageType=success');
+
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.redirect('/curso-grade-curricular/7?success=false&message=Disciplina já está vinculada!&messageType=error');
     }
   }
 
   async removeDisciplinaFromCurso(req, res) {
-    const { cursoId, disciplinaId } = req.body;
+    const { cursoId, disciplinaId, periodo } = req.body;
 
     try {
-      const result = await CursoDisciplinaService.removeDisciplinaFromCurso(cursoId, disciplinaId);
-      res.status(200).json(result);
+      const result = await CursoDisciplinaService.removeDisciplinaFromCurso(cursoId, disciplinaId, periodo);
+      return res.redirect('/curso-grade-curricular/7?success=true&message=Disciplina removida com sucesso!&messageType=success');
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

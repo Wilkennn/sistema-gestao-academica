@@ -29,8 +29,6 @@ export class FuncionarioController {
 
       if (req.query.format === 'json') {
         return res.status(200).json(funcionario);
-      }else if (req.originalUrl.includes('/menu-funcionrio')) {
-        return res.render('menu-funcionario', { funcionario });
       }else {
         return res.status(200).render('editar-funcionarios', {
           funcionario,

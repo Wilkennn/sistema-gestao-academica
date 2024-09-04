@@ -18,7 +18,6 @@ class DisciplinaService {
 
   async createDisciplina(disciplinaData) {
     try {
-      console.log(disciplinaData)
           disciplinaData.valor = parseFloat(disciplinaData.valor);
           disciplinaData.creditos = parseInt(disciplinaData.creditos);
           const disciplina = prismaClient.disciplina.create({
@@ -47,6 +46,7 @@ class DisciplinaService {
       where: { id: Number(id) },
     });
   }
+
 }
 
 export default new DisciplinaService();

@@ -8,20 +8,31 @@
         <div class="form-container">
             <form class="row g-3" method="post" action="/disciplina/<%= disciplina.id %>?_method=put">
                 <div class="col-md-12">
-                    <label for="nome">Nome da Disciplina</label>
+                    <label for="nome">Nome da Disciplina:</label>
                     <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da Disciplina" value="<%= disciplina.nome %>" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="cargaHoraria">Carga Horária (em horas)</label>
+                    <label for="cargaHoraria">Carga Horária (em horas):</label>
                     <input type="number" class="form-control" id="cargaHoraria" name="cargaHoraria" placeholder="Carga horária do curso" value="<%= disciplina.cargaHoraria %>" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="valor">Valor</label>
+                    <label for="valor">Valor:</label>
                     <input type="number" class="form-control" id="valor" name="valor" placeholder="Valor da disciplina" value="<%= disciplina.valor %>" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="creditos">Créditos</label>
+                    <label for="creditos">Créditos:</label>
                     <input type="number" class="form-control" id="creditos" name="creditos" placeholder="Créditos da disciplina" value="<%= disciplina.creditos %>" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="creditos">Professor:</label>
+                    <select class="form-control" id="professor" name="professor" required>
+                        <option value="" disabled selected>Selecione o professor</option>
+                        <% professores.forEach(professor => { %>
+                            <option value="<%= professor.id %>">
+                                <%= professor.usuario.nome %>
+                            </option>
+                        <% }) %>
+                    </select>
                 </div>
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary btn-block mt-5">

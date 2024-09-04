@@ -61,7 +61,7 @@ class CursoService {
   async deleteCurso(id) {
     try {
       const curso = await prismaClient.curso.delete({
-        where: { id: Number(id) },
+        where: { id: parseInt(id) },
       });
 
       if (!curso) {

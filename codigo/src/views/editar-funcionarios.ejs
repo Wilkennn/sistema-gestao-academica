@@ -9,7 +9,7 @@
         </div>
         <hr>
         <div class="form-container">
-            <form class="row g-3" action="/funcionarios/?funcionarioId=<%= funcionario.id %>&usuarioId=<%= funcionario.usuario.id %>&_method=put" method="POST">
+            <form class="row g-3" action="/funcionarios?funcionarioId=<%= funcionario.id %>&usuarioId=<%= funcionario.usuario.id %>&_method=put" method="POST">
                 <div class="col-md-12">
                     <label for="nome">Nome Completo</label>
                     <input type="text" class="form-control" id="nome" name="nome"  value="<%= funcionario.usuario.nome %>" required>
@@ -30,12 +30,12 @@
                     <input type="text" class="form-control" id="endereco" name="endereco" value="<%= funcionario.usuario.endereco %>" required>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="cpf">CPF</label>
                     <input type="text" class="form-control" id="cpf" name="cpf" value="<%= funcionario.usuario.cpf %>" required>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="cargo">Cargo</label>
                     <select class="form-control" id="cargo" name="cargo" required>
                       <option value="">Selecione</option>
@@ -49,22 +49,22 @@
                     <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" value="<%= funcionario.usuario.dataNascimento.toISOString().split('T')[0] %>" required>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="salario">Salário</label>
                     <input type="text" class="form-control" id="salario" name="salario" value="<%= funcionario.salario %>" required>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="dataAdmissao">Data de Admissão</label>
                     <input type="date" class="form-control" id="dataAdmissao" name="dataAdmissao" value="<%= funcionario.dataAdmissao.toISOString().split('T')[0] %>" required>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="login">Login</label>
                     <input type="text" class="form-control" id="login" name="login" value="<%= funcionario.usuario.login %>" required>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="senha">Senha</label>
                     <input type="password" class="form-control" id="senha" name="senha" value="<%= funcionario.usuario.senha %>"  readonly>
                 </div>

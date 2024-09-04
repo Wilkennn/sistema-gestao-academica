@@ -4,7 +4,6 @@ class CursoDisciplinaService {
 
   async addDisciplinaToCurso(cursoId, disciplinaId, periodo) {
 
-    console.log({cursoId, disciplinaId, periodo})
     try {
       return await prismaClient.cursoDisciplina.create({
         data: {
@@ -19,12 +18,14 @@ class CursoDisciplinaService {
     }
   }
 
-  async removeDisciplinaFromCurso(cursoId, disciplinaId) {
+  async removeDisciplinaFromCurso(cursoId, disciplinaId, periodo) {
+    console.log({cursoId, disciplinaId, periodo})
     try {
       return await prismaClient.cursoDisciplina.deleteMany({
         where: {
-          cursoId: cursoId,
-          disciplinaId: disciplinaId,
+          cursoId: parseInt(cursoId),
+          disciplinaId: parseInt(disciplinaId),
+          periodo: parseInt(periodo)
         },
       });
     } catch (error) {

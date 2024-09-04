@@ -68,8 +68,6 @@ router.get('/adicionar-funcionario', (req, res) => {
     });
 });
 
-// Rotas para funcionario funcionario
-router.get('/menu-funcionario/:id', funcionarioController.getById);
 
 
 // Rotas para curso'
@@ -77,7 +75,7 @@ router.get('/curso', cursoController.getAll);
 router.get('/curso/:id', cursoController.getById);
 router.post('/curso', cursoController.create);
 router.put('/curso/:id', cursoController.update);
-router.delete('/curso/:id', cursoController.delete);
+router.delete('/curso', cursoController.delete);
 
 router.get('/adicionar-curso', (req, res) => {
 
@@ -98,7 +96,8 @@ router.get('/disciplina/:id', disciplinaController.getById);
 router.put('/disciplina/:id', disciplinaController.update);
 router.delete('/disciplina/:id', disciplinaController.delete);
 router.get('/cadastrar-disciplina', (req, res) => {
-    console.log('Acessando a página de cadastro de disciplina');
+   
+    
     res.render('cadastrar-disciplina')
 });
 router.post('/cadastrar-disciplina', disciplinaController.create);

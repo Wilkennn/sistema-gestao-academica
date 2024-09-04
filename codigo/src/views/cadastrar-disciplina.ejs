@@ -28,6 +28,17 @@
                 <label for="creditos" class="form-label">Créditos</label>
                 <input type="number" class="form-control" id="creditos" name="creditos" placeholder="Créditos da disciplina" required>
             </div>
+            <div class="col-md-3">
+                <label for="creditos">Professor:</label>
+                <select class="form-control" id="professor" name="professor" required>
+                    <option value="" disabled selected>Selecione o professor</option>
+                    <% professores.forEach(professor => { %>
+                        <option value="<%= professor.id %>">
+                            <%= professor.usuario.nome %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary btn-block mt-4">
                     <i class="fas fa-save"></i> Salvar Disciplina
