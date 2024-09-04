@@ -8,6 +8,7 @@ import { DisciplinaController } from '../controllers/DisciplinaController.js';
 import { AlunoDisciplinaController } from '../controllers/AlunoDisciplinaController.js';
 import { CursoAlunoController } from '../controllers/CursoAlunoController.js';
 import { CursoDisciplinaController } from '../controllers/CursoDisciplinaController.js'
+import  FuncionarioService  from '../services/FuncionarioService.js';
 
 const router = Router();
 
@@ -36,7 +37,7 @@ router.put('/aluno/:id/', alunoController.update);
 router.get('/aluno/:id/adicionar-curso', alunoController.mostrarCursos);
 router.post('/aluno/:id/adicionar-curso', alunoController.addCurso);
 router.get('/aluno-cadastrar', (req, res) => {
-   
+       
     const { success, message, messageType } = req.query;
 
     res.render('cadastrar-aluno', {
@@ -100,11 +101,19 @@ router.get('/curso-grade-curricular/:id', cursoController.gerarCurriculo)
 router.get('/disciplina', disciplinaController.getAll);
 router.get('/disciplina/:id', disciplinaController.getById);
 router.put('/disciplina/:id', disciplinaController.update);
-router.delete('/disciplina/:id', disciplinaController.delete);
-router.get('/cadastrar-disciplina', (req, res) => {
-   
-    
-    res.render('cadastrar-disciplina')
+router.delete('/disciplina', disciplinaController.delete);
+router.get('/cadastrar-disciplina', async(req, res) => {
+
+    const { success, message, messageType } = req.query;
+
+    const professores = await FuncionarioService.getAllProfessores();
+
+    res.render('cadastrar-disciplina', {
+        professores,
+        success: success || false,
+        messageType: messageType ||  '',
+        message: message || ''
+    });
 });
 router.post('/cadastrar-disciplina', disciplinaController.create);
 

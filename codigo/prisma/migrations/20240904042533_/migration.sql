@@ -19,7 +19,6 @@ CREATE TABLE `Usuario` (
 -- CreateTable
 CREATE TABLE `Aluno` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `periodo` VARCHAR(191) NOT NULL,
     `data_ingresso` DATETIME(3) NOT NULL,
     `usuarioId` INTEGER NULL,
 
@@ -41,6 +40,8 @@ CREATE TABLE `Funcionario` (
 CREATE TABLE `Curso` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(191) NOT NULL,
+    `descricao` VARCHAR(191) NULL,
+    `icon` VARCHAR(191) NULL,
     `duracao` INTEGER NOT NULL,
     `creditos` INTEGER NOT NULL,
     `carga_horaria` INTEGER NOT NULL,
@@ -53,7 +54,7 @@ CREATE TABLE `Curso_Aluno` (
     `cursoId` INTEGER NOT NULL,
     `alunoId` INTEGER NOT NULL,
     `periodo` INTEGER NOT NULL,
-    `cursoStatus` ENUM('APROVADO', 'REPROVADO', 'PENDENTE', 'CANCELADO') NOT NULL,
+    `cursoStatus` ENUM('ATIVO', 'FINALIZADO', 'TRANCADO') NOT NULL,
 
     INDEX `Curso_Aluno_cursoId_alunoId_idx`(`cursoId`, `alunoId`),
     PRIMARY KEY (`cursoId`, `alunoId`)
@@ -65,8 +66,19 @@ CREATE TABLE `Disciplina` (
     `nome` VARCHAR(191) NOT NULL,
     `cargaHoraria` VARCHAR(191) NOT NULL,
     `valor` DOUBLE NOT NULL,
+    `creditos` INTEGER NOT NULL,
+    `funcionarioId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `CursoDisciplina` (
+    `cursoId` INTEGER NOT NULL,
+    `disciplinaId` INTEGER NOT NULL,
+    `periodo` INTEGER NOT NULL,
+
+    PRIMARY KEY (`cursoId`, `disciplinaId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -104,6 +116,15 @@ ALTER TABLE `Curso_Aluno` ADD CONSTRAINT `Curso_Aluno_cursoId_fkey` FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE `Curso_Aluno` ADD CONSTRAINT `Curso_Aluno_alunoId_fkey` FOREIGN KEY (`alunoId`) REFERENCES `Aluno`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Disciplina` ADD CONSTRAINT `Disciplina_funcionarioId_fkey` FOREIGN KEY (`funcionarioId`) REFERENCES `Funcionario`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CursoDisciplina` ADD CONSTRAINT `CursoDisciplina_cursoId_fkey` FOREIGN KEY (`cursoId`) REFERENCES `Curso`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CursoDisciplina` ADD CONSTRAINT `CursoDisciplina_disciplinaId_fkey` FOREIGN KEY (`disciplinaId`) REFERENCES `Disciplina`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Aluno_Disciplina` ADD CONSTRAINT `Aluno_Disciplina_alunoId_fkey` FOREIGN KEY (`alunoId`) REFERENCES `Aluno`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

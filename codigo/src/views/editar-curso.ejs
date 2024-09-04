@@ -73,7 +73,7 @@
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed && alertMessage.dataset.type === "success") {
-                    window.location.href = '/curso';
+                    window.location.href = '/curso/<%= curso.id %>';
                 }
             });
         }

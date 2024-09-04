@@ -3,6 +3,7 @@
     <div id="cursos-container" class="container mt-5">
         <div class="header">
             <h2>Editar Funcionário</h2>
+            <i id="excluir" style="color: #FF0000; cursor: pointer;" class="fas fa-trash m-2"></i>
             <% if (message) { %>
                 <div id="alert-message" data-type="<%= messageType %>" data-message="<%- message %>"></div>
             <% } %>
@@ -76,6 +77,9 @@
                 </div>
             </form>
         </div>
+        <form id="deleteForm" action="/funcionario?_method=delete" method="POST" style="display: none;">
+            <input type="hidden" name="funcionarioId" value="<%= funcionario.id %>">
+        </form>
     </div>
 
     <script>
@@ -95,6 +99,34 @@
                     }
                 });
             }
+
+            document.getElementById('excluir').addEventListener('click', function (event) {
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Você não poderá reverter isso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    Swal.fire({
+                        icon:  "success" ,
+                        title: "Sucesso" ,
+                        html: 'Funcionário excluido com sucesso!',
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById(`deleteForm`).submit();
+                        }
+                    });
+                }
+            });
+        })
         });
 
     </script>
