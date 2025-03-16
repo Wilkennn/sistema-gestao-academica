@@ -1,20 +1,20 @@
-# Sistema de Gestão Acadêmica
+#  Sistema de Gestão Acadêmica
 
 O Sistema de Gestão Acadêmica é uma aplicação desenvolvida para auxiliar na administração de informações acadêmicas em uma universidade. O sistema permite gerenciar currículos, matrículas, notificações e o cadastro de alunos, professores e disciplinas. A aplicação é construída utilizando Node.js, Express, HTML, CSS e MySQL.
 
-## Funcionalidades
+## ✨ Funcionalidades
 
 O sistema oferece as seguintes funcionalidades:
 
-* **Gestão de Alunos:** Cadastro, edição e visualização de alunos.
-* **Gestão de Professores:** Cadastro e gerenciamento de informações dos professores.
-* **Matrículas:** Controle de matrículas dos alunos em cursos e disciplinas.
-* **Gestão de Disciplinas:** Cadastro e organização das disciplinas oferecidas.
-* **Notificações:** Envio de notificações para alunos e professores.
+* **‍ Gestão de Alunos:** Cadastro, edição e visualização de alunos.
+* **‍ Gestão de Professores:** Cadastro e gerenciamento de informações dos professores.
+* ** Matrículas:** Controle de matrículas dos alunos em cursos e disciplinas.
+* ** Gestão de Disciplinas:** Cadastro e organização das disciplinas oferecidas.
+* ** Notificações:** Envio de notificações para alunos e professores.
 
 Consulte [docs/user\_stories.md](docs/user_stories.md) para uma descrição detalhada das funcionalidades e histórias de usuário.
 
-## Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 * **Node.js:** Ambiente de execução para JavaScript no servidor.
 * **Express:** Framework para construção de APIs e aplicações web.
@@ -22,17 +22,17 @@ Consulte [docs/user\_stories.md](docs/user_stories.md) para uma descrição deta
 * **MySQL:** Sistema de gerenciamento de banco de dados relacional.
 * **Prisma:** ORM (Object-Relational Mapping) para interagir com o banco de dados de forma segura e eficiente.
 
-## Configuração do Banco de Dados com Prisma
+## ⚙️ Configuração do Banco de Dados com Prisma
 
 Para configurar o banco de dados MySQL para o projeto, siga os passos abaixo:
 
-### Pré-requisitos
+###  Pré-requisitos
 
 * MySQL Server instalado e em execução.
 * Node.js e npm instalados.
 * Prisma CLI instalada.
 
-### Passos para Configuração
+###  Passos para Configuração
 
 1.  **Crie o Banco de Dados**
 
@@ -82,7 +82,7 @@ Para configurar o banco de dados MySQL para o projeto, siga os passos abaixo:
 
     O Prisma Studio abrirá em seu navegador padrão, fornecendo uma interface gráfica onde você pode visualizar e interagir com os dados do banco de dados.
 
-## Instruções de Instalação
+## ️ Instruções de Instalação
 
 1.  **Clone o Repositório**
 
@@ -125,7 +125,7 @@ Para configurar o banco de dados MySQL para o projeto, siga os passos abaixo:
 
     Abra o navegador e vá para `http://localhost:3000` para visualizar a aplicação em funcionamento.
 
-## Contribuição
+##  Contribuição
 
 Contribuições são bem-vindas! Para contribuir, siga estas etapas:
 
@@ -136,11 +136,11 @@ Contribuições são bem-vindas! Para contribuir, siga estas etapas:
 5.  Faça o push para a branch (`git push origin minha-feature`).
 6.  Abra um Pull Request.
 
-## Licença
+##  Licença
 
 Este projeto é licenciado sob a Licença MIT.
 
-## Participantes
+##  Participantes
 
 Este projeto é desenvolvido e mantido pelos seguintes participantes:
 
@@ -148,6 +148,6 @@ Este projeto é desenvolvido e mantido pelos seguintes participantes:
 * Thiago Andrade - GitHub
 * Wilken Moreira - GitHub
 
-## Contato
+##  Contato
 
 Se você tiver perguntas ou sugestões, sinta-se à vontade para entrar em contato com Wilken Moreira.
